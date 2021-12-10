@@ -1,0 +1,51 @@
+{
+  "name": "mcbackend",
+  "version": "0.0.1",
+  "description": "This is the middleware for Mein Caritas.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jsdoc src -r -d docs && eslint \"src/**\" \"test/**\" && mocha --require @babel/register --exit",
+    "build": "./node_modules/.bin/babel src -d dist",
+    "start": "node ./node_modules/@babel/node/bin/babel-node.js src/index.js",
+    "debug": "node --inspect src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Caritasverband-Diozese-Hildesheim/MCBackend.git"
+  },
+  "keywords": [
+    "MeinCaritas",
+    "Caritas"
+  ],
+  "author": "CariSeniorProgrammer",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/Caritasverband-Diozese-Hildesheim/MCBackend/issues"
+  },
+  "homepage": "https://github.com/Caritasverband-Diozese-Hildesheim/MCBackend#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "keycloak-connect": "^15.0.2",
+    "method-override": "^3.0.0",
+    "openid-client": "^5.0.2",
+    "swagger-ui-express": "^4.1.6",
+    "winston": "^3.2.1",
+    "jsdoc": "^3.6.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "eslint": "^8.4.1",
+    "eslint-config-google": "^0.14.0",
+    "mocha": "^9.1.3"
+  }
+}
