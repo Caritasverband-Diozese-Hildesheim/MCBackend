@@ -1,5 +1,4 @@
-import server  from './server';
-const hostname = "localhost";
-const port = 8080;
+import server  from './modules/server/server';
+import configuration  from './modules/configuration';
 
-server.listen(port, hostname);
+server.listen(configuration.port, configuration.host);
