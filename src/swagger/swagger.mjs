@@ -1,8 +1,8 @@
 import swaggerAutogen from 'swagger-autogen';
-import configuration  from '../model/configuration';
+import configuration  from './configuration.mjs';
 
 const outputFile = './swagger_output.json'
-const endpointsFiles = ['./endpoints.js']
+const endpointsFiles = ['src/modules/routes.js']
 
 const doc = {
     info: {
@@ -21,12 +21,6 @@ const doc = {
             "description": "Endpoints"
         }
     ],
-    securityDefinitions: {
-        openId: {
-            type: "openIdConnect",
-            openIdConnectUrl: "https://keycloak.deliancourt.org/auth/realms/prototype/.well-known/openid-configuration"
-          }
-    },
     definitions: {
         User: {
             name: "Jhon Doe",
@@ -55,6 +49,4 @@ const doc = {
     }
 }
 
-swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
-    require('./index.js')
-})
+swaggerAutogen()(outputFile, endpointsFiles, doc);

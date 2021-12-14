@@ -4,9 +4,9 @@
   "description": "This is the middleware for Mein Caritas.",
   "main": "src/index.js",
   "scripts": {
-    "test": "jsdoc src -r -d docs && eslint \"src/**\" \"test/**\" && mocha --require @babel/register --exit",
+    "test": "eslint \"src/**\" \"test/**\" && mocha --require @babel/register --exit",
     "build": "./node_modules/.bin/babel src -d dist",
-    "start": "node ./node_modules/@babel/node/bin/babel-node.js src/index.js",
+    "start": "node src/swagger/swagger.mjs &&jsdoc src -r -d docs README.md && node ./node_modules/@babel/node/bin/babel-node.js src/index.js",
     "debug": "node --inspect src/index.js"
   },
   "repository": {

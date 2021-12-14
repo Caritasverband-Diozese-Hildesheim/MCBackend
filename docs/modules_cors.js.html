@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: model/configuration.js</title>
+    <title>JSDoc: Source: modules/cors.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: model/configuration.js</h1>
+    <h1 class="page-title">Source: modules/cors.js</h1>
 
     
 
@@ -26,27 +26,22 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import * as yup from 'yup';
-
-/**&lt;p> Datamodel to centralize app configuration&lt;/p>
-* &lt;p>[yup scheme]{@link https://www.npmjs.com/package/yup} to validate input&lt;/p>
-* &lt;p>&lt;strong>"Type" column explained: &lt;/p>&lt;p> data-type | enforced Rules &lt;/strong>&lt;/p>
-* @module datamodel/configuration
+            <pre class="prettyprint source linenums"><code>/** Datamodel to handle [CORS]{@link https://developer.mozilla.org/de/docs/Web/HTTP/CORS}
+* @module model/cors
 */
-
+export default corsOptions;
 /**
-* @typedef {!Object} Configuration
-* @property {string=|"min 4 Chars, max 256 Chars"} host IP-Address to start the server on
-* @property {number=|"only positives from 1024 til 65534"} port Port to start the server on
-* @property {!string|"has to be URL"} openIdConnectUrl URL for the OIDC Realm. &lt;strong> MUST be set with environment variable &lt;/strong>
+* @typedef {Object} corsOptions
+* @property {array} origin which origin does have access
+* @property {number} optionsSuccessStatus which status to be send with success
+* @property {boolean} credentials are credentials needed
 */
-const scheme = yup.object().shape({
-  host: yup.string().required().min(4).max(256),
-  port: yup.number().required().positive().integer().min(1024).max(65534),
-  openIdConnectUrl: yup.string().url(),
-});
-
-export default scheme;</code></pre>
+const corsOptions = {
+  origin: ["http://localhost:3000", "http://localhost:5000"],
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+</code></pre>
         </article>
     </section>
 

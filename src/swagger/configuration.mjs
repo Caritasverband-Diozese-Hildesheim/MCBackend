@@ -1,5 +1,5 @@
-import logger from './logger'
-import configScheme from '../model/configuration'
+import logger from './logger.mjs'
+import configScheme from './configurationmodel.mjs'
 
 /**<p>Module that reads configuration from environment or sets default values.</p>
 * <p>If the scheme validation failes the program ends.</p>

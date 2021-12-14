@@ -1,4 +1,7 @@
-import server  from './modules/server/server';
-import configuration  from './modules/configuration';
+import app from './modules/app';
+import configuration  from './modules/configuration.js';
+import logger from './modules/logger'
 
-server.listen(configuration.port, configuration.host);
+logger.info("App starting on " + configuration.host + ":" + configuration.port);
+
+app.listen(configuration.port, configuration.host);
