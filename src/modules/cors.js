@@ -1,5 +1,5 @@
 /** Datamodel to handle [CORS]{@link https://developer.mozilla.org/de/docs/Web/HTTP/CORS}
-* @module model/cors
+* @module modules/cors
 */
 export default corsOptions;
 /**

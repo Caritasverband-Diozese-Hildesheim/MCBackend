@@ -16,6 +16,7 @@ module.exports = {
     "prefer-arrow-callback": "error",
 		"func-style": ["error", "expression"],
 		"camelcase": ["error", { "properties":"always" }],
+    "max-len": ["error", { "code": 200 }],
 		"require-jsdoc": ["error", {
 			"require": {
 				"FunctionDeclaration": true,

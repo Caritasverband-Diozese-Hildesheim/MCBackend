@@ -31,6 +31,8 @@
         
             
         
+            
+        
     
 </header>
 
@@ -38,7 +40,9 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Module that reads configuration from environment or sets default values.</p><p>If the scheme validation failes the program ends.</p><p><strong>"Type" column explained: </p><p> data-type | default Value | name of the environment variable</strong></p></div>
+            <div class="description"><p>Module that reads configuration from environment or sets default values.</p>
+<p>If the scheme validation failes the program ends.</p>
+<p><strong>"Type" column explained: </p><p> data-type | default Value | name of the environment variable</strong></p></div>
         
 
         
@@ -87,7 +91,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_configuration.js.html">modules/configuration.js</a>, <a href="modules_configuration.js.html#line4">line 4</a>
+        <a href="modules_configuration.js.html">modules/configuration.js</a>, <a href="modules_configuration.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="module:modules/configuration"><span class="type-signature"></span>module:modules/configuration<span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    also exports <a href="https://www.npmjs.com/package/yup">yup scheme</a> to validate input
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_configuration.js.html">modules/configuration.js</a>, <a href="modules_configuration.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -256,7 +348,7 @@
 <span class="param-type">string</span>
 |
 
-<span class="param-type">""</span>
+<span class="param-type">"https://change.me"</span>
 |
 
 <span class="param-type">MC_OIDC_URL</span>
@@ -270,6 +362,116 @@
             
 
             <td class="description last">URL for the OIDC Realm. <strong> MUST be set with environment variable </strong></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DMSUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">"https://change.me"</span>
+|
+
+<span class="param-type">MC_DMS_URL</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">URL for DMS we want to work with. <strong> MUST be set with environment variable </strong></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DMSUserEmail</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">"user@change.me"</span>
+|
+
+<span class="param-type">MC_DMS_EMAIL</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Login Email for the DMS <strong> MUST be set with environment variable </strong></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DMSAPIToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">"00000000000000000000"</span>
+|
+
+<span class="param-type">MC_DMS_TOKEN</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">API Token for the DMS</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">re-reads the environment variables and gives a new object.</td>
         </tr>
 
     
@@ -308,7 +510,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_configuration.js.html">modules/configuration.js</a>, <a href="modules_configuration.js.html#line10">line 10</a>
+        <a href="modules_configuration.js.html">modules/configuration.js</a>, <a href="modules_configuration.js.html#line7">line 7</a>
     </li></ul></dd>
     
 
@@ -338,13 +540,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-datamodel_configuration.html">datamodel/configuration</a></li><li><a href="module-model_cors.html">model/cors</a></li><li><a href="module-modules_configuration.html">modules/configuration</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controller_DMS_DMSController.html">controller/DMS/DMSController</a></li><li><a href="module-datamodel_configuration.html">datamodel/configuration</a></li><li><a href="module-modules_app.html">modules/app</a></li><li><a href="module-modules_configuration.html">modules/configuration</a></li><li><a href="module-modules_cors.html">modules/cors</a></li><li><a href="module-modules_gnericAPIUse.html">modules/gnericAPIUse</a></li><li><a href="module-routes_VPERoutes.html">routes/VPERoutes</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Dec 14 2021 17:41:18 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Dec 15 2021 18:57:26 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -5,7 +5,7 @@
     "title": "\"Mein Caritas\" - Backend API",
     "description": "This is the middleware for Mein Caritas."
   },
-  "host": "0.0.0.0:8080",
+  "host": "127.0.0.1:8080",
   "basePath": "/",
   "tags": [
     {
@@ -23,7 +23,43 @@
   "produces": [
     "application/json"
   ],
-  "paths": {},
+  "paths": {
+    "/error": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/VPE/prototype/getMyDocuments": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "501": {
+            "description": "Not Implemented"
+          }
+        }
+      }
+    },
+    "/VPE/prototype/AddDocuments": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
   "definitions": {
     "User": {
       "type": "object",
