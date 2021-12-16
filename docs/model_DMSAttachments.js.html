@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: controller/DMS/DMSController</title>
+    <title>JSDoc: Source: model/DMSAttachments.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,134 +17,40 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: controller/DMS/DMSController</h1>
+    <h1 class="page-title">Source: model/DMSAttachments.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Controller to handle the spefizic DMS actions. Get all attachments and post new attachments. </p>
-<p>If the scheme validation failes the program ends.</p>
-<p><strong>"Type" column explained: </p><p> data-type | default Value | name of the environment variable</strong></p></div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controller_DMS_DMSController.js.html">controller/DMS/DMSController.js</a>, <a href="controller_DMS_DMSController.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as yup from "yup";
+
+/** &lt;p> Datamodel to centralize app configuration&lt;/p>
+* &lt;p>[yup scheme]{@link https://www.npmjs.com/package/yup} to validate input&lt;/p>
+* &lt;p>&lt;strong>"Type" column explained: &lt;/p>&lt;p> data-type | enforced Rules &lt;/strong>&lt;/p>
+* @module datamodel/DMSAttachments
+*/
+
+/**
+* @typedef {!Object} Attachments-List from the DMS
+* @property {!number|"only positives"} start offset from where the results starts
+* @property {!number|"only positives"} limit maximal sent of results
+* @property {!number|"only positives"} size actual numbers of attachments
+*/
+const scheme = yup.object().shape({
+  results: yup.array().required(),
+  start: yup.number().required().integer(),
+  limit: yup.number().required().integer(),
+  size: yup.number().required().integer(),
+});
+
+export default scheme;
+</code></pre>
+        </article>
+    </section>
 
 
 

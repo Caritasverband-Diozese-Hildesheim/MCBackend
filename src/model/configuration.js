@@ -16,12 +16,16 @@ import * as yup from "yup";
 * @property {!string|"min 4 Chars, max 256 Chars"} DMSAPIToken API Token for the DMS
 */
 const scheme = yup.object().shape({
+  scheme: yup.string().required().min(7).max(8),
   host: yup.string().required().min(4).max(256),
   port: yup.number().required().positive().integer().min(1024).max(65534),
-  openIdConnectUrl: yup.string().url().required(),
+  baseUrl: yup.string().required().min(10).max(256),
   DMSUrl: yup.string().url().required(),
   DMSUserEmail: yup.string().email().required(),
   DMSAPIToken: yup.string().required().min(20).max(256),
+  KCUrl: yup.string().url().required(),
+  KCClientId: yup.string().required().min(4).max(256),
+  KCSecretToken: yup.string().required().min(20).max(256),
 });
 
 export default scheme;

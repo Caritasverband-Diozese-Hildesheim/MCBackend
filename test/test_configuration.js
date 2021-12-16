@@ -8,7 +8,7 @@ import configuration from "../src/modules/configuration";
 import configScheme from "../src/model/configuration";
 const should = chai.should();
 const hostname = "localhost";
-const port = 8080;
+const port = 5000;
 
 // Our parent block
 /*
@@ -22,7 +22,8 @@ describe("Test Configuration with Environment Variables", () => {
   });
 
   it("configuration scheme should be valid, if everything is as expected.", (done) => {
-    process.env.MC_HOST = "http://localhost";
+    process.env.MC_SCHEME = "http://";
+    process.env.MC_HOST = "127.0.0.1";
     process.env.MC_PORT = 8080;
     process.env.MC_OIDC_URL = "http://example.com";
     process.env.MC_DMS_URL = "http://example.com";

@@ -1,6 +1,6 @@
 import express from "express";
-import bodyParser from "body-parser";
 import methodOverride from "method-override";
+import cookieParser from "cookie-parser";
 import setRoutes from "./routes";
 
 /** <p>Module that prepares the application</p>
@@ -19,13 +19,13 @@ import setRoutes from "./routes";
 */
 
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+//app.set( 'trust proxy', true );
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // Method-Override
 app.use(methodOverride("_method"));
 
 setRoutes(app);
-
-// server.listen(port, hostname);
 export default app;

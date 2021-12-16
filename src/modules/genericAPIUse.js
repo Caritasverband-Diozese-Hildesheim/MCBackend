@@ -64,7 +64,6 @@ export default {
           cb(response.status, response.data);
         })
         .catch((error) =>{
-          
           logger.info("API Call " + url + " failed with status: " + error.response.status + " and with message: " + JSON.stringify(error.response.data));
           cb(error.response.status, error.response.data);
         })

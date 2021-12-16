@@ -14,31 +14,29 @@
 * @property {!string|"00000000000000000000"|MC_DMS_TOKEN} DMSAPIToken API Token for the DMS
 * @property {function} reset re-reads the environment variables and gives a new object.
 */
-const mcConfiguration = {
-  host: process.env.MC_HOST || "127.0.0.1",
-  port: process.env.MC_PORT || 8080,
-  openIdConnectUrl: process.env.MC_OIDC_URL || "https://change.me",
-  DMSUrl: process.env.MC_DMS_URL || "https://change.me",
-  DMSUserEmail: process.env.MC_DMS_EMAIL || "user@change.me",
-  DMSAPIToken: process.env.MC_DMS_TOKEN || "00000000000000000000",
-  reset: () => {
-    return {
-      host: process.env.MC_HOST || "0.0.0.0",
-      port: process.env.MC_PORT || 8080,
-      openIdConnectUrl: process.env.MC_OIDC_URL || "https://change.me",
-      DMSUrl: process.env.MC_DMS_URL || "https://change.me",
-      DMSUserEmail: process.env.MC_DMS_EMAIL || "user@change.me",
-      DMSAPIToken: process.env.MC_DMS_TOKEN || "00000000000000000000",
-    };
-  },
+
+/**
+* @function setConfiguration
+* @description function to reset the Environment Variables into the object. Important for tests.
+* @return {object} Configuration object
+*/
+const setConfiguration = () => {
+  const _scheme = process.env.MC_SCHEME || "http://";
+  const _host = process.env.MC_HOST || "localhost";
+  const _port = process.env.MC_PORT || 8080;
+  return {
+    scheme: _scheme,
+    host: _host,
+    port: _port,
+    baseUrl: `${_scheme}${_host}:${_port}`,
+    openIdConnectUrl: process.env.MC_OIDC_URL || "https://change.me",
+    DMSUrl: process.env.MC_DMS_URL || "https://change.me",
+    DMSUserEmail: process.env.MC_DMS_EMAIL || "user@change.me",
+    DMSAPIToken: process.env.MC_DMS_TOKEN || "00000000000000000000",
+    KCUrl: process.env.MC_KC_URL || "https://change.me",
+    KCClientId: process.env.MC_KC_CLIENTID || "ChangeMe",
+    KCSecretToken: process.env.MC_KC_TOKEN || "00000000000000000000",
+  };
 };
 
-/**
-* @function setEnvironmentToConfiguration function to reset the Environment Variables into the object. Important for tests.
-*/
-
-
-/**
-* also exports [yup scheme]{@link https://www.npmjs.com/package/yup} to validate input
-*/
-export default mcConfiguration;
+export default {...setConfiguration(), reset: setConfiguration};

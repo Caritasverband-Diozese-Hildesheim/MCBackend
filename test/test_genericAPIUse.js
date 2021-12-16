@@ -8,7 +8,7 @@ import apiUse from "../src/modules/genericAPIUse";
 import nock from "nock";
 const should = chai.should();
 const hostname = "localhost";
-const port = 5000;
+const port = 5500;
 
 // Our parent block
 /*
@@ -23,12 +23,11 @@ describe("Test generic API use functions", () => {
   describe("GET Method", () => {
     describe("call an API and see if it works.", () => {
       before((done) => {
+        /* eslint-disable no-unused-vars */
         const scope = nock("http://www.example.com")
             .get("/resource")
             .reply(200, "{status: \"ok\"}");
-        if (scope) {
-          done();
-        }
+        done();
       });
       it("we expect status 200 and a JSON-Object", (done) => {
         apiUse.get("http://www.example.com/resource", {}, (statusCode, data) => {
@@ -44,12 +43,11 @@ describe("Test generic API use functions", () => {
     });
     describe("call an API and see what happens if we get an 404 error.", () => {
       before((done) => {
+        /* eslint-disable no-unused-vars */
         const scope = nock("http://www.example.com")
             .get("/resource")
             .reply(404, "resource not found");
-        if (scope) {
-          done();
-        }
+        done();
       });
       it("we expect status 404, a 'resource not found' message and an info on the console from the logger", (done) => {
         apiUse.get("http://www.example.com/resource", {}, (statusCode, data) => {
@@ -65,12 +63,11 @@ describe("Test generic API use functions", () => {
     });
     describe("call an API and see what happens if we get an 500 error.", () => {
       before((done) => {
+        /* eslint-disable no-unused-vars */
         const scope = nock("http://www.example.com")
             .get("/resource")
             .reply(500, "internal server error");
-        if (scope) {
-          done();
-        }
+        done();
       });
       it("we expect status 500, a 'internal server error' message and an info on the console from the logger", (done) => {
         apiUse.get("http://www.example.com/resource", {}, (statusCode, data) => {
@@ -88,12 +85,11 @@ describe("Test generic API use functions", () => {
   describe("POST Method", () => {
     describe("call an API and see if it works.", () => {
       before((done) => {
+        /* eslint-disable no-unused-vars */
         const scope = nock("http://www.example.com")
             .post("/resource", {username: "test", password: "test"})
             .reply(200, "{status: \"ok\"}");
-        if (scope) {
-          done();
-        }
+        done();
       });
       it("we expect status 200 and a JSON-Object", (done) => {
         apiUse.post("http://www.example.com/resource", {}, {username: "test", password: "test"}, (statusCode, data) => {
@@ -109,12 +105,11 @@ describe("Test generic API use functions", () => {
     });
     describe("call an API and see what happens if we get an 404 error.", () => {
       before((done) => {
+        /* eslint-disable no-unused-vars */
         const scope = nock("http://www.example.com")
             .post("/resource", {username: "test", password: "test"})
             .reply(404, "resource not found");
-        if (scope) {
-          done();
-        }
+        done();
       });
       it("we expect status 404, a 'resource not found' message and an info on the console from the logger", (done) => {
         apiUse.post("http://www.example.com/resource", {}, {username: "test", password: "test"}, (statusCode, data) => {
@@ -130,12 +125,11 @@ describe("Test generic API use functions", () => {
     });
     describe("call an API and see what happens if we get an 500 error.", () => {
       before((done) => {
+        /* eslint-disable no-unused-vars */
         const scope = nock("http://www.example.com")
             .post("/resource", {username: "test", password: "test"})
             .reply(500, "internal server error");
-        if (scope) {
-          done();
-        }
+        done();
       });
       it("we expect status 500, a 'internal server error' message and an info on the console from the logger", (done) => {
         apiUse.post("http://www.example.com/resource", {}, {username: "test", password: "test"}, (statusCode, data) => {

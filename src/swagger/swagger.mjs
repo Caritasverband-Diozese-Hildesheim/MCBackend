@@ -2,7 +2,7 @@ import swaggerAutogen from "swagger-autogen";
 import configuration from "./configuration.mjs";
 
 const outputFile = "./swagger_output.json";
-const endpointsFiles = ["src/modules/routes.js"];
+const endpointsFiles = ["src/modules/routes.js", "src/modules/privateRoutes.js"];
 
 const doc = {
   info: {

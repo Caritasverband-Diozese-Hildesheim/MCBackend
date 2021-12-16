@@ -32,7 +32,7 @@
         "responses": {}
       }
     },
-    "/VPE/prototype/getMyDocuments": {
+    "/VSP/prototype/getMyDocuments": {
       "get": {
         "tags": [],
         "description": "",
@@ -47,7 +47,7 @@
         }
       }
     },
-    "/VPE/prototype/AddDocuments": {
+    "/VSP/prototype/AddDocuments": {
       "get": {
         "tags": [],
         "description": "",

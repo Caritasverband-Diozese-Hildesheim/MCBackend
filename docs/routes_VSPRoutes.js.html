@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: controller/DMS/DMSController</title>
+    <title>JSDoc: Source: routes/VSPRoutes.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,134 +17,32 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: controller/DMS/DMSController</h1>
+    <h1 class="page-title">Source: routes/VSPRoutes.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Controller to handle the spefizic DMS actions. Get all attachments and post new attachments. </p>
-<p>If the scheme validation failes the program ends.</p>
-<p><strong>"Type" column explained: </p><p> data-type | default Value | name of the environment variable</strong></p></div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controller_DMS_DMSController.js.html">controller/DMS/DMSController.js</a>, <a href="controller_DMS_DMSController.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import express from "express";
+import DMSController from "../controller/DMS/DMSController";
+const Router = express.Router();
+
+/** &lt;p>Controller to handle the spefizic DMS actions. Get all attachments and post new attachments. &lt;/p>
+* &lt;p>If the scheme validation failes the program ends.&lt;/p>
+* &lt;p>&lt;strong>"Type" column explained: &lt;/p>&lt;p> data-type | default Value | name of the environment variable&lt;/strong>&lt;/p>
+* @module routes/VPERoutes
+*/
+
+Router.get("/prototype/getMyDocuments", DMSController.getAllAtachment);
+Router.get("/prototype/AddDocuments", DMSController.postNewAttachment);
+
+export default Router;
+</code></pre>
+        </article>
+    </section>
 
 
 
