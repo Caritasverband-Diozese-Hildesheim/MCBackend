@@ -21,6 +21,15 @@ const doc = {
       "description": "Endpoints",
     },
   ],
+  
+    securityDefinitions: {
+      openId: {
+      type: "openIdConnect",
+      openIdConnectUrl: "https://meincaritaskc.azurewebsites.net/auth/realms/prototype/.well-known/openid-configuration"
+      }
+    },
+    
+
   definitions: {
     User: {
       name: "Jhon Doe",
@@ -49,4 +58,4 @@ const doc = {
   },
 };
 
-swaggerAutogen()(outputFile, endpointsFiles, doc);
+swaggerAutogen({openapi: '3.0.1'})(outputFile, endpointsFiles, doc);

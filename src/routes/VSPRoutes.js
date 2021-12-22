@@ -1,5 +1,7 @@
 import express from "express";
 import DMSController from "../controller/DMS/DMSController";
+import  multer  from 'multer';
+const upload = multer({ dest: 'uploads/', limits: { fileSize: 20971520 } })
 /* eslint-disable new-cap */
 const router = express.Router();
 
@@ -9,7 +11,7 @@ const router = express.Router();
 * @module routes/VPERoutes
 */
 
-router.get("/prototype/getMyDocuments", DMSController.getAllAtachment);
-router.get("/prototype/AddDocuments", DMSController.postNewAttachment);
+router.get("/prototype/MyDocuments", DMSController.getAllAtachment);
+router.post("/prototype/MyDocuments",  upload.single('file' ), DMSController.postNewAttachment);
 
 export default router;

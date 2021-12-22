@@ -14,7 +14,7 @@ import configScheme from "./configurationmodel.mjs";
 * @property {!string|""|MC_OIDC_URL} openIdConnectUrl URL for the OIDC Realm. <strong> MUST be set with environment variable </strong>
 */
 const mcConfiguration = {
-  host: process.env.MC_HOST || "127.0.0.1",
+  host: process.env.MC_HOST || "localhost",
   port: process.env.MC_PORT || 8080,
   openIdConnectUrl: process.env.MC_OIDC_URL || "https://change.me",
   DMSUrl: process.env.MC_OIDC_URL || "https://change.me",

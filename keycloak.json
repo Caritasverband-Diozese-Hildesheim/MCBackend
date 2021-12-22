@@ -1,7 +1,0 @@
-{
-    "realm" : "prototype",
-    "secret" : "6gX3d44GaDyfpNgwPpPr9PGvOhxZCkE0",
-    "auth-server-url" : "https://meincaritaskc.azurewebsites.net/auth",
-    "public-client" : false,
-    "client-id": "prototype"
-  }

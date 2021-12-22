@@ -1,38 +1,26 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.1",
   "info": {
     "version": "0.0.1",
     "title": "\"Mein Caritas\" - Backend API",
     "description": "This is the middleware for Mein Caritas."
   },
-  "host": "127.0.0.1:8080",
-  "basePath": "/",
+  "servers": [
+    {
+      "url": "http://localhost:8080/"
+    },
+    {
+      "url": "https://localhost:8080/"
+    }
+  ],
   "tags": [
     {
       "name": "User",
       "description": "Endpoints"
     }
   ],
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
   "paths": {
-    "/error": {
-      "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/VSP/prototype/getMyDocuments": {
+    "/VSP/prototype/MyDocuments": {
       "get": {
         "tags": [],
         "description": "",
@@ -44,11 +32,14 @@
           "501": {
             "description": "Not Implemented"
           }
-        }
-      }
-    },
-    "/VSP/prototype/AddDocuments": {
-      "get": {
+        },
+        "security": [
+          {
+            "openId": []
+          }
+        ]
+      },
+      "post": {
         "tags": [],
         "description": "",
         "parameters": [],
@@ -56,90 +47,103 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "openId": []
+          }
+        ]
       }
     }
   },
-  "definitions": {
-    "User": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "example": "Jhon Doe"
-        },
-        "age": {
-          "type": "number",
-          "example": 29
-        },
-        "parents": {
-          "type": "object",
-          "properties": {
-            "father": {
-              "type": "string",
-              "example": "Simon Doe"
-            },
-            "mother": {
-              "type": "string",
-              "example": "Marie Doe"
-            }
-          }
-        },
-        "diplomas": {
-          "type": "array",
-          "items": {
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jhon Doe"
+          },
+          "age": {
+            "type": "number",
+            "example": 29
+          },
+          "parents": {
             "type": "object",
             "properties": {
-              "school": {
+              "father": {
                 "type": "string",
-                "example": "XYZ University"
+                "example": "Simon Doe"
               },
-              "year": {
-                "type": "number",
-                "example": 2020
-              },
-              "completed": {
-                "type": "boolean",
-                "example": true
-              },
-              "internship": {
-                "type": "object",
-                "properties": {
-                  "hours": {
-                    "type": "number",
-                    "example": 290
-                  },
-                  "location": {
-                    "type": "string",
-                    "example": "XYZ Company"
+              "mother": {
+                "type": "string",
+                "example": "Marie Doe"
+              }
+            }
+          },
+          "diplomas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "school": {
+                  "type": "string",
+                  "example": "XYZ University"
+                },
+                "year": {
+                  "type": "number",
+                  "example": 2020
+                },
+                "completed": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "internship": {
+                  "type": "object",
+                  "properties": {
+                    "hours": {
+                      "type": "number",
+                      "example": 290
+                    },
+                    "location": {
+                      "type": "string",
+                      "example": "XYZ Company"
+                    }
                   }
                 }
               }
             }
           }
         }
+      },
+      "AddUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jhon Doe"
+          },
+          "age": {
+            "type": "number",
+            "example": 29
+          },
+          "about": {
+            "type": "string",
+            "example": ""
+          }
+        },
+        "required": [
+          "name",
+          "age"
+        ]
       }
     },
-    "AddUser": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "example": "Jhon Doe"
-        },
-        "age": {
-          "type": "number",
-          "example": 29
-        },
-        "about": {
-          "type": "string",
-          "example": ""
-        }
-      },
-      "required": [
-        "name",
-        "age"
-      ]
+    "securitySchemes": {
+      "openId": {
+        "type": "openIdConnect",
+        "openIdConnectUrl": "https://meincaritaskc.azurewebsites.net/auth/realms/prototype/.well-known/openid-configuration"
+      }
     }
   }
 }
