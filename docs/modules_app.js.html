@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: modules/app.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,43 +17,49 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: modules/app.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>MCBackend</h1>
-<p>This is the middleware for Mein Caritas.</p>
-<p>it does</p>
-<ul>
-<li>sanity check from external APIs</li>
-<li>sanity correction from external APIs</li>
-<li>sends always consistent a data-modell</li>
-</ul></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import express from "express";
+import methodOverride from "method-override";
+import cookieParser from "cookie-parser";
+import setRoutes from "./routes";
+
+/** &lt;p>Module that prepares the application&lt;/p>
+* &lt;p>Tells the Server what middleware we use and we set our routes &lt;/p>
+* &lt;p>Middleware we use:&lt;/p>
+* &lt;ul>
+* &lt;li>[body-parser]{@link https://www.npmjs.com/package/body-parser} : reads the body of a request from a browser and parses it into something we need. F. e. json and URL encoded&lt;/li>
+* &lt;li>[method-override]{@link https://www.npmjs.com/package/method-override} : Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it.&lt;/li>
+* &lt;/ul>
+* @module modules/app
+*/
+
+/**
+* @typedef {!Object} App
+* @description exports an [express app]{@link https://www.npmjs.com/package/express}
+*/
+
+const app = express();
+// app.set( 'trust proxy', true );
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
+
+// Method-Override
+app.use(methodOverride("_method"));
+
+setRoutes(app);
+export default app;
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

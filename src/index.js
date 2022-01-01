@@ -1,5 +1,17 @@
-import server  from './server';
-const hostname = "localhost";
-const port = 8080;
+import app from "./modules/app";
+import configuration from "./modules/configuration.js";
+import logger from "./modules/logger";
+import configScheme from "./model/configuration";
 
-server.listen(port, hostname);
+if (!configScheme.isValidSync(configuration)) {
+  configScheme.validate(configuration).catch((err) => {
+    logger.log({
+      level: "error",
+      message: "App Configuration failure:\r\n" + err.errors + "\r\nExiting.\r\n",
+    });
+    process.exit(1);
+  });
+}
+app.listen(configuration.port, configuration.host, () => {
+  logger.info("App starting on " + configuration.host + ":" + configuration.port); ("Server is running");
+});

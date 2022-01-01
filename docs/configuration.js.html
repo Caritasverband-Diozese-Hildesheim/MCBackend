@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: cors.js</title>
+    <title>JSDoc: Source: configuration.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: cors.js</h1>
+    <h1 class="page-title">Source: configuration.js</h1>
 
     
 
@@ -26,22 +26,25 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** Datamodel to handle [CORS]{@link https://developer.mozilla.org/de/docs/Web/HTTP/CORS}
-* @module model/cors
+            <pre class="prettyprint source linenums"><code>/**&lt;p> Datamodel to centralize app configuration&lt;/p>
+* &lt;p>Everything can be set with environment-variables &lt;/p>
+* &lt;p>&lt;strong>"Type" column explained: &lt;/p>&lt;p> data-type | default Value | name of the environment variable&lt;/strong>&lt;/p>
+* @module model/configuration
 */
-export default corsOptions;
+
 /**
-* @typedef {Object} corsOptions
-* @property {array} origin which origin does have access
-* @property {number} optionsSuccessStatus which status to be send with success
-* @property {boolean} credentials are credentials needed
+* @typedef {!Object} mcConfiguration
+* @property {string=|"0.0.0.0"|MC_HOST} host IP-Address to start the server on
+* @property {number=|8080|MC_PORT} port Port to start the server on
+* @property {!string|""|MC_OIDC_URL} openIdConnectUrl URL for the OIDC Realm &lt;strong> MUST be set with environment variable &lt;/strong>
 */
-const corsOptions = {
-  origin: ["http://localhost:3000", "http://localhost:5000"],
-  optionsSuccessStatus: 200,
-  credentials: true,
+const mcConfiguration = {
+  host: process.env.MC_HOST || "0.0.0.0",
+  port: process.env.MC_PORT || 8080,
+  openIdConnectUrl : process.env.MC_OIDC_URL || "",
 };
-</code></pre>
+
+export default mcConfiguration;</code></pre>
         </article>
     </section>
 

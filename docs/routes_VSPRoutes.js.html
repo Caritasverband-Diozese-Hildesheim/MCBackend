@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: routes/VSPRoutes.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,43 +17,33 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: routes/VSPRoutes.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>MCBackend</h1>
-<p>This is the middleware for Mein Caritas.</p>
-<p>it does</p>
-<ul>
-<li>sanity check from external APIs</li>
-<li>sanity correction from external APIs</li>
-<li>sends always consistent a data-modell</li>
-</ul></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import express from "express";
+import DMSController from "../controller/DMS/DMSController";
+/* eslint-disable new-cap */
+const router = express.Router();
+
+/** &lt;p>Controller to handle the spefizic DMS actions. Get all attachments and post new attachments. &lt;/p>
+* &lt;p>If the scheme validation failes the program ends.&lt;/p>
+* &lt;p>&lt;strong>"Type" column explained: &lt;/p>&lt;p> data-type | default Value | name of the environment variable&lt;/strong>&lt;/p>
+* @module routes/VPERoutes
+*/
+
+router.get("/prototype/MyDocuments", DMSController.getAllAtachment);
+router.post("/prototype/MyDocuments", DMSController.postNewAttachment);
+
+export default router;
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

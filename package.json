@@ -4,9 +4,15 @@
   "description": "This is the middleware for Mein Caritas.",
   "main": "src/index.js",
   "scripts": {
-    "test": "jsdoc src -r -d docs && eslint \"src/**\" \"test/**\" && mocha --require @babel/register --exit",
+    "lint": "eslint \"src/**\" \"test/**\"",
+    "lint-with-fix": "eslint \"src/**\" \"test/**\" --fix",
+    "test": "mocha --require @babel/register --exit",
+    "full-test": "npm run lint && npm run test",
     "build": "./node_modules/.bin/babel src -d dist",
-    "start": "node ./node_modules/@babel/node/bin/babel-node.js src/index.js",
+    "build-swagger": "node src/swagger/swagger.mjs",
+    "build-docs": "jsdoc src -r -d docs README.md",
+    "dev": "nodemon ./node_modules/@babel/node/bin/babel-node.js --trace-warnings src/index.js",
+    "start": "npm run build-swagger && npm run build-docs && node ./node_modules/@babel/node/bin/babel-node.js src/index.js",
     "debug": "node --inspect src/index.js"
   },
   "repository": {
@@ -29,12 +35,17 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "keycloak-connect": "^15.0.2",
+    "express-session": "^1.17.2",
+    "jsdoc": "^3.6.7",
+    "keycloak-connect": "^15.1.0",
     "method-override": "^3.0.0",
-    "openid-client": "^5.0.2",
+    "multer": "^1.4.4",
+    "openid-client": "^5.1.0",
+    "passport": "^0.5.1",
+    "swagger-autogen": "^2.16.0",
     "swagger-ui-express": "^4.1.6",
-    "winston": "^3.2.1",
-    "jsdoc": "^3.6.7"
+    "winston": "^3.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
@@ -46,6 +57,8 @@
     "chai-http": "^4.3.0",
     "eslint": "^8.4.1",
     "eslint-config-google": "^0.14.0",
-    "mocha": "^9.1.3"
+    "mocha": "^9.1.3",
+    "nock": "^13.2.1",
+    "nodemon": "^2.0.15"
   }
 }
