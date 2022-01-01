@@ -7,7 +7,7 @@
 /**
 * @typedef {!Object} mcConfiguration
 * @property {string=|"0.0.0.0"|MC_HOST} host IP-Address to start the server on
-* @property {number=|8080|MC_PORT} port Port to start the server on
+* @property {number=|5000|MC_PORT} port Port to start the server on
 * @property {!string|"https://change.me"|MC_DMS_URL} DMSUrl URL for DMS we want to work with. <strong> MUST be set with environment variable </strong>
 * @property {!string|"user@change.me"|MC_DMS_EMAIL} DMSUserEmail Login Email for the DMS <strong> MUST be set with environment variable </strong>
 * @property {!string|"00000000000000000000"|MC_DMS_TOKEN} DMSAPIToken API Token for the DMS
@@ -26,7 +26,7 @@
 const setConfiguration = () => {
   const _scheme = process.env.MC_SCHEME || "http://";
   const _host = process.env.MC_HOST || "localhost";
-  const _port = process.env.MC_PORT || 8080;
+  const _port = process.env.MC_PORT || 5000;
   return {
     scheme: _scheme,
     host: _host,
