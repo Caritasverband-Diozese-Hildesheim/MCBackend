@@ -34,8 +34,8 @@ export default (app) => {
           /* eslint-disable camelcase */
           client_id: configuration.OIDCClientId,
           client_secret: configuration.OIDCSecretToken,
-          redirect_uris: [`${configuration.baseUrl}/auth/callback`],
-          post_logout_redirect_uris: [`${configuration.baseUrl}/logout/callback`],
+          redirect_uris: [`https://mcbackend.caritas-dicvhildesheim.de/auth/callback`],
+          post_logout_redirect_uris: [`https://mcbackend.caritas-dicvhildesheim.de/logout/callback`],
           token_endpoint_auth_method: "client_secret_post",
         });
 
