@@ -5,12 +5,6 @@ import passport from "passport";
 import {Issuer, Strategy} from "openid-client";
 import configuration from "./configuration";
 import VPERoutes from "../routes/VSPRoutes";
-import { custom } from 'openid-client';
-
- Issuer.defaultHttpOptions = {
-  baseURL: "https://mcbackend.caritas-dicvhildesheim.de",
-  timeout: 5000,
- };
 
 /** <p>Module that reads configuration from environment or sets default values.</p>
 * <p>If the scheme validation failes the program ends.</p>
@@ -40,8 +34,8 @@ export default (app) => {
           /* eslint-disable camelcase */
           client_id: configuration.OIDCClientId,
           client_secret: configuration.OIDCSecretToken,
-          redirect_uris: ['https://mcbackend.caritas-dicvhildesheim.de/auth/callback'],
-          post_logout_redirect_uris: ['https://mcbackend.caritas-dicvhildesheim.de/logout/callback'],
+          redirect_uris: [`https://mcbackend.caritas-dicvhildesheim.de/auth/callback`],
+          post_logout_redirect_uris: [`https://mcbackend.caritas-dicvhildesheim.de/logout/callback`],
           token_endpoint_auth_method: "client_secret_post",
         });
 
@@ -83,7 +77,7 @@ export default (app) => {
           // clears the persisted user from the local storage
           req.logout();
           // redirects the user to a public route
-          res.redirect("https://mcbackend.caritas-dicvhildesheim.de/");
+          res.redirect("/");
         });
         // start authentication request
         app.get("/auth", (req, res, next) => {
@@ -96,8 +90,8 @@ export default (app) => {
         // authentication callback
         app.get("/auth/callback", (req, res, next) => {
           passport.authenticate("oidc", {
-            successRedirect: "https://mcbackend.caritas-dicvhildesheim.de/me",
-            failureRedirect: "https://mcbackend.caritas-dicvhildesheim.de/",
+            successRedirect: "/me",
+            failureRedirect: "/",
           })(req, res, next);
         });
         app.get("/me", keycloak.protect(), (req, res) => {
@@ -107,5 +101,4 @@ export default (app) => {
         app.use("/VSP", keycloak.enforcer(["res_vsp:sc_view"]), VPERoutes);
       });
 };
-
 
