@@ -25,7 +25,7 @@
 */
 const setConfiguration = () => {
   const _scheme = process.env.MC_SCHEME || "http://";
-  const _host = process.env.MC_HOST || "localhost";
+  const _host = process.env.MC_HOST || "0.0.0.0";
   const _port = process.env.MC_PORT || 5000;
   return {
     scheme: _scheme,
