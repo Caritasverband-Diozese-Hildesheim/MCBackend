@@ -10,6 +10,7 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
+RUN apt-get update && apt-get install curl
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -18,5 +19,5 @@ RUN npm install
 COPY . .
 
 EXPOSE $PORT
-HEALTHCHECK CMD curl --fail http://mcbackend:$PORT/ || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:$PORT/ || exit 1
 CMD [ "npm", "start" ]
