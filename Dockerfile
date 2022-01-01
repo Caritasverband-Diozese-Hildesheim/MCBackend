@@ -19,5 +19,5 @@ RUN npm install
 COPY . .
 
 EXPOSE $PORT
-HEALTHCHECK CMD curl --fail http://localhost:$PORT/api-docs || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:$MC_PORT/api-docs || exit 1
 CMD [ "npm", "start" ]
