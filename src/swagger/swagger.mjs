@@ -10,7 +10,7 @@ const doc = {
     title: "\"Mein Caritas\" - Backend API",
     description: "This is the middleware for Mein Caritas.",
   },
-  host: configuration.host + ":" + configuration.port,
+  host: `https://mcbackend.caritas-dicvhildesheim.de:${configuration.port}`,
   basePath: "/",
   schemes: ["http", "https"],
   consumes: ["application/json"],
