@@ -77,7 +77,7 @@ export default (app) => {
           // clears the persisted user from the local storage
           req.logout();
           // redirects the user to a public route
-          res.redirect("/");
+          res.redirect("https://mcbackend.caritas-dicvhildesheim.de/");
         });
         // start authentication request
         app.get("/auth", (req, res, next) => {
@@ -90,8 +90,8 @@ export default (app) => {
         // authentication callback
         app.get("/auth/callback", (req, res, next) => {
           passport.authenticate("oidc", {
-            successRedirect: "/me",
-            failureRedirect: "/",
+            successRedirect: "https://mcbackend.caritas-dicvhildesheim.de/me",
+            failureRedirect: "https://mcbackend.caritas-dicvhildesheim.de/",
           })(req, res, next);
         });
         app.get("/me", keycloak.protect(), (req, res) => {
