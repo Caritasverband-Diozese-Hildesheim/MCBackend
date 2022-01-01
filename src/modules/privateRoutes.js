@@ -5,6 +5,12 @@ import passport from "passport";
 import {Issuer, Strategy} from "openid-client";
 import configuration from "./configuration";
 import VPERoutes from "../routes/VSPRoutes";
+import { custom } from 'openid-client';
+
+custom.setHttpOptionsDefaults({
+  baseURL: "https://mcbackend.caritas-dicvhildesheim.de",
+  timeout: 5000,
+});
 
 /** <p>Module that reads configuration from environment or sets default values.</p>
 * <p>If the scheme validation failes the program ends.</p>
