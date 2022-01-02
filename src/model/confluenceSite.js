@@ -6,12 +6,21 @@ import * as yup from "yup";
  * @module datamodel/confluenceSite
  */
 
+/**
+* @typedef {!Object} createContent from the DMS
+* @property {!string|"min 4 Chars, max 60 Chars"} title the title for the page
+* @property {!string|"Value has to be 'page'"} type only 'page' as this state
+* @property {!string|"Value has to be 'current'"} status only 'current' as this state. Later drafts will be possible
+* @property {array=|"Array of object"} ancestors just an array
+* @property {object=|anonymous} ancestors.anonymous
+* @property {string=|"Number as string"} ancestors.anonymous.id Identification of the parent site
+*/
 const createContentScheme = yup.object().shape({
 	"title": yup.string().required().min(4).max(200),
 	"type": yup.string().required().value("page"),
 	"status": yup.string().required().value("current"),
 	"ancestors": yup.array().shape({
-
+          "id": yup.string()
 	}),
 	"space": yup.object().of(yup.object().shape({
 		"key": yup.string().required().min(3).max(10),
