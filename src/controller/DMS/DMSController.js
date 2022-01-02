@@ -1,4 +1,4 @@
-import apiUse from "../../modules/genericAPIUse";
+import apiUse from "../../modules/externalAPIs/genericAPIUse";
 import configuration from "../../modules/configuration";
 import DMsAttachmentsScheme from "../../model/DMSAttachments";
 import FormData from "form-data";

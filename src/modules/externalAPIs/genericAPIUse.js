@@ -1,7 +1,7 @@
 import axios from "axios";
 import logger from "./logger";
 /** Module to handle generic API request for GET and POST
-* @module modules/gnericAPIUse
+* @module modules/externalAPIs/gnericAPIUse
 */
 
 

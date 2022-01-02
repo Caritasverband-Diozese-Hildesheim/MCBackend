@@ -4,7 +4,7 @@ process.env.NODE_ENV = "test";
 // Require the dev-dependencies
 import chai from "chai";
 import server from "../src/modules/app";
-import apiUse from "../src/modules/genericAPIUse";
+import apiUse from "../src/modules/externalAPIs/genericAPIUse";
 import nock from "nock";
 const should = chai.should();
 const hostname = "localhost";
