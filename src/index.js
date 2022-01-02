@@ -7,7 +7,7 @@ if (!configScheme.isValidSync(configuration)) {
   configScheme.validate(configuration).catch((err) => {
     logger.log({
       level: "error",
-      message: "App Configuration failure:\r\n" + err.errors + "\r\nExiting.\r\n",
+      message: `App Configuration failure:\r\n ${err.errors} \r\n Values: ${JSON.stringify(configuration)} Exiting.\r\n`,
     });
     process.exit(1);
   });

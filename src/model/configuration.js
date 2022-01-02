@@ -30,10 +30,10 @@ const scheme = yup.object().shape({
     { excludeEmptyString: true }),
   port: yup.number().required().positive().integer().min(1024).max(65534),
   externalUrl: yup.string().required().matches(
-    /https?:\/\/((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost:?[0-9]{0,5})/,
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
     { excludeEmptyString: true }),
   baseUrl: yup.string().required().matches(
-    /https?:\/\/((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost:?[0-9]{0,5})/,
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
     { excludeEmptyString: true }),
   DMSUrl: yup.string().url().required(),
   DMSUserEmail: yup.string().email().required(),
@@ -43,10 +43,10 @@ const scheme = yup.object().shape({
   OIDCClientId: yup.string().required().min(4).max(60),
   OIDCSecretToken: yup.string().required().min(20).max(60),
   OIDCRedirectUrlCallback: yup.string().required().matches(
-    /https?:\/\/((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost:?[0-9]{0,5})/,
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
     { excludeEmptyString: true }),
   OIDCRedirectUrlLogout: yup.string().required().matches(
-    /https?:\/\/((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost:?[0-9]{0,5})/,
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
     { excludeEmptyString: true }),
 });
 
