@@ -41,6 +41,25 @@ describe("Test generic API use functions", () => {
               }
             });
       });
+      before((done) => {
+        /* eslint-disable no-unused-vars */
+        const scope = nock("http://www.example.com")
+            .get("/resource")
+            .reply(200, "{status: \"ok\"}");
+        done();
+      });
+      it("Now we do exactly the same, except with the use-method instead with the get-method directly", (done) => {
+        apiUse.use({method: "get", url: "http://www.example.com/resource", headers: {}})
+            .then((result) => {
+              try {
+                result.statusCode.should.be.equal(200);
+                result.data.should.be.equal("{status: \"ok\"}");
+                done();
+              } catch (err) {
+                done(err);
+              }
+            });
+      })
     });
     describe("call an API and see what happens if we get an 404 error.", () => {
       before((done) => {
@@ -50,7 +69,7 @@ describe("Test generic API use functions", () => {
             .reply(404, "resource not found");
         done();
       });
-      it("we expect status 404, a 'resource not found' message and an info on the console from the logger", (done) => {
+      it("we expect status 404, a 'resource not found' response", (done) => {
         apiUse.get("http://www.example.com/resource", {})
             .then((result) => {
               try {
@@ -71,7 +90,7 @@ describe("Test generic API use functions", () => {
             .reply(500, "internal server error");
         done();
       });
-      it("we expect status 500, a 'internal server error' message and an info on the console from the logger", (done) => {
+      it("we expect status 500, a 'internal server error' response", (done) => {
         apiUse.get("http://www.example.com/resource", {})
             .then((result) => {
               try {
@@ -106,6 +125,25 @@ describe("Test generic API use functions", () => {
               }
             });
       });
+      before((done) => {
+        /* eslint-disable no-unused-vars */
+        const scope = nock("http://www.example.com")
+            .post("/resource", {username: "test", password: "test"})
+            .reply(200, "{status: \"ok\"}");
+        done();
+      });
+      it("Now we do exactly the same, except with the use-method instead with the get-method directly", (done) => {
+        apiUse.use({method: "post", url: "http://www.example.com/resource", headers: {}, body: {username: "test", password: "test"}})
+            .then((result) => {
+              try {
+                result.statusCode.should.be.equal(200);
+                result.data.should.be.equal("{status: \"ok\"}");
+                done();
+              } catch (err) {
+                done(err);
+              }
+            });
+      });
     });
     describe("call an API and see what happens if we get an 404 error.", () => {
       before((done) => {
@@ -115,7 +153,7 @@ describe("Test generic API use functions", () => {
             .reply(404, "resource not found");
         done();
       });
-      it("we expect status 404, a 'resource not found' message and an info on the console from the logger", (done) => {
+      it("we expect status 404, a 'resource not found' response", (done) => {
         apiUse.post("http://www.example.com/resource", {}, {username: "test", password: "test"})
             .then((result) => {
               try {

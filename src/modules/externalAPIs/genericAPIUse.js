@@ -11,9 +11,9 @@ import logger from "../logger";
 * @property {function} post calls an API over POST request, sends body data and calls back the function you must provide
 */
 
-export default {
-  get:
-    /**
+const jsonHeader = {"Content-Type": "application/json; charset=utf-8"}
+const nodeEnv = process.env.NODE_ENV.toString();
+/**
       * @function get
       * @description calls an API over GET request and calls back the function you must provide
       * @param url URL to call
@@ -21,27 +21,25 @@ export default {
       * @param cb function to calls back
       * @return nothing. Just calls cb
       */
-    (url, headers) => {
-      return new Promise((resolve, reject) => {
-        axios.get(url, {headers: {"Content-Type": "application/json; charset=utf-8", ...headers}})
-            .then((response) => {
-              resolve({statusCode: response.status, data: response.data});
-            })
-            .catch((error) => {
-              if (error.response) {
-                logger.warn(`API Call ${url} failed with status: ${error.response.status} and with message: ${JSON.stringify(error.response.data)}`);
-                resolve({statusCode: error.response.status, data: error.response.data});
-              } else {
-                logger.warn(`API Call ${url} failed with status: ${error.message}`);
-                resolve({statusCode: 500, data: error.message});
-              }
-            });
-      });
-    },
+const getFunction = (url, headers) => {
+  return new Promise((resolve, reject) => {
+    axios.get(url, {headers: {...jsonHeader, ...headers}})
+        .then((response) => {
+          resolve({statusCode: response.status, data: response.data});
+        })
+        .catch((error) => {
+          if (error.response) {
+            if (process.env.NODE_ENV.localeCompare("test")) logger.warn(`API Call ${url} failed with status: ${error.response.status} and with message: ${JSON.stringify(error.response.data)}`);
+            resolve({statusCode: error.response.status, data: error.response.data});
+          } else {
+            if (process.env.NODE_ENV.localeCompare("test")) logger.warn(`API Call ${url} failed with status: ${error.message}`);
+            resolve({statusCode: 500, data: error.message});
+          }
+        });
+  });
+};
 
-
-  post:
-    /**
+/**
       * @function post
       * @description calls an API over POST request, sends body data and calls back the function you must provide
       * @param url URL to call
@@ -49,22 +47,48 @@ export default {
       * @param body json data to post to the API
       * @return nothing. Just calls cb
       */
-    (url, headers, body) => {
-      return new Promise((resolve, reject) => {
-        axios.post(url, body, {headers: {"Content-Type": "application/json; charset=utf-8", ...headers}})
-            .then((response) => {
-              resolve({statusCode: response.status, data: response.data});
-            })
-            .catch((error) => {
-              if (error.response) {
-                logger.warn(`API Call ${url} failed with status: ${error.response.status} and with message: ${JSON.stringify(error.response.data)}`);
-                resolve({statusCode: error.response.status, data: error.response.data});
-              } else {
-                logger.warn(`API Call ${url} failed with status: ${error.message}`);
-                resolve({statusCode: 500, data: error.message});
-              }
-            });
-      });
-    },
+const postFunction = (url, headers, body) => {
+  return new Promise((resolve, reject) => {
+    axios.post(url, body, {headers: {...jsonHeader, ...headers}})
+        .then((response) => {
+          resolve({statusCode: response.status, data: response.data});
+        })
+        .catch((error) => {
+          if (error.response) {
+            if (process.env.NODE_ENV.localeCompare("test")) logger.warn(`API Call ${url} failed with status: ${error.response.status} and with message: ${JSON.stringify(error.response.data)}`);
+            resolve({statusCode: error.response.status, data: error.response.data});
+          } else {
+            if (process.env.NODE_ENV.localeCompare("test")) logger.warn(`API Call ${url} failed with status: ${error.message}`);
+            resolve({statusCode: 500, data: error.message});
+          }
+        });
+  });
+}
 
+const useFunction = ({method ="get", url="", headers="", body=""}={}) =>{
+  return new Promise((resolve, reject) => {
+    switch (method){
+      case "get": 
+        getFunction(url, headers)
+        .then ((result) =>{
+            resolve(result);
+        })
+      break;
+      case "post": 
+      postFunction(url, headers, body)
+      .then ((result) =>{
+          resolve(result);
+      })
+      break;
+      default:
+        logger.error(`Method ${method} is not used`);
+        reject();
+    }
+  })
+}
+
+export default {
+  get: getFunction,
+  post: postFunction,
+  use: useFunction
 };

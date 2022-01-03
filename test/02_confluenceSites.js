@@ -266,8 +266,8 @@ describe("Test handling of confluence sites", () => {
           .then((result) => {
             try {
               result.statusCode.should.be.equal(200);
-              result.data.title.should.be.equal("Platzhalter-Titel");
-              result.data._links.webui.should.be.equal("/spaces/PROT/pages/153419777/Platzhalter-Titel");
+              result.data.apiPayload.title.should.be.equal("Platzhalter-Titel");
+              result.data.apiPayload.link.should.be.equal(`${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`);
               done();
             } catch (err) {
               console.log(`err: ${err}`);
@@ -277,7 +277,6 @@ describe("Test handling of confluence sites", () => {
           .catch((err) => {
             done(err);
           });
-      // done();
     });
   });
   after(() => {
