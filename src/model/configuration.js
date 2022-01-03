@@ -24,30 +24,30 @@ import * as yup from "yup";
 * @property {!string|"has to be an URL"} OIDCRedirectUrlLogout URL to be redirected after logout <strong> MUST be set with environment variable </strong>
 */
 const scheme = yup.object().shape({
-  scheme: yup.string().required().matches(/(https?:\/\/)/, { excludeEmptyString: true }),
+  scheme: yup.string().required().matches(/(https?:\/\/)/, {excludeEmptyString: true}),
   host: yup.string().required().matches(
-    /((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost)/,
-    { excludeEmptyString: true }),
+      /((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost)/,
+      {excludeEmptyString: true}),
   port: yup.number().required().positive().integer().min(1024).max(65534),
   externalUrl: yup.string().required().matches(
-    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
-    { excludeEmptyString: true }),
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
+      {excludeEmptyString: true}),
   baseUrl: yup.string().required().matches(
-    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
-    { excludeEmptyString: true }),
-  DMSUrl: yup.string().url().required(),
-  DMSUserEmail: yup.string().email().required(),
-  DMSAPIToken: yup.string().required().min(20).max(60),
-  OIDCAuthUrl: yup.string().url().required(),
-  OIDCRealm: yup.string().required().min(4).max(60),
-  OIDCClientId: yup.string().required().min(4).max(60),
-  OIDCSecretToken: yup.string().required().min(20).max(60),
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
+      {excludeEmptyString: true}),
+  DMSUrl: yup.string().url().required().notOneOf(['https://change.me']),
+  DMSUserEmail: yup.string().email().required().notOneOf(['user@change.me']),
+  DMSAPIToken: yup.string().required().min(20).max(60).notOneOf(['00000000000000000000']),
+  OIDCAuthUrl: yup.string().url().required().notOneOf(['https://change.me']),
+  OIDCRealm: yup.string().required().min(4).max(60).notOneOf(['ChangeMe']),
+  OIDCClientId: yup.string().required().min(4).max(60).notOneOf(['ChangeMe']),
+  OIDCSecretToken: yup.string().required().min(20).max(60).notOneOf(['00000000000000000000']),
   OIDCRedirectUrlCallback: yup.string().required().matches(
-    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
-    { excludeEmptyString: true }),
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
+      {excludeEmptyString: true}).notOneOf(['https://change.me']),
   OIDCRedirectUrlLogout: yup.string().required().matches(
-    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
-    { excludeEmptyString: true }),
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
+      {excludeEmptyString: true}).notOneOf(['https://change.me']),
 });
 
 export default scheme;

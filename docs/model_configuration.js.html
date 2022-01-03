@@ -39,31 +39,43 @@
 * @property {string=|"http:// or https://"} scheme is it secure HTTP or not.
 * @property {string=|"IP-Adress or 'localhost'"} host IP-Address or "localhost" to start the server on
 * @property {number=|"only positives from 1024 til 65534"} port Port to start the server on
-* @property {!string|"has to be URL"} baseUrl Root URL of the app. &lt;strong>Automatically generated from scheme, host, port&lt;/strong>
-* @property {!string|"has to be URL"} DMSUrl URL for DMS we want to work with.&lt;strong> MUST be set with environment variable&lt;/strong>
+* @property {!string|"has to be an URL"} externalUrl If the external URL differs the baseUrl, we need to define it.&lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"has to be an URL"} baseUrl Root URL of the app. &lt;strong>Automatically generated from scheme, host, port&lt;/strong>
+* @property {!string|"has to be an URL"} DMSUrl URL for DMS we want to work with.&lt;strong> MUST be set with environment variable&lt;/strong>
 * @property {!string|"EMail"} DMSUserEmail Login Email for the DMS &lt;strong> MUST be set with environment variable &lt;/strong>
 * @property {!string|"min 20 Chars, max 60 Chars"} DMSAPIToken API Token for the DMS. &lt;strong>MUST be set with environment variable&lt;/strong>
-* @property {!string|"has to be URL"} OIDCAuthUrl Root URL of the OID Server. &lt;strong>MUST be set with environment variable&lt;/strong>
+* @property {!string|"has to be an URL"} OIDCAuthUrl Root URL of the OID Server. &lt;strong>MUST be set with environment variable&lt;/strong>
 * @property {!string|"min 4 Chars, max 60 Chars"} OIDCRealm Server Realm-Name of the OID Server. &lt;strong>MUST be set with environment variable&lt;/strong>
 * @property {!string|"min 4 Chars, max 60 Chars"} OIDCCientId Client ID to identify with on the OIDC Server.&lt;strong> MUST be set with environment variable &lt;/strong>
 * @property {!string|"min 20 Chars, max 60 Chars"} OIDCSecretToken Secret Token to identify with on the OIDC Server.&lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"has to be an URL"} OIDCRedirectUrlCallback URL to be redirected for the OIDC Callback &lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"has to be an URL"} OIDCRedirectUrlLogout URL to be redirected after logout &lt;strong> MUST be set with environment variable &lt;/strong>
 */
 const scheme = yup.object().shape({
-  scheme: yup.string().required().matches(/(https?:\/\/)/, { excludeEmptyString: true }),
+  scheme: yup.string().required().matches(/(https?:\/\/)/, {excludeEmptyString: true}),
   host: yup.string().required().matches(
-    /((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost)/,
-    { excludeEmptyString: true }),
+      /((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost)/,
+      {excludeEmptyString: true}),
   port: yup.number().required().positive().integer().min(1024).max(65534),
+  externalUrl: yup.string().required().matches(
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&amp;\/\/=]*)/,
+      {excludeEmptyString: true}),
   baseUrl: yup.string().required().matches(
-    /https?:\/\/((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost):?[0-9]{0,5}/,
-    { excludeEmptyString: true }),
-  DMSUrl: yup.string().url().required(),
-  DMSUserEmail: yup.string().email().required(),
-  DMSAPIToken: yup.string().required().min(20).max(60),
-  OIDCAuthUrl: yup.string().url().required(),
-  OIDCRealm: yup.string().required().min(4).max(60),
-  OIDCClientId: yup.string().required().min(4).max(60),
-  OIDCSecretToken: yup.string().required().min(20).max(60),
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&amp;\/\/=]*)/,
+      {excludeEmptyString: true}),
+  DMSUrl: yup.string().url().required().notOneOf(['https://change.me']),
+  DMSUserEmail: yup.string().email().required().notOneOf(['user@change.me']),
+  DMSAPIToken: yup.string().required().min(20).max(60).notOneOf(['00000000000000000000']),
+  OIDCAuthUrl: yup.string().url().required().notOneOf(['https://change.me']),
+  OIDCRealm: yup.string().required().min(4).max(60).notOneOf(['ChangeMe']),
+  OIDCClientId: yup.string().required().min(4).max(60).notOneOf(['ChangeMe']),
+  OIDCSecretToken: yup.string().required().min(20).max(60).notOneOf(['00000000000000000000']),
+  OIDCRedirectUrlCallback: yup.string().required().matches(
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&amp;\/\/=]*)/,
+      {excludeEmptyString: true}).notOneOf(['https://change.me']),
+  OIDCRedirectUrlLogout: yup.string().required().matches(
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&amp;\/\/=]*)/,
+      {excludeEmptyString: true}).notOneOf(['https://change.me']),
 });
 
 export default scheme;
@@ -77,13 +89,13 @@ export default scheme;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controller_DMS_DMSController.html">controller/DMS/DMSController</a></li><li><a href="module-datamodel_configuration.html">datamodel/configuration</a></li><li><a href="module-datamodel_DMSAttachments.html">datamodel/DMSAttachments</a></li><li><a href="module-modules_app.html">modules/app</a></li><li><a href="module-modules_auth.html">modules/auth</a></li><li><a href="module-modules_configuration.html">modules/configuration</a></li><li><a href="module-modules_cors.html">modules/cors</a></li><li><a href="module-modules_gnericAPIUse.html">modules/gnericAPIUse</a></li><li><a href="module-routes_VPERoutes.html">routes/VPERoutes</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controller_DMS_DMSController.html">controller/DMS/DMSController</a></li><li><a href="module-datamodel_configuration.html">datamodel/configuration</a></li><li><a href="module-datamodel_confluenceSite.html">datamodel/confluenceSite</a></li><li><a href="module-datamodel_DMSAttachments.html">datamodel/DMSAttachments</a></li><li><a href="module-modules_app.html">modules/app</a></li><li><a href="module-modules_auth.html">modules/auth</a></li><li><a href="module-modules_configuration.html">modules/configuration</a></li><li><a href="module-modules_cors.html">modules/cors</a></li><li><a href="module-modules_externalAPIs_confluenceSite.html">modules/externalAPIs/confluenceSite</a></li><li><a href="module-modules_externalAPIs_gnericAPIUse.html">modules/externalAPIs/gnericAPIUse</a></li><li><a href="module-routes_VPERoutes.html">routes/VPERoutes</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Dec 17 2021 15:56:17 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jan 03 2022 15:58:40 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

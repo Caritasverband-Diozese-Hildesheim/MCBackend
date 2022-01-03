@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: modules/app.js</title>
+    <title>JSDoc: Module: modules/externalAPIs/confluenceSite</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,49 +17,132 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: modules/app.js</h1>
+    <h1 class="page-title">Module: modules/externalAPIs/confluenceSite</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import express from "express";
-import methodOverride from "method-override";
-import cookieParser from "cookie-parser";
-import setRoutes from "./routes";
+        
+            
+        
+    
+</header>
 
-/** &lt;p>Module that prepares the application&lt;/p>
-* &lt;p>Tells the Server what middleware we use and we set our routes &lt;/p>
-* &lt;p>Middleware we use:&lt;/p>
-* &lt;ul>
-* &lt;li>[body-parser]{@link https://www.npmjs.com/package/body-parser} : reads the body of a request from a browser and parses it into something we need. F. e. json and URL encoded&lt;/li>
-* &lt;li>[method-override]{@link https://www.npmjs.com/package/method-override} : Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it.&lt;/li>
-* &lt;/ul>
-* @module modules/app
-*/
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Module to handle creation, modification, files uploads and deletion of confluence sites</div>
+        
 
-/**
-* @typedef {!Object} App
-* @description exports an [express app]{@link https://www.npmjs.com/package/express}
-*/
+        
+            
 
-const app = express();
-// app.set( 'trust proxy', true );
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
 
-// Method-Override
-app.use(methodOverride("_method"));
 
-setRoutes(app);
-export default app;
-</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_externalAPIs_confluenceSite.js.html">modules/externalAPIs/confluenceSite.js</a>, <a href="modules_externalAPIs_confluenceSite.js.html#line6">line 6</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

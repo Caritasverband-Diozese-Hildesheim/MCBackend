@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: model/DMSAttachments.js</title>
+    <title>JSDoc: Source: model/confluenceSite.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: model/DMSAttachments.js</h1>
+    <h1 class="page-title">Source: model/confluenceSite.js</h1>
 
     
 
@@ -28,26 +28,48 @@
         <article>
             <pre class="prettyprint source linenums"><code>import * as yup from "yup";
 
-/** &lt;p> Datamodel to centralize app configuration&lt;/p>
+/** &lt;p>Datamodel to handle creation, read, modification and deletion of a page&lt;/p>
 * &lt;p>[yup scheme]{@link https://www.npmjs.com/package/yup} to validate input&lt;/p>
 * &lt;p>&lt;strong>"Type" column explained: &lt;/p>&lt;p> data-type | enforced Rules &lt;/strong>&lt;/p>
-* @module datamodel/DMSAttachments
+* @module datamodel/confluenceSite
 */
 
 /**
-* @typedef {!Object} Attachments-List from the DMS
-* @property {!number|"only positives"} start offset from where the results starts
-* @property {!number|"only positives"} limit maximal sent of results
-* @property {!number|"only positives"} size actual numbers of attachments
+* @typedef {!Object} createContent from the DMS
+* @property {!string|"min 4 Chars, max 60 Chars"} title the title for the page
+* @property {!string|"Value has to be 'page'"} type only 'page' as this state
+* @property {!string|"Value has to be 'current'"} status only 'current' as this state. Later drafts will be possible
+* @property {array=|"Array of object"} ancestors just an array
+* @property {object=|"anonymous"} ancestors.anonymous
+* @property {string=|"Number as string"} ancestors.anonymous.id Identification of the parent site
+* @property {!object|"required"} space Object that holds information about the space where the page should be created in
+* @property {!string|"min 3 Chars, max 10 Chars"} space.key String that holds the space-key where the page should be created in
+* @property {!object|"required"} body Object that holds the content for the body of the page
+* @property {!object|"required"} body.wiki Object that holds the content for the body of the page &lt;strong>only wiki mode accepted in this state&lt;/strong>
+* @property {!string|"required"} body.wiki.value The actual content of the page.
+* @property {!string|"Value has to be 'wiki'"} body.wiki.representation only 'page' as this state
 */
-const scheme = yup.object().shape({
-  results: yup.array().required(),
-  start: yup.number().required().integer(),
-  limit: yup.number().required().integer(),
-  size: yup.number().required().integer(),
+const createContentScheme = yup.object().shape({
+  "title": yup.string().required().min(4).max(200),
+  "type": yup.string().required().matches(/page/),
+  "status": yup.string().required().matches(/current/),
+  "ancestors": yup.array().of(yup.object().shape({
+    "id": yup.string(),
+  })),
+  "space": yup.object().shape({
+    "key": yup.string().required().min(3).max(10),
+  }),
+  "body": yup.object().shape({
+    "wiki": yup.object().shape({
+      "value": yup.string().required(),
+      "representation": yup.string().required().matches(/wiki/),
+    }),
+  }),
 });
 
-export default scheme;
+export default {
+  createContentScheme: createContentScheme,
+};
 </code></pre>
         </article>
     </section>

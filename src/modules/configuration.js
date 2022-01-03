@@ -30,6 +30,7 @@ const setConfiguration = () => {
   const _scheme = process.env.MC_SCHEME || "http://";
   const _host = process.env.MC_HOST || "0.0.0.0";
   const _port = process.env.MC_PORT || 5000;
+
   return {
     scheme: _scheme,
     host: _host,
@@ -44,7 +45,7 @@ const setConfiguration = () => {
     OIDCClientId: process.env.MC_OIDC_CLIENTID || "ChangeMe",
     OIDCSecretToken: process.env.MC_OIDC_TOKEN || "00000000000000000000",
     OIDCRedirectUrlCallback: process.env.MC_OIDC_RDIURL_CB || "https://change.me",
-    OIDCRedirectUrlLogout: process.env.MC_OIDC_RDIURL_LO || "https://change.me"
+    OIDCRedirectUrlLogout: process.env.MC_OIDC_RDIURL_LO || "https://change.me",
   };
 };
 

@@ -4,6 +4,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../swagger_output.json";
 import logger from "./logger";
 import setupAppforAuthentication from "./privateRoutes";
+import confluenceSite from "./externalAPIs/confluenceSite";
 
 
 export default (app) => {
@@ -29,6 +30,11 @@ export default (app) => {
     // #swagger.ignore = true
     res.status(404).send("We couldn't find this page");
   });*/
-
+  app.get("/test", (req, res, next) => {
+    confluenceSite.createSite()
+        .then((result) =>{
+          res.status(result.statusCode).send(result.data.userNotification);
+        });
+  });
   setupAppforAuthentication(app);
 };
