@@ -7,10 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080/"
-    },
-    {
-      "url": "https://localhost:8080/"
+      "url": "https://mcbackend.caritas-dicvhildesheim.de/"
     }
   ],
   "tags": [
@@ -20,6 +17,14 @@
     }
   ],
   "paths": {
+    "/test": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/VSP/prototype/MyDocuments": {
       "get": {
         "tags": [],
@@ -46,6 +51,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "501": {
+            "description": "Not Implemented"
           }
         },
         "security": [

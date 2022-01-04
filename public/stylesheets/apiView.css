@@ -1,0 +1,136 @@
+ .u-section-1 {
+  min-height: 656px;
+}
+
+.u-section-1 .u-image-1 {
+  min-height: 656px;
+  background-image: url("/images/caritas.jpg");
+  background-position: 17.66% 50%;
+}
+
+.u-section-1 .u-container-layout-1 {
+  padding: 30px;
+}
+
+.u-section-1 .u-layout-cell-2 {
+  min-height: 656px;
+  background-image: none;
+}
+
+.u-section-1 .u-container-layout-2 {
+  padding: 30px 10px;
+  overflow-y: auto;
+  max-height: 650px;
+  background-color: white;
+  font-family: monospace,monospace;
+  font-size: 0.7em;
+}
+
+.u-section-1 .u-text-1 {
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+
+.u-section-1 .u-text-2 {
+  font-size: 2.25rem;
+  margin: 20px 0 0;
+}
+
+.u-section-1 .u-text-3 {
+  margin: 20px 0 0;
+}
+
+.u-section-1 .u-link-1 {
+  padding-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.875rem;
+  margin: 20px auto 0;
+}
+
+.u-section-1 .u-image-2 {
+  min-height: 656px;
+  background-image: url("/images/caritas.jpg");
+  background-position: 100% 50%;
+}
+
+.u-red-80 {
+  background-color: #a00;
+}
+
+.u-section-1 .u-container-layout-3 {
+  padding: 30px;
+}
+
+@media (max-width: 1199px) {
+   .u-section-1 {
+    min-height: 541px;
+  }
+
+  .u-section-1 .u-image-1 {
+    min-height: 541px;
+  }
+
+  .u-section-1 .u-layout-cell-2 {
+    min-height: 100px;
+  }
+
+  .u-section-1 .u-image-2 {
+    min-height: 541px;
+  }
+}
+
+@media (max-width: 991px) {
+   .u-section-1 {
+    min-height: 414px;
+  }
+
+  .u-section-1 .u-image-1 {
+    min-height: 414px;
+  }
+
+  .u-section-1 .u-text-2 {
+    font-size: 1.875rem;
+  }
+
+  .u-section-1 .u-image-2 {
+    min-height: 414px;
+  }
+}
+
+@media (max-width: 767px) {
+   .u-section-1 {
+    min-height: 100px;
+  }
+
+  .u-section-1 .u-image-1 {
+    min-height: 621px;
+  }
+
+  .u-section-1 .u-container-layout-1 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .u-section-1 .u-image-2 {
+    min-height: 1331px;
+  }
+
+  .u-section-1 .u-container-layout-3 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-image-1 {
+    min-height: 391px;
+  }
+
+  .u-section-1 .u-image-2 {
+    min-height: 838px;
+  }
+}
