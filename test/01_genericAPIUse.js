@@ -16,7 +16,6 @@ let app;
   */
 describe("Test generic API use functions", () => {
   before((done) => {
-    app=server.listen(port, hostname);
     if (should);
     done();
   });
@@ -187,8 +186,5 @@ describe("Test generic API use functions", () => {
             });
       });
     });
-  });
-  after(() => {
-    app.close();
   });
 });

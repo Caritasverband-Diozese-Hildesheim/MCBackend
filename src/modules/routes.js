@@ -14,6 +14,13 @@ export default (app) => {
     next();
   }, swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+  app.set('views', path.join(__dirname, '../../views'));
+  app.set('view engine', 'ejs');
+
+  app.use(express.static(path.join(__dirname, '../../public')));
+  app.get('/', (req, res) => {
+    res.render('index', { title: 'Mein Caritas Backend Prototype' });
+  });
 
   // error route
   app.use((err, req, res, next) =>{
@@ -30,10 +37,30 @@ export default (app) => {
     // #swagger.ignore = true
     res.status(404).send("We couldn't find this page");
   });*/
-  app.get("/test", (req, res, next) => {
+  app.get("/createSite", (req, res, next) => {
     confluenceSite.createSite()
         .then((result) =>{
           res.status(result.statusCode).send(result.data.userNotification);
+        });
+  });
+
+  app.get("/updateSite", (req, res, next) => {
+    confluenceSite.updateSite({id: "153747457"})
+        .then((result) =>{
+          res.status(result.statusCode).send(result.data.userNotification);
+        });
+  });
+
+  app.get("/flex", (req, res, next) => {
+    confluenceSite.readSite()
+        .then((result) =>{
+          res.render('apiView', { data: result.data.userNotification, title: "apiView - Test" });
+        });
+  });
+  app.get("/flex/plain", (req, res, next) => {
+    confluenceSite.readSite()
+        .then((result) =>{
+          res.status(result.statusCode).send(result.data.apiPayload);
         });
   });
   setupAppforAuthentication(app);

@@ -19,17 +19,16 @@ let app;
  * Test the /GET route
  */
 describe("Test handling of confluence sites", () => {
-  before((done) => {
-    app = server.listen(port, hostname);
-    if (should);
-    done();
-  });
-  describe("First we create a Site.", () => {
     before((done) => {
-      /* eslint-disable no-unused-vars */
-      const scope = nock(configuration.DMSUrl)
-          .post("/rest/api/content")
-          .reply(200, JSON.parse(`{
+        if (should);
+        done();
+    });
+    describe("First we create a Site.", () => {
+        before((done) => {
+            /* eslint-disable no-unused-vars */
+            const scope = nock(configuration.DMSUrl)
+                .post("/rest/api/content")
+                .reply(200, JSON.parse(`{
     "id": "153419777",
     "type": "page",
     "status": "current",
@@ -258,28 +257,182 @@ describe("Test handling of confluence sites", () => {
         "base": "https://dicvhi.atlassian.net/wiki"
     }
 }`));
-      done();
-    });
-    it(`we expecting a status-code 200 a response that says title is 'Platzhalter-Titel' and our link for the new page 
+            done();
+        });
+        it(`we expecting a status-code 200 a response that says title is 'Platzhalter-Titel' and our link for the new page 
     is ${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`, (done) => {
-      confluenceSite.createSite()
-          .then((result) => {
-            try {
-              result.statusCode.should.be.equal(200);
-              result.data.apiPayload.title.should.be.equal("Platzhalter-Titel");
-              result.data.apiPayload.link.should.be.equal(`${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`);
-              done();
-            } catch (err) {
-              console.log(`err: ${err}`);
-              done(err);
-            }
-          })
-          .catch((err) => {
-            done(err);
-          });
+            confluenceSite.createSite()
+                .then((result) => {
+                    try {
+                        result.statusCode.should.be.equal(200);
+                        result.data.apiPayload.title.should.be.equal("Platzhalter-Titel");
+                        result.data.apiPayload.link.should.be.equal(`${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`);
+                        done();
+                    } catch (err) {
+                        console.log(`err: ${err}`);
+                        done(err);
+                    }
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+        describe("Now, we read a site (a homepage, that's always there).", () => {
+            before((done) => {
+                /* eslint-disable no-unused-vars */
+                const scope = nock(configuration.DMSUrl)
+                    .get("/rest/api/content/152141923")
+                    .reply(200, JSON.parse(`{
+                        "id": "152141923",
+                        "type": "page",
+                        "status": "current",
+                        "title": "prototype Home",
+                        "space": {
+                            "id": 152141831,
+                            "key": "PROT",
+                            "name": "prototype",
+                            "type": "global",
+                            "status": "current",
+                            "_expandable": {
+                                "settings": "/rest/api/space/PROT/settings",
+                                "metadata": "",
+                                "operations": "",
+                                "lookAndFeel": "/rest/api/settings/lookandfeel?spaceKey=PROT",
+                                "identifiers": "",
+                                "permissions": "",
+                                "icon": "",
+                                "description": "",
+                                "theme": "/rest/api/space/PROT/theme",
+                                "history": "",
+                                "homepage": "/rest/api/content/152141923"
+                            },
+                            "_links": {
+                                "webui": "/spaces/PROT",
+                                "self": "https://dicvhi.atlassian.net/wiki/rest/api/space/PROT"
+                            }
+                        },
+                        "history": {
+                            "latest": true,
+                            "createdBy": {
+                                "type": "known",
+                                "accountId": "5d4013387c8ce90da7ce18b9",
+                                "accountType": "atlassian",
+                                "email": "bjoern.meier@gmail.com",
+                                "publicName": "Björn Meier",
+                                "timeZone": "UTC",
+                                "profilePicture": {
+                                    "path": "/wiki/aa-avatar/5d4013387c8ce90da7ce18b9",
+                                    "width": 48,
+                                    "height": 48,
+                                    "isDefault": false
+                                },
+                                "displayName": "Björn Meier",
+                                "isExternalCollaborator": false,
+                                "_expandable": {
+                                    "operations": "",
+                                    "personalSpace": ""
+                                },
+                                "_links": {
+                                    "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                                }
+                            },
+                            "createdDate": "2021-12-15T17:20:50.773Z",
+                            "_expandable": {
+                                "lastUpdated": "",
+                                "previousVersion": "",
+                                "contributors": "",
+                                "nextVersion": ""
+                            },
+                            "_links": {
+                                "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923/history"
+                            }
+                        },
+                        "version": {
+                            "by": {
+                                "type": "known",
+                                "accountId": "5d4013387c8ce90da7ce18b9",
+                                "accountType": "atlassian",
+                                "email": "bjoern.meier@gmail.com",
+                                "publicName": "Björn Meier",
+                                "timeZone": "UTC",
+                                "profilePicture": {
+                                    "path": "/wiki/aa-avatar/5d4013387c8ce90da7ce18b9",
+                                    "width": 48,
+                                    "height": 48,
+                                    "isDefault": false
+                                },
+                                "displayName": "Björn Meier",
+                                "isExternalCollaborator": false,
+                                "_expandable": {
+                                    "operations": "",
+                                    "personalSpace": ""
+                                },
+                                "_links": {
+                                    "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                                }
+                            },
+                            "when": "2021-12-15T17:20:50.773Z",
+                            "friendlyWhen": "Dez. 15, 2021",
+                            "message": "",
+                            "number": 1,
+                            "minorEdit": false,
+                            "confRev": "confluence$content$152141923.2",
+                            "contentTypeModified": false,
+                            "_expandable": {
+                                "collaborators": "",
+                                "content": "/rest/api/content/152141923"
+                            },
+                            "_links": {
+                                "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923/version/1"
+                            }
+                        },
+                        "macroRenderedOutput": {},
+                        "extensions": {
+                            "position": 721
+                        },
+                        "_expandable": {
+                            "childTypes": "",
+                            "container": "/rest/api/space/PROT",
+                            "metadata": "",
+                            "operations": "",
+                            "schedulePublishDate": "",
+                            "children": "/rest/api/content/152141923/child",
+                            "restrictions": "/rest/api/content/152141923/restriction/byOperation",
+                            "ancestors": "",
+                            "body": "",
+                            "descendants": "/rest/api/content/152141923/descendant"
+                        },
+                        "_links": {
+                            "editui": "/pages/resumedraft.action?draftId=152141923",
+                            "webui": "/spaces/PROT/overview",
+                            "context": "/wiki",
+                            "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923",
+                            "tinyui": "/x/Y4ARCQ",
+                            "collection": "/rest/api/content",
+                            "base": "https://dicvhi.atlassian.net/wiki"
+                        }
+                    }`));
+                done();
+            });
+            it(`we expecting a status-code 200 a response that says title is 'prototype Home' and our link for the new page 
+        is ${configuration.DMSUrl}/spaces/PROT/overview`, (done) => {
+                confluenceSite.readSite({id: "152141923"})
+                    .then((result) => {
+                        try {
+                            result.statusCode.should.be.equal(200);
+                            result.data.apiPayload.title.should.be.equal("prototype Home");
+                            result.data.apiPayload._links.webui.should.be.equal(`/spaces/PROT/overview`);
+                            result.data.apiPayload._links.base.should.be.equal(configuration.DMSUrl);
+                            done();
+                        } catch (err) {
+                            console.log(`err: ${err}`);
+                            done(err);
+                        }
+                    })
+                    .catch((err) => {
+                        done(err);
+                    });
+            });
+        });
     });
-  });
-  after(() => {
-    app.close();
-  });
 });

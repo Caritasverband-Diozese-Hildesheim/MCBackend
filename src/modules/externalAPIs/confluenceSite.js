@@ -7,7 +7,7 @@ import confluenceSiteScheme from "../../model/confluenceSite";
 * @module modules/externalAPIs/confluenceSite
 */
 
-const callApiFunction = (apiMethod, apiEndpoint, apiPostData) => {
+const callApiFunction = ({ apiMethod = "get", apiEndpoint = "", apiPostData = {} } = {}) => {
   return new Promise((resolve, reject) => {
     apiUse.use({
       method: apiMethod,
@@ -15,21 +15,14 @@ const callApiFunction = (apiMethod, apiEndpoint, apiPostData) => {
       headers: { "Authorization": "Basic " + Buffer.from(configuration.DMSUserEmail + ":" + configuration.DMSAPIToken).toString("base64") },
       body: apiPostData
     })
-    .then((result) => {
-      resolve(result);
-    });
+      .then((result) => {
+        resolve(result);
+      });
   })
 }
 
 
-const createSiteFunction = ({
-  titleName = "Platzhalter-Titel",
-  parentID = 0,
-  spaceKey = "PROT",
-  content = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-  eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-} = {}) => {
+const createSiteFunction = ({ titleName = "Platzhalter-Titel", parentID = 0, spaceKey = "PROT", content = `Lorem ipsum dolor sit amet.` } = {}) => {
   let postData = {
     title: titleName,
     type: "page",
@@ -57,12 +50,12 @@ const createSiteFunction = ({
   return new Promise((resolve, reject) => {
     confluenceSiteScheme.createContentScheme.validate(postData)
       .then(() => {
-        return callApiFunction("post", "/rest/api/content", postData);
+        return callApiFunction({ apiMethod: "post", apiEndpoint: "/rest/api/content", apiPostData: postData });
       })
       .then((result) => {
         let message = {
           userNotification: result.data.message,
-          apiPayload: {link:"error", title: "error", ...result.data}
+          apiPayload: { link: "error", title: "error", ...result.data }
         }
         if (result.statusCode == 200) {
           message = {
@@ -75,7 +68,75 @@ const createSiteFunction = ({
   })
 }
 
+const updateSiteFunction = ({ titleName = "Platzhalter-Titel", id = "", versionNumber = 0, content = "updated" } = {}) => {
+  let postData = {
+    title: titleName,
+    type: "page",
+    status: "current",
+    body: {
+      wiki: {
+        value: content,
+        representation: "wiki",
+      },
+    },
+  };
+  return new Promise((resolve, reject) => {
+    readSiteFunction({ id: "153747457" })
+      .then((result) => {
+        if (result.statusCode == 200) {
+          postData = {
+            ...postData,
+            version: {
+              number: result.data.apiPayload.version.number + 1
+            }
+          }
+          return callApiFunction({ apiMethod: "put", apiEndpoint: `/rest/api/content/${id}`, apiPostData: postData });
+        }
+        else {
+          return new Promise((resolve, reject) => {
+            resolve(result);
+          });
+        }
+      })
+      .then((result) => {
+        let message = {
+          userNotification: result.data.message,
+          apiPayload: { link: "error", title: "error", ...result.data }
+        }
+        if (result.statusCode == 200) {
+          message = {
+            userNotification: `Your site is updated. URL: <a href="${result.data._links.base}${result.data._links.webui}">${result.data._links.base}${result.data._links.webui}</a>`,
+            apiPayload: { link: `${result.data._links.base}${result.data._links.webui}`, title: result.data.title }
+          }
+        }
+        resolve({ statusCode: result.statusCode, data: message });
+      })
+  })
+}
+
+const readSiteFunction = ({ id = "152141923" } = {}) => {
+  return new Promise((resolve, reject) => {
+    callApiFunction({ apiMethod: "get", apiEndpoint: `/rest/api/content/${id}` })
+      .then((result) => {
+        let message = {
+          userNotification: result.data.message,
+          apiPayload: { id: "error", title: "error", type: "error", ...result.data }
+        }
+        if (result.statusCode == 200) {
+          message = {
+            userNotification: `here is your site data: <pre><code>${JSON.stringify(result.data, undefined, 4)}</code></pre>`,
+            apiPayload: result.data
+          }
+        }
+        resolve({ statusCode: result.statusCode, data: message });
+      })
+  })
+}
+
+
 
 export default {
-  createSite: createSiteFunction
+  createSite: createSiteFunction,
+  readSite: readSiteFunction,
+  updateSite: updateSiteFunction
 };
