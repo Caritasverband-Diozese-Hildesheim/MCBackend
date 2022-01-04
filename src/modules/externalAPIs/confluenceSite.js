@@ -134,9 +134,28 @@ const readSiteFunction = ({ id = "152141923" } = {}) => {
 }
 
 
+const deleteSiteFunction = ({ id = "152141923" } = {}) => {
+  return new Promise((resolve, reject) => {
+    callApiFunction({ apiMethod: "delete", apiEndpoint: `/rest/api/content/${id}` })
+      .then((result) => {
+        let message = {
+          userNotification: result.data.message,
+          apiPayload: { id: "error", title: "error", type: "error", ...result.data }
+        }
+        if (result.statusCode == 204) {
+          message = {
+            userNotification: `the site was deleted`,
+            apiPayload: {}
+          }
+        }
+        resolve({ statusCode: result.statusCode, data: message });
+      })
+  })
+}
 
 export default {
   createSite: createSiteFunction,
   readSite: readSiteFunction,
-  updateSite: updateSiteFunction
+  updateSite: updateSiteFunction,
+  deleteSite: deleteSiteFunction
 };

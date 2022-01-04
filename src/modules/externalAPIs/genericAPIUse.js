@@ -40,6 +40,31 @@ const getFunction = (url, headers) => {
 };
 
 /**
+      * @function delete
+      * @description calls an API over GET request and calls back the function you must provide
+      * @param url URL to call
+      * @param headers extra header to set - like bearer or other auths - Content-Type is always set to aspplication/json
+      * @param cb function to calls back
+      * @return nothing. Just calls cb
+      */
+ const deleteFunction = (url, headers) => {
+  return new Promise((resolve, reject) => {
+    axios.delete(url, {headers: {...jsonHeader, ...headers}})
+        .then((response) => {
+          resolve({statusCode: response.status, data: response.data});
+        })
+        .catch((error) => {
+          if (error.response) {
+            logger.warn(`API Call ${url} failed with status: ${error.response.status} and with message: ${JSON.stringify(error.response.data)}`);
+            resolve({statusCode: error.response.status, data: error.response.data});
+          } else {
+            logger.warn(`API Call ${url} failed with status: ${error.message}`);
+            resolve({statusCode: 500, data: error.message});
+          }
+        });
+  });
+};
+/**
       * @function post
       * @description calls an API over POST request, sends body data and calls back the function you must provide
       * @param url URL to call
@@ -111,6 +136,12 @@ const useFunction = ({method ="get", url="", headers="", body=""}={}) =>{
           resolve(result);
       })
       break;
+      case "delete": 
+      deleteFunction(url, headers, body)
+      .then ((result) =>{
+          resolve(result);
+      })
+      break;
       default:
         logger.error(`Method ${method} is not used`);
         reject();
@@ -122,5 +153,6 @@ export default {
   get: getFunction,
   post: postFunction,
   put: putFunction,
+  delete: deleteFunction,
   use: useFunction
 };

@@ -37,20 +37,26 @@ export default (app) => {
     // #swagger.ignore = true
     res.status(404).send("We couldn't find this page");
   });*/
-  app.get("/createSite", (req, res, next) => {
+/*  app.get("/createSite", (req, res, next) => {
     confluenceSite.createSite()
         .then((result) =>{
-          res.status(result.statusCode).send(result.data.userNotification);
+          res.status(200).send(result.data.userNotification);
         });
   });
 
-  app.get("/updateSite", (req, res, next) => {
-    confluenceSite.updateSite({id: "153747457"})
+  app.get("/updateSite/:id", (req, res, next) => {
+    confluenceSite.updateSite({id: req.params.id})
         .then((result) =>{
-          res.status(result.statusCode).send(result.data.userNotification);
+          res.status(200).send(result.data.userNotification);
         });
   });
-
+  app.get("/deleteSite/:id", (req, res, next) => {
+    confluenceSite.deleteSite({id: req.params.id})
+        .then((result) =>{
+          res.status(200).send(result.data.userNotification);
+        });
+  });
+*/
   app.get("/flex", (req, res, next) => {
     confluenceSite.readSite()
         .then((result) =>{
