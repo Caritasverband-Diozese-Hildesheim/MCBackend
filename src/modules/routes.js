@@ -8,18 +8,17 @@ import confluenceSite from "./externalAPIs/confluenceSite";
 
 
 export default (app) => {
-  app.use("/code-docs", express.static(path.join(__dirname, "../../docs")));
   app.use("/api-docs", (req, res, next) => {
     // #swagger.ignore = true
     next();
   }, swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-  app.set('views', path.join(__dirname, '../../views'));
-  app.set('view engine', 'ejs');
+  app.set("views", path.join(__dirname, "../../views"));
+  app.set("view engine", "ejs");
 
-  app.use(express.static(path.join(__dirname, '../../public')));
-  app.get('/', (req, res) => {
-    res.render('index', { title: 'Mein Caritas Backend Prototype' });
+  app.use(express.static(path.join(__dirname, "../../public")));
+  app.get("/", (req, res) => {
+    res.render("index", {title: "Mein Caritas Backend Prototype"});
   });
 
   // error route
@@ -37,7 +36,7 @@ export default (app) => {
     // #swagger.ignore = true
     res.status(404).send("We couldn't find this page");
   });*/
-/*  app.get("/createSite", (req, res, next) => {
+  /*  app.get("/createSite", (req, res, next) => {
     confluenceSite.createSite()
         .then((result) =>{
           res.status(200).send(result.data.userNotification);
@@ -60,7 +59,7 @@ export default (app) => {
   app.get("/flex", (req, res, next) => {
     confluenceSite.readSite()
         .then((result) =>{
-          res.render('apiView', { data: result.data.userNotification, title: "apiView - Test" });
+          res.render("apiView", {data: result.data.userNotification, title: "apiView - Test"});
         });
   });
   app.get("/flex/plain", (req, res, next) => {

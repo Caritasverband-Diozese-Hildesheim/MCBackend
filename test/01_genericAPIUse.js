@@ -3,13 +3,10 @@ process.env.NODE_ENV = "test";
 
 // Require the dev-dependencies
 import chai from "chai";
-import server from "../src/modules/app";
 import apiUse from "../src/modules/externalAPIs/genericAPIUse";
 import nock from "nock";
 const should = chai.should();
-const hostname = "localhost";
-const port = 5500;
-let app;
+
 // Our parent block
 /*
   * Test the /GET route
@@ -29,7 +26,7 @@ describe("Test generic API use functions", () => {
         done();
       });
       it("we expect status 200 and a JSON-Object", (done) => {
-        apiUse.get("http://www.example.com/resource", {})
+        apiUse.get({url: "http://www.example.com/resource", headers: {}})
             .then((result) => {
               try {
                 result.statusCode.should.be.equal(200);
@@ -58,7 +55,7 @@ describe("Test generic API use functions", () => {
                 done(err);
               }
             });
-      })
+      });
     });
     describe("call an API and see what happens if we get an 404 error.", () => {
       before((done) => {
@@ -69,7 +66,7 @@ describe("Test generic API use functions", () => {
         done();
       });
       it("we expect status 404, a 'resource not found' response", (done) => {
-        apiUse.get("http://www.example.com/resource", {})
+        apiUse.get({url: "http://www.example.com/resource", headers: {}})
             .then((result) => {
               try {
                 result.statusCode.should.be.equal(404);
@@ -90,7 +87,7 @@ describe("Test generic API use functions", () => {
         done();
       });
       it("we expect status 500, a 'internal server error' response", (done) => {
-        apiUse.get("http://www.example.com/resource", {})
+        apiUse.get({url: "http://www.example.com/resource", headers: {}})
             .then((result) => {
               try {
                 result.statusCode.should.be.equal(500);
@@ -113,7 +110,7 @@ describe("Test generic API use functions", () => {
         done();
       });
       it("we expect status 200 and a JSON-Object", (done) => {
-        apiUse.post("http://www.example.com/resource", {}, {username: "test", password: "test"})
+        apiUse.post({url: "http://www.example.com/resource", headers: {}, body: {username: "test", password: "test"}})
             .then((result) => {
               try {
                 result.statusCode.should.be.equal(200);
@@ -153,7 +150,7 @@ describe("Test generic API use functions", () => {
         done();
       });
       it("we expect status 404, a 'resource not found' response", (done) => {
-        apiUse.post("http://www.example.com/resource", {}, {username: "test", password: "test"})
+        apiUse.post({url: "http://www.example.com/resource", headers: {}, body: {username: "test", password: "test"}})
             .then((result) => {
               try {
                 result.statusCode.should.be.equal(404);
@@ -174,7 +171,7 @@ describe("Test generic API use functions", () => {
         done();
       });
       it("we expect status 500, a 'internal server error' message and an info on the console from the logger", (done) => {
-        apiUse.post("http://www.example.com/resource", {}, {username: "test", password: "test"})
+        apiUse.post({url: "http://www.example.com/resource", headers: {}, body: {username: "test", password: "test"}})
             .then((result) => {
               try {
                 result.statusCode.should.be.equal(500);

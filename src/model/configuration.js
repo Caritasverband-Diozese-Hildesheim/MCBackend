@@ -35,19 +35,19 @@ const scheme = yup.object().shape({
   baseUrl: yup.string().required().matches(
       /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
       {excludeEmptyString: true}),
-  DMSUrl: yup.string().url().required().notOneOf(['https://change.me']),
-  DMSUserEmail: yup.string().email().required().notOneOf(['user@change.me']),
-  DMSAPIToken: yup.string().required().min(20).max(60).notOneOf(['00000000000000000000']),
-  OIDCAuthUrl: yup.string().url().required().notOneOf(['https://change.me']),
-  OIDCRealm: yup.string().required().min(4).max(60).notOneOf(['ChangeMe']),
-  OIDCClientId: yup.string().required().min(4).max(60).notOneOf(['ChangeMe']),
-  OIDCSecretToken: yup.string().required().min(20).max(60).notOneOf(['00000000000000000000']),
+  DMSUrl: yup.string().url().required().notOneOf(["https://change.me"]),
+  DMSUserEmail: yup.string().email().required().notOneOf(["user@change.me"]),
+  DMSAPIToken: yup.string().required().min(20).max(60).notOneOf(["00000000000000000000"]),
+  OIDCAuthUrl: yup.string().url().required().notOneOf(["https://change.me"]),
+  OIDCRealm: yup.string().required().min(4).max(60).notOneOf(["ChangeMe"]),
+  OIDCClientId: yup.string().required().min(4).max(60).notOneOf(["ChangeMe"]),
+  OIDCSecretToken: yup.string().required().min(20).max(60).notOneOf(["00000000000000000000"]),
   OIDCRedirectUrlCallback: yup.string().required().matches(
       /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
-      {excludeEmptyString: true}).notOneOf(['https://change.me']),
+      {excludeEmptyString: true}).notOneOf(["https://change.me"]),
   OIDCRedirectUrlLogout: yup.string().required().matches(
       /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.?[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/,
-      {excludeEmptyString: true}).notOneOf(['https://change.me']),
+      {excludeEmptyString: true}).notOneOf(["https://change.me"]),
 });
 
 export default scheme;

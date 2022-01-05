@@ -3,32 +3,27 @@ process.env.NODE_ENV = "test";
 
 // Require the dev-dependencies
 import chai from "chai";
-import server from "../src/modules/app";
 import configuration from "../src/modules/configuration";
 import nock from "nock";
 import confluenceSite from "../src/modules/externalAPIs/confluenceSite";
 // import logger from "../src/modules/logger";
 const should = chai.should();
-const hostname = "localhost";
-const port = 5500;
-
-let app;
 
 // Our parent block
 /*
  * Test the /GET route
  */
 describe("Test handling of confluence sites", () => {
+  before((done) => {
+    if (should);
+    done();
+  });
+  describe("First we create a Site.", () => {
     before((done) => {
-        if (should);
-        done();
-    });
-    describe("First we create a Site.", () => {
-        before((done) => {
-            /* eslint-disable no-unused-vars */
-            const scope = nock(configuration.DMSUrl)
-                .post("/rest/api/content")
-                .reply(200, JSON.parse(`{
+      /* eslint-disable no-unused-vars */
+      const scope = nock(configuration.DMSUrl)
+          .post("/rest/api/content")
+          .reply(200, JSON.parse(`{
     "id": "153419777",
     "type": "page",
     "status": "current",
@@ -257,32 +252,32 @@ describe("Test handling of confluence sites", () => {
         "base": "https://dicvhi.atlassian.net/wiki"
     }
 }`));
-            done();
-        });
-        it(`we expecting a status-code 200 a response that says title is 'Platzhalter-Titel' and our link for the new page 
+      done();
+    });
+    it(`we expecting a status-code 200 a response that says title is 'Platzhalter-Titel' and our link for the new page 
     is ${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`, (done) => {
-            confluenceSite.createSite()
-                .then((result) => {
-                    try {
-                        result.statusCode.should.be.equal(200);
-                        result.data.apiPayload.title.should.be.equal("Platzhalter-Titel");
-                        result.data.apiPayload.link.should.be.equal(`${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`);
-                        done();
-                    } catch (err) {
-                        console.log(`err: ${err}`);
-                        done(err);
-                    }
-                })
-                .catch((err) => {
-                    done(err);
-                });
-        });
-        describe("Now, we read a site (a homepage, that's always there).", () => {
-            before((done) => {
-                /* eslint-disable no-unused-vars */
-                const scope = nock(configuration.DMSUrl)
-                    .get("/rest/api/content/152141923")
-                    .reply(200, JSON.parse(`{
+      confluenceSite.createSite()
+          .then((result) => {
+            try {
+              result.statusCode.should.be.equal(200);
+              result.data.apiPayload.title.should.be.equal("Platzhalter-Titel");
+              result.data.apiPayload.link.should.be.equal(`${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`);
+              done();
+            } catch (err) {
+              console.log(`err: ${err}`);
+              done(err);
+            }
+          })
+          .catch((err) => {
+            done(err);
+          });
+    });
+    describe("Now, we read a site (a homepage, that's always there).", () => {
+      before((done) => {
+        /* eslint-disable no-unused-vars */
+        const scope = nock(configuration.DMSUrl)
+            .get("/rest/api/content/152141923")
+            .reply(200, JSON.parse(`{
                         "id": "152141923",
                         "type": "page",
                         "status": "current",
@@ -412,27 +407,27 @@ describe("Test handling of confluence sites", () => {
                             "base": "https://dicvhi.atlassian.net/wiki"
                         }
                     }`));
-                done();
-            });
-            it(`we expecting a status-code 200 a response that says title is 'prototype Home' and our link for the new page 
+        done();
+      });
+      it(`we expecting a status-code 200 a response that says title is 'prototype Home' and our link for the new page 
         is ${configuration.DMSUrl}/spaces/PROT/overview`, (done) => {
-                confluenceSite.readSite({id: "152141923"})
-                    .then((result) => {
-                        try {
-                            result.statusCode.should.be.equal(200);
-                            result.data.apiPayload.title.should.be.equal("prototype Home");
-                            result.data.apiPayload._links.webui.should.be.equal(`/spaces/PROT/overview`);
-                            result.data.apiPayload._links.base.should.be.equal(configuration.DMSUrl);
-                            done();
-                        } catch (err) {
-                            console.log(`err: ${err}`);
-                            done(err);
-                        }
-                    })
-                    .catch((err) => {
-                        done(err);
-                    });
+        confluenceSite.readSite({id: "152141923"})
+            .then((result) => {
+              try {
+                result.statusCode.should.be.equal(200);
+                result.data.apiPayload.title.should.be.equal("prototype Home");
+                result.data.apiPayload._links.webui.should.be.equal("/spaces/PROT/overview");
+                result.data.apiPayload._links.base.should.be.equal(configuration.DMSUrl);
+                done();
+              } catch (err) {
+                console.log(`err: ${err}`);
+                done(err);
+              }
+            })
+            .catch((err) => {
+              done(err);
             });
-        });
+      });
     });
+  });
 });
