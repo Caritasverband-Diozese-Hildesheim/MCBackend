@@ -3,30 +3,34 @@ process.env.NODE_ENV = "test";
 
 // Require the dev-dependencies
 import chai from "chai";
-import server from "../src/modules/app";
 import configuration from "../src/modules/configuration";
 import configScheme from "../src/model/configuration";
 const should = chai.should();
-const hostname = "localhost";
-const port = 5000;
-
 // Our parent block
 /*
   * Test the /GET route
   */
 describe("Test Configuration with Environment Variables", () => {
   before((done) => {
-    server.listen(port, hostname);
-    if (should);
-    done();
-  });
-
-  it("configuration scheme should be valid, if everything is as expected.", (done) => {
     process.env.MC_SCHEME = "http://";
     process.env.MC_HOST = "127.0.0.1";
     process.env.MC_PORT = 8080;
     process.env.MC_OIDC_URL = "http://example.com";
     process.env.MC_DMS_URL = "http://example.com";
+    process.env.MC_DMS_EMAIL="user@example.com";
+    process.env.MC_DMS_TOKEN="randomValueToFitWith20Chars";
+    process.env.MC_OIDC_CLIENTID="a_name";
+    process.env.MC_OIDC_TOKEN="randomValueToFitWith20Chars";
+    process.env.MC_OIDC_URL="https://www.example.com";
+    process.env.MC_OIDC_REALM="a_name";
+    process.env.MC_EXT_URL="https://www.example.com";
+    process.env.MC_OIDC_RDIURL_CB="https://www.example.com/callback";
+    process.env.MC_OIDC_RDIURL_LO="https://www.example.com/logout/callback";
+    if (should);
+    done();
+  });
+
+  it("configuration scheme should be valid, if everything is as expected.", (done) => {
     configScheme.isValidSync(configuration.reset()).should.be.true;
     done();
   });

@@ -3,32 +3,27 @@ process.env.NODE_ENV = "test";
 
 // Require the dev-dependencies
 import chai from "chai";
-import server from "../src/modules/app";
 import configuration from "../src/modules/configuration";
 import nock from "nock";
 import confluenceSite from "../src/modules/externalAPIs/confluenceSite";
 // import logger from "../src/modules/logger";
 const should = chai.should();
-const hostname = "localhost";
-const port = 5500;
-
-let app;
 
 // Our parent block
 /*
  * Test the /GET route
  */
 describe("Test handling of confluence sites", () => {
+  before((done) => {
+    if (should);
+    done();
+  });
+  describe("First we create a Site.", () => {
     before((done) => {
-        if (should);
-        done();
-    });
-    describe("First we create a Site.", () => {
-        before((done) => {
-            /* eslint-disable no-unused-vars */
-            const scope = nock(configuration.DMSUrl)
-                .post("/rest/api/content")
-                .reply(200, JSON.parse(`{
+      /* eslint-disable no-unused-vars */
+      const scope = nock(configuration.DMSUrl)
+          .post("/rest/api/content")
+          .reply(200, JSON.parse(`{
     "id": "153419777",
     "type": "page",
     "status": "current",
@@ -54,7 +49,7 @@ describe("Test handling of confluence sites", () => {
         },
         "_links": {
             "webui": "/spaces/PROT",
-            "self": "https://dicvhi.atlassian.net/wiki/rest/api/space/PROT"
+            "self": "${configuration.DMSUrl}/rest/api/space/PROT"
         }
     },
     "history": {
@@ -79,7 +74,7 @@ describe("Test handling of confluence sites", () => {
                 "personalSpace": ""
             },
             "_links": {
-                "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                "self": "${configuration.DMSUrl}/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
             }
         },
         "createdDate": "2022-01-03T12:45:16.192Z",
@@ -90,7 +85,7 @@ describe("Test handling of confluence sites", () => {
             "nextVersion": ""
         },
         "_links": {
-            "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/153419777/history"
+            "self": "${configuration.DMSUrl}/rest/api/content/153419777/history"
         }
     },
     "version": {
@@ -114,7 +109,7 @@ describe("Test handling of confluence sites", () => {
                 "personalSpace": ""
             },
             "_links": {
-                "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                "self": "${configuration.DMSUrl}/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
             }
         },
         "when": "2022-01-03T12:45:16.192Z",
@@ -129,7 +124,7 @@ describe("Test handling of confluence sites", () => {
             "content": "/rest/api/content/153419777"
         },
         "_links": {
-            "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/153419777/version/1"
+            "self": "${configuration.DMSUrl}/rest/api/content/153419777/version/1"
         }
     },
     "ancestors": [
@@ -158,7 +153,7 @@ describe("Test handling of confluence sites", () => {
                 "ancestors": ""
             },
             "_links": {
-                "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923",
+                "self": "${configuration.DMSUrl}/rest/api/content/152141923",
                 "tinyui": "/x/Y4ARCQ",
                 "editui": "/pages/resumedraft.action?draftId=152141923",
                 "webui": "/spaces/PROT/overview"
@@ -192,7 +187,7 @@ describe("Test handling of confluence sites", () => {
                     "personalSpace": ""
                 },
                 "_links": {
-                    "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                    "self": "${configuration.DMSUrl}/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
                 }
             },
             "createdDate": "2021-12-15T17:20:50.560Z"
@@ -211,7 +206,7 @@ describe("Test handling of confluence sites", () => {
         },
         "_links": {
             "webui": "/spaces/PROT",
-            "self": "https://dicvhi.atlassian.net/wiki/rest/api/space/PROT"
+            "self": "${configuration.DMSUrl}/rest/api/space/PROT"
         }
     },
     "macroRenderedOutput": {},
@@ -251,38 +246,38 @@ describe("Test handling of confluence sites", () => {
         "editui": "/pages/resumedraft.action?draftId=153419777",
         "webui": "/spaces/PROT/pages/153419777/Platzhalter-Titel",
         "context": "/wiki",
-        "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/153419777",
+        "self": "${configuration.DMSUrl}/rest/api/content/153419777",
         "tinyui": "/x/AQAlCQ",
         "collection": "/rest/api/content",
-        "base": "https://dicvhi.atlassian.net/wiki"
+        "base": "${configuration.DMSUrl}"
     }
 }`));
-            done();
-        });
-        it(`we expecting a status-code 200 a response that says title is 'Platzhalter-Titel' and our link for the new page 
+      done();
+    });
+    it(`we expecting a status-code 200 a response that says title is 'Platzhalter-Titel' and our link for the new page 
     is ${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`, (done) => {
-            confluenceSite.createSite()
-                .then((result) => {
-                    try {
-                        result.statusCode.should.be.equal(200);
-                        result.data.apiPayload.title.should.be.equal("Platzhalter-Titel");
-                        result.data.apiPayload.link.should.be.equal(`${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`);
-                        done();
-                    } catch (err) {
-                        console.log(`err: ${err}`);
-                        done(err);
-                    }
-                })
-                .catch((err) => {
-                    done(err);
-                });
-        });
-        describe("Now, we read a site (a homepage, that's always there).", () => {
-            before((done) => {
-                /* eslint-disable no-unused-vars */
-                const scope = nock(configuration.DMSUrl)
-                    .get("/rest/api/content/152141923")
-                    .reply(200, JSON.parse(`{
+      confluenceSite.createSite()
+          .then((result) => {
+            try {
+              result.statusCode.should.be.equal(200);
+              result.data.apiPayload.title.should.be.equal("Platzhalter-Titel");
+              result.data.apiPayload.link.should.be.equal(`${configuration.DMSUrl}/spaces/PROT/pages/153419777/Platzhalter-Titel`);
+              done();
+            } catch (err) {
+              console.log(`err: ${err}`);
+              done(err);
+            }
+          })
+          .catch((err) => {
+            done(err);
+          });
+    });
+    describe("Now, we read a site (a homepage, that's always there).", () => {
+      before((done) => {
+        /* eslint-disable no-unused-vars */
+        const scope = nock(configuration.DMSUrl)
+            .get("/rest/api/content/152141923")
+            .reply(200, JSON.parse(`{
                         "id": "152141923",
                         "type": "page",
                         "status": "current",
@@ -308,7 +303,7 @@ describe("Test handling of confluence sites", () => {
                             },
                             "_links": {
                                 "webui": "/spaces/PROT",
-                                "self": "https://dicvhi.atlassian.net/wiki/rest/api/space/PROT"
+                                "self": "${configuration.DMSUrl}/rest/api/space/PROT"
                             }
                         },
                         "history": {
@@ -333,7 +328,7 @@ describe("Test handling of confluence sites", () => {
                                     "personalSpace": ""
                                 },
                                 "_links": {
-                                    "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                                    "self": "${configuration.DMSUrl}/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
                                 }
                             },
                             "createdDate": "2021-12-15T17:20:50.773Z",
@@ -344,7 +339,7 @@ describe("Test handling of confluence sites", () => {
                                 "nextVersion": ""
                             },
                             "_links": {
-                                "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923/history"
+                                "self": "${configuration.DMSUrl}/rest/api/content/152141923/history"
                             }
                         },
                         "version": {
@@ -368,7 +363,7 @@ describe("Test handling of confluence sites", () => {
                                     "personalSpace": ""
                                 },
                                 "_links": {
-                                    "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                                    "self": "${configuration.DMSUrl}/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
                                 }
                             },
                             "when": "2021-12-15T17:20:50.773Z",
@@ -383,7 +378,7 @@ describe("Test handling of confluence sites", () => {
                                 "content": "/rest/api/content/152141923"
                             },
                             "_links": {
-                                "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923/version/1"
+                                "self": "${configuration.DMSUrl}/rest/api/content/152141923/version/1"
                             }
                         },
                         "macroRenderedOutput": {},
@@ -406,33 +401,33 @@ describe("Test handling of confluence sites", () => {
                             "editui": "/pages/resumedraft.action?draftId=152141923",
                             "webui": "/spaces/PROT/overview",
                             "context": "/wiki",
-                            "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923",
+                            "self": "${configuration.DMSUrl}/rest/api/content/152141923",
                             "tinyui": "/x/Y4ARCQ",
                             "collection": "/rest/api/content",
-                            "base": "https://dicvhi.atlassian.net/wiki"
+                            "base": "${configuration.DMSUrl}"
                         }
                     }`));
-                done();
-            });
-            it(`we expecting a status-code 200 a response that says title is 'prototype Home' and our link for the new page 
+        done();
+      });
+      it(`we expecting a status-code 200 a response that says title is 'prototype Home' and our link for the new page 
         is ${configuration.DMSUrl}/spaces/PROT/overview`, (done) => {
-                confluenceSite.readSite({id: "152141923"})
-                    .then((result) => {
-                        try {
-                            result.statusCode.should.be.equal(200);
-                            result.data.apiPayload.title.should.be.equal("prototype Home");
-                            result.data.apiPayload._links.webui.should.be.equal(`/spaces/PROT/overview`);
-                            result.data.apiPayload._links.base.should.be.equal(configuration.DMSUrl);
-                            done();
-                        } catch (err) {
-                            console.log(`err: ${err}`);
-                            done(err);
-                        }
-                    })
-                    .catch((err) => {
-                        done(err);
-                    });
+        confluenceSite.readSite({id: "152141923"})
+            .then((result) => {
+              try {
+                result.statusCode.should.be.equal(200);
+                result.data.apiPayload.title.should.be.equal("prototype Home");
+                result.data.apiPayload._links.webui.should.be.equal("/spaces/PROT/overview");
+                result.data.apiPayload._links.base.should.be.equal(configuration.DMSUrl);
+                done();
+              } catch (err) {
+                console.log(`err: ${err}`);
+                done(err);
+              }
+            })
+            .catch((err) => {
+              done(err);
             });
-        });
+      });
     });
+  });
 });
