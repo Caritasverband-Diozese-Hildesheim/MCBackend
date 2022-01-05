@@ -21,4 +21,18 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm ci
-      - run: npm run full-test
+      - name: run tests
+        run: npm run full-test
+        env:
+          NODE_ENV: test
+					MC_DMS_URL: https://www.example.com
+					MC_DMS_EMAIL: user@example.com
+					MC_DMS_TOKEN: randomValue
+					MC_OIDC_CLIENTID: a_name
+					MC_OIDC_TOKEN: randomValue
+					MC_OIDC_URL: https://www.example.com
+					MC_OIDC_REALM: a_name
+					MC_EXT_URL: https://www.example.com
+					MC_OIDC_RDIURL_CB: https://www.example.com/callback
+					"MC_OIDC_RDIURL_LO": "http://localhost:5000/logout/callback"
+        
