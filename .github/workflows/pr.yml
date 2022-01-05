@@ -25,7 +25,7 @@ jobs:
         run: npm run full-test
         env:
           NODE_ENV: test
-          MC_DMS_URL: https://www.example.com
+          MC_DMS_URL: https://www.example.com/wiki
           MC_DMS_EMAIL: user@example.com
           MC_DMS_TOKEN: randomValue
           MC_OIDC_CLIENTID: a_name
@@ -34,4 +34,4 @@ jobs:
           MC_OIDC_REALM: a_name
           MC_EXT_URL: https://www.example.com
           MC_OIDC_RDIURL_CB: https://www.example.com/callback
-          "MC_OIDC_RDIURL_LO": "http://localhost:5000/logout/callback"
+          "MC_OIDC_RDIURL_LO": "https://www.example.com/logout/callback"
