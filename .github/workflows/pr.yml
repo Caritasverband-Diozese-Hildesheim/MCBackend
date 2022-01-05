@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: run tests
-      - run: npm run full-test
+        run: npm run full-test
         env:
           NODE_ENV: test
           MC_SCHEME: http://
