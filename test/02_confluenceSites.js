@@ -49,7 +49,7 @@ describe("Test handling of confluence sites", () => {
         },
         "_links": {
             "webui": "/spaces/PROT",
-            "self": "https://dicvhi.atlassian.net/wiki/rest/api/space/PROT"
+            "self": "${configuration.DMSUrl}/rest/api/space/PROT"
         }
     },
     "history": {
@@ -74,7 +74,7 @@ describe("Test handling of confluence sites", () => {
                 "personalSpace": ""
             },
             "_links": {
-                "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                "self": "${configuration.DMSUrl}/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
             }
         },
         "createdDate": "2022-01-03T12:45:16.192Z",
@@ -85,7 +85,7 @@ describe("Test handling of confluence sites", () => {
             "nextVersion": ""
         },
         "_links": {
-            "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/153419777/history"
+            "self": "${configuration.DMSUrl}/wiki/rest/api/content/153419777/history"
         }
     },
     "version": {
@@ -109,7 +109,7 @@ describe("Test handling of confluence sites", () => {
                 "personalSpace": ""
             },
             "_links": {
-                "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                "self": "${configuration.DMSUrl}/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
             }
         },
         "when": "2022-01-03T12:45:16.192Z",
@@ -124,7 +124,7 @@ describe("Test handling of confluence sites", () => {
             "content": "/rest/api/content/153419777"
         },
         "_links": {
-            "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/153419777/version/1"
+            "self": "${configuration.DMSUrl}/wiki/rest/api/content/153419777/version/1"
         }
     },
     "ancestors": [
@@ -153,7 +153,7 @@ describe("Test handling of confluence sites", () => {
                 "ancestors": ""
             },
             "_links": {
-                "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923",
+                "self": "${configuration.DMSUrl}/wiki/rest/api/content/152141923",
                 "tinyui": "/x/Y4ARCQ",
                 "editui": "/pages/resumedraft.action?draftId=152141923",
                 "webui": "/spaces/PROT/overview"
@@ -187,7 +187,7 @@ describe("Test handling of confluence sites", () => {
                     "personalSpace": ""
                 },
                 "_links": {
-                    "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                    "self": "${configuration.DMSUrl}/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
                 }
             },
             "createdDate": "2021-12-15T17:20:50.560Z"
@@ -206,7 +206,7 @@ describe("Test handling of confluence sites", () => {
         },
         "_links": {
             "webui": "/spaces/PROT",
-            "self": "https://dicvhi.atlassian.net/wiki/rest/api/space/PROT"
+            "self": "${configuration.DMSUrl}/wiki/rest/api/space/PROT"
         }
     },
     "macroRenderedOutput": {},
@@ -246,10 +246,10 @@ describe("Test handling of confluence sites", () => {
         "editui": "/pages/resumedraft.action?draftId=153419777",
         "webui": "/spaces/PROT/pages/153419777/Platzhalter-Titel",
         "context": "/wiki",
-        "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/153419777",
+        "self": "${configuration.DMSUrl}/wiki/rest/api/content/153419777",
         "tinyui": "/x/AQAlCQ",
         "collection": "/rest/api/content",
-        "base": "https://dicvhi.atlassian.net/wiki"
+        "base": "${configuration.DMSUrl}/wiki"
     }
 }`));
       done();
@@ -303,7 +303,7 @@ describe("Test handling of confluence sites", () => {
                             },
                             "_links": {
                                 "webui": "/spaces/PROT",
-                                "self": "https://dicvhi.atlassian.net/wiki/rest/api/space/PROT"
+                                "self": "${configuration.DMSUrl}/wiki/rest/api/space/PROT"
                             }
                         },
                         "history": {
@@ -328,7 +328,7 @@ describe("Test handling of confluence sites", () => {
                                     "personalSpace": ""
                                 },
                                 "_links": {
-                                    "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                                    "self": "${configuration.DMSUrl}/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
                                 }
                             },
                             "createdDate": "2021-12-15T17:20:50.773Z",
@@ -339,7 +339,7 @@ describe("Test handling of confluence sites", () => {
                                 "nextVersion": ""
                             },
                             "_links": {
-                                "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923/history"
+                                "self": "${configuration.DMSUrl}/wiki/rest/api/content/152141923/history"
                             }
                         },
                         "version": {
@@ -363,7 +363,7 @@ describe("Test handling of confluence sites", () => {
                                     "personalSpace": ""
                                 },
                                 "_links": {
-                                    "self": "https://dicvhi.atlassian.net/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
+                                    "self": "${configuration.DMSUrl}/wiki/rest/api/user?accountId=5d4013387c8ce90da7ce18b9"
                                 }
                             },
                             "when": "2021-12-15T17:20:50.773Z",
@@ -378,7 +378,7 @@ describe("Test handling of confluence sites", () => {
                                 "content": "/rest/api/content/152141923"
                             },
                             "_links": {
-                                "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923/version/1"
+                                "self": "${configuration.DMSUrl}/wiki/rest/api/content/152141923/version/1"
                             }
                         },
                         "macroRenderedOutput": {},
@@ -401,10 +401,10 @@ describe("Test handling of confluence sites", () => {
                             "editui": "/pages/resumedraft.action?draftId=152141923",
                             "webui": "/spaces/PROT/overview",
                             "context": "/wiki",
-                            "self": "https://dicvhi.atlassian.net/wiki/rest/api/content/152141923",
+                            "self": "${configuration.DMSUrl}/wiki/rest/api/content/152141923",
                             "tinyui": "/x/Y4ARCQ",
                             "collection": "/rest/api/content",
-                            "base": "https://dicvhi.atlassian.net/wiki"
+                            "base": "${configuration.DMSUrl}/wiki"
                         }
                     }`));
         done();
