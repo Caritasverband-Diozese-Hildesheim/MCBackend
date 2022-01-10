@@ -99,6 +99,19 @@ export default (app) => {
         });
 
         app.use("/VSP", keycloak.enforcer(["res_vsp:sc_view"]), VPERoutes);
+
+        app.get("/flex", keycloak.enforcer(["res_vsp:sc_view"]), (req, res, next) => {
+          confluenceSite.readSite({id: "152403969"})
+              .then((result) =>{
+                res.render("apiView", {data: result.data.userNotification, title: "apiView - Test"});
+              });
+        });
+        app.get("/flex/plain", keycloak.enforcer(["res_vsp:sc_view"]), (req, res, next) => {
+          confluenceSite.readSite({id: "152403969"})
+              .then((result) =>{
+                res.status(result.statusCode).send(result.data.apiPayload);
+              });
+        });
       });
 };
 

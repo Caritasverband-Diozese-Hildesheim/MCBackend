@@ -56,17 +56,5 @@ export default (app) => {
         });
   });
 */
-  app.get("/flex", (req, res, next) => {
-    confluenceSite.readSite({id: "152403969"})
-        .then((result) =>{
-          res.render("apiView", {data: result.data.userNotification, title: "apiView - Test"});
-        });
-  });
-  app.get("/flex/plain", (req, res, next) => {
-    confluenceSite.readSite({id: "152403969"})
-        .then((result) =>{
-          res.status(result.statusCode).send(result.data.apiPayload);
-        });
-  });
   setupAppforAuthentication(app);
 };
