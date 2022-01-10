@@ -5,6 +5,7 @@ import passport from "passport";
 import {Issuer, Strategy} from "openid-client";
 import configuration from "./configuration";
 import VPERoutes from "../routes/VSPRoutes";
+import confluenceSite from "./externalAPIs/confluenceSite";
 
 /** <p>Module that reads configuration from environment or sets default values.</p>
 * <p>If the scheme validation failes the program ends.</p>
@@ -99,6 +100,19 @@ export default (app) => {
         });
 
         app.use("/VSP", keycloak.enforcer(["res_vsp:sc_view"]), VPERoutes);
+
+        app.get("/flex", keycloak.enforcer(["res_vsp:sc_view"]), (req, res, next) => {
+          confluenceSite.readSite({id: "152403969"})
+              .then((result) =>{
+                res.render("apiView", {data: result.data.userNotification, title: "apiView - Test"});
+              });
+        });
+        app.get("/flex/plain", keycloak.enforcer(["res_vsp:sc_view"]), (req, res, next) => {
+          confluenceSite.readSite({id: "152403969"})
+              .then((result) =>{
+                res.status(result.statusCode).send(result.data.apiPayload);
+              });
+        });
       });
 };
 
