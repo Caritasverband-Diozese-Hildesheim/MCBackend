@@ -4,7 +4,6 @@ import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../swagger_output.json";
 import logger from "./logger";
 import setupAppforAuthentication from "./privateRoutes";
-import confluenceSite from "./externalAPIs/confluenceSite";
 
 
 export default (app) => {
