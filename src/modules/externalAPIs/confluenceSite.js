@@ -105,7 +105,7 @@ const updateSiteFunction = ({titleName = "Platzhalter-Titel", id = "", content =
     },
   };
   return new Promise((resolve, reject) => {
-    readSiteFunction({id: "153747457"})
+    readSiteFunction({id: id})
         .then((result) => {
           if (result.statusCode == 200) {
             postData = {
@@ -143,7 +143,7 @@ const updateSiteFunction = ({titleName = "Platzhalter-Titel", id = "", content =
 * @param {String} id the number that specifies the to be read site
 * @return {Promise} always returns a solved Promise.
 */
-const readSiteFunction = ({id = "152141923"} = {}) => {
+const readSiteFunction = ({id = ""} = {}) => {
   return new Promise((resolve, reject) => {
     callApiFunction({apiMethod: "get", apiEndpoint: `/rest/api/content/${id}`})
         .then((result) => {
@@ -169,7 +169,7 @@ const readSiteFunction = ({id = "152141923"} = {}) => {
 * @param {String} id the number that specifies the to be deleted site
 * @return {Promise} always returns a solved Promise.
 */
-const deleteSiteFunction = ({id = "152141923"} = {}) => {
+const deleteSiteFunction = ({id = ""} = {}) => {
   return new Promise((resolve, reject) => {
     callApiFunction({apiMethod: "delete", apiEndpoint: `/rest/api/content/${id}`})
         .then((result) => {
