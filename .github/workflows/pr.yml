@@ -1,0 +1,40 @@
+name: PR Test
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm ci
+      - name: run tests
+        run: npm run full-test
+        env:
+          NODE_ENV: test
+          MC_SCHEME: http://
+          MC_HOST: 127.0.0.1;
+          MC_PORT: 8080
+          MC_DMS_URL: https://www.example.com/wiki
+          MC_DMS_EMAIL: user@example.com
+          MC_DMS_TOKEN: randomValueToFitWith20Chars
+          MC_OIDC_CLIENTID: a_name
+          MC_OIDC_TOKEN: randomValueToFitWith20Chars
+          MC_OIDC_URL: https://www.example.com
+          MC_OIDC_REALM: a_name
+          MC_EXT_URL: https://www.example.com
+          MC_OIDC_RDIURL_CB: https://www.example.com/callback
+          MC_OIDC_RDIURL_LO: https://www.example.com/logout/callback
