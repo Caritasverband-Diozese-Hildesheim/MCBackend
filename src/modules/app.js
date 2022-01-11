@@ -2,6 +2,7 @@ import express from "express";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import setRoutes from "./routes";
+import setupPromclient from "./middleware/promClient";
 
 /** <p>Module that prepares the application</p>
 * <p>Tells the Server what middleware we use and we set our routes </p>
@@ -26,6 +27,7 @@ app.use(cookieParser());
 
 // Method-Override
 app.use(methodOverride("_method"));
+app.use(setupPromclient.thisOneCounts);
 
 setRoutes(app);
 export default app;
