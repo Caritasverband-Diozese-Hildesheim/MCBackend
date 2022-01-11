@@ -4,7 +4,22 @@ import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../swagger_output.json";
 import logger from "./logger";
 import setupAppforAuthentication from "./privateRoutes";
+import promClient from "prom-client";
 
+promClient.collectDefaultMetrics({
+  timeout: 10000,
+  gcDurationBuckets: [0.001, 0.01, 0.1, 1, 2, 5], // These are the default buckets.
+});
+
+promClient.register.setDefaultLabels({
+  app: "mein-caritas-backend",
+});
+
+const httpRequests = new promClient.Counter({
+  name: "http_requests_get",
+  help: "Number of HTTP GET requests",
+  labelNames: ["GET_requests"],
+});
 
 export default (app) => {
   app.use("/api-docs", (req, res, next) => {
@@ -17,11 +32,13 @@ export default (app) => {
 
   app.use(express.static(path.join(__dirname, "../../public")));
   app.get("/", (req, res) => {
+    httpRequests.inc();
     res.render("index", {title: "Mein Caritas Backend Prototype"});
   });
 
   // error route
   app.use((err, req, res, next) =>{
+    httpRequests.inc();
     logger.error(err.stack);
     res.status(500).send(err);
   });
@@ -30,30 +47,21 @@ export default (app) => {
     // #swagger.ignore = true
     next(error);
   });
-  // 404 route
-  /*  app.get("*", (req, res)=> {
-    // #swagger.ignore = true
-    res.status(404).send("We couldn't find this page");
-  });*/
-  /*  app.get("/createSite", (req, res, next) => {
-    confluenceSite.createSite()
-        .then((result) =>{
-          res.status(200).send(result.data.userNotification);
+
+  app.get("/metrics", (req, res) => {
+    httpRequests.inc();
+    promClient.register.metrics()
+        .then((str) =>{
+          res.status(200).send(str);
         });
   });
 
-  app.get("/updateSite/:id", (req, res, next) => {
-    confluenceSite.updateSite({id: req.params.id})
-        .then((result) =>{
-          res.status(200).send(result.data.userNotification);
-        });
+  // 404 route
+  app.get("*", async (req, res, next)=> {
+    httpRequests.inc();
+    // #swagger.ignore = true
+    res.status(404).send("We couldn't find this page");
   });
-  app.get("/deleteSite/:id", (req, res, next) => {
-    confluenceSite.deleteSite({id: req.params.id})
-        .then((result) =>{
-          res.status(200).send(result.data.userNotification);
-        });
-  });
-*/
+
   setupAppforAuthentication(app);
 };
