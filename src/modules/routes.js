@@ -7,19 +7,19 @@ import setupAppforAuthentication from "./privateRoutes";
 import promClient from "prom-client";
 
 promClient.collectDefaultMetrics({
-    timeout: 10000,
-    gcDurationBuckets: [0.001, 0.01, 0.1, 1, 2, 5], // These are the default buckets.
+  timeout: 10000,
+  gcDurationBuckets: [0.001, 0.01, 0.1, 1, 2, 5], // These are the default buckets.
 });
 
 promClient.register.setDefaultLabels({
-  app: 'mein-caritas-backend'
-})
+  app: "mein-caritas-backend",
+});
 
 const httpRequests = new promClient.Counter({
-  name: 'http_requests_get',
-  help: 'Number of HTTP GET requests',
-  labelNames: ['GET_requests'],
-})
+  name: "http_requests_get",
+  help: "Number of HTTP GET requests",
+  labelNames: ["GET_requests"],
+});
 
 export default (app) => {
   app.use("/api-docs", (req, res, next) => {
@@ -51,17 +51,17 @@ export default (app) => {
   app.get("/metrics", (req, res) => {
     httpRequests.inc();
     promClient.register.metrics()
-    .then ((str) =>{
-      res.status(200).send(str);
-    })
-  })
+        .then((str) =>{
+          res.status(200).send(str);
+        });
+  });
 
   // 404 route
-   app.get("*", async (req, res, next)=> {
+  app.get("*", async (req, res, next)=> {
     httpRequests.inc();
     // #swagger.ignore = true
     res.status(404).send("We couldn't find this page");
-  })
+  });
 
   setupAppforAuthentication(app);
 };
