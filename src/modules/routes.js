@@ -49,7 +49,6 @@ export default (app) => {
   });
 
   app.get("/metrics", (req, res) => {
-    httpRequests.inc();
     promClient.register.metrics()
         .then((str) =>{
           res.status(200).send(str);
