@@ -2,12 +2,14 @@ import express from "express";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../swagger_output.json";
-import logger from "./logger";
 import setupAppforAuthentication from "./privateRoutes";
 import setupPromclient from "./middleware/promClient";
 
 
 export default (app) => {
+  setupAppforAuthentication(app);
+
+
   app.use("/api-docs", (req, res, next) => {
     // #swagger.ignore = true
     next();
@@ -22,10 +24,6 @@ export default (app) => {
   });
 
   // error route
-  app.use((err, req, res, next) =>{
-    logger.error(err.stack);
-    res.status(500).send(err);
-  });
 
   app.get("/error", (req, res, next) => {
     // #swagger.ignore = true
@@ -34,10 +32,9 @@ export default (app) => {
 
   app.get("/metrics", setupPromclient.register);
   // 404 route
+
   app.get("*", (req, res, next)=> {
     // #swagger.ignore = true
     res.status(404).send("We couldn't find this page");
   });
-
-  setupAppforAuthentication(app);
 };
