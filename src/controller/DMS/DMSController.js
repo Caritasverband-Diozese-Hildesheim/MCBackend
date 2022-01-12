@@ -49,11 +49,11 @@ export default {
             "openId": []
         }] */
 
-       /* #swagger.requestBody = {
+    /* #swagger.requestBody = {
               required: true,
               content: {
                   "multipart/form-data": {
-                      schema: {  
+                      schema: {
                           type: "object",
                           properties: {
                            fileName: {
