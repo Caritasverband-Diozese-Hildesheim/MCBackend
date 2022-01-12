@@ -25,7 +25,7 @@ jobs:
         run: npm run full-test
         env:
           NODE_ENV: test
-          MC_SCHEME: http://
+          MC_SCHEME: http
           MC_HOST: 127.0.0.1;
           MC_PORT: 8080
           MC_DMS_URL: https://www.example.com/wiki
