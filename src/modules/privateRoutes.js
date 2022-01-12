@@ -106,6 +106,10 @@ const setupPrivateRoutes = (app, client) => {
     /* #swagger.security = [{
             "openId": []
         }] */
+
+    /* #swagger.responses[200] = {
+            description: 'read sites as json.'
+    } */
     confluenceSite.readSite({id: "152403969"})
         .then((result) => {
           res.status(result.statusCode).send(result.data.apiPayload);

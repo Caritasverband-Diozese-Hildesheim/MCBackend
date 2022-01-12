@@ -49,6 +49,24 @@ export default {
             "openId": []
         }] */
 
+       /* #swagger.requestBody = {
+              required: true,
+              content: {
+                  "multipart/form-data": {
+                      schema: {  
+                          type: "object",
+                          properties: {
+                           fileName: {
+                             type: "string",
+                             format: "binary"
+                           }
+                          }
+                    },
+                  }
+              }
+          }
+        */
+
 
     const schema = yup.number().required().positive().integer();
     schema.validate(req.kauth.grant.access_token.content.DMSSite)
