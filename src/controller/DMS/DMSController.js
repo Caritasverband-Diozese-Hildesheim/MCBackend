@@ -14,7 +14,6 @@ import logger from "../../modules/logger";
 
 export default {
   getAllAtachment: (req, res, next) => {
-  
     /* #swagger.security = [{
             "openId": []
         }] */
@@ -30,7 +29,7 @@ export default {
                   DMsAttachmentsScheme.validate({results: data.results, start: data.start, limit: data.limit, size: data.size})
                       .then((valid) => {
                         if (valid) {
-                           // #swagger.responses[200] = { description: 'User registered successfully.' }
+                          // #swagger.responses[200] = { description: 'User registered successfully.' }
                           res.status(200).send(JSON.stringify({results: data.results, start: data.start, limit: data.limit, size: data.size}));
                         }
                       })
@@ -41,7 +40,7 @@ export default {
               });
         })
         .catch((err) => {
-           // #swagger.responses[201] = { description: 'User registered successfully.' }
+          // #swagger.responses[201] = { description: 'User registered successfully.' }
           res.status(501).send(err.errors);
         });
   },
