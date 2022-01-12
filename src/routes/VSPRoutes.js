@@ -11,7 +11,6 @@ const router = express.Router();
 * @module routes/VPERoutes
 */
 
-router.get("/prototype/MyDocuments", DMSController.getAllAtachment);
+router.get("/prototype/MyDocuments",  DMSController.getAllAtachment);
 router.post("/prototype/MyDocuments", upload.single("file" ), DMSController.postNewAttachment);
-
 export default router;

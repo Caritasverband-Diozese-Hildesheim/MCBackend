@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modules/configuration.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modules/configuration.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** &lt;p>Module that reads configuration from environment or sets default values.&lt;/p>
+* &lt;p>If the scheme validation failes the program ends.&lt;/p>
+* &lt;p>&lt;strong>"Type" column explained: &lt;/p>&lt;p> data-type | default Value | name of the environment variable&lt;/strong>&lt;/p>
+* @module modules/configuration
+*/
+
+/**
+* @typedef {!Object} mcConfiguration
+* @property {string=|"0.0.0.0"|MC_HOST} host IP-Address to start the server on
+* @property {number=|5000|MC_PORT} port Port to start the server on
+* @property {!string|"https://change.me"|MC_EXT_URL} externalUrl If the external URL differs the baseUrl, we need to define it.&lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"https://change.me"|MC_DMS_URL} DMSUrl URL for DMS we want to work with. &lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"user@change.me"|MC_DMS_EMAIL} DMSUserEmail Login Email for the DMS &lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"00000000000000000000"|MC_DMS_TOKEN} DMSAPIToken API Token for the DMS
+* @property {!string|"https://change.me"|MC_OIDC_URL} OIDCAuthUrl URL for DMS we want to work with. &lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"ChangeMe"|MC_OIDC_REALM} OIDCRealm Server Realm-Name of the OID Server. &lt;strong>MUST be set with environment variable&lt;/strong>
+* @property {!string|"ChangeMe"|MC_OIDC_CLIENTID} OIDCCientId Client ID to identify with on the OIDC Server.&lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"00000000000000000000"|MC_OIDC_TOKEN} OIDCSecretToken Secret Token to identify with on the OIDC Server.&lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"https://change.me"|MC_OIDC_RDIURL_CB} OIDCRedirectUrlCallback URL for DMS we want to work with. &lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {!string|"https://change.me"|MC_OIDC_RDIURL_LO} OIDCRedirectUrlLogout URL for DMS we want to work with. &lt;strong> MUST be set with environment variable &lt;/strong>
+* @property {function} reset re-reads the environment variables and gives a new object.
+*/
+
+/**
+* @function setConfiguration
+* @description function to reset the Environment Variables into the object. Important for tests.
+* @return {object} Configuration object
+*/
+const setConfiguration = () => {
+  const _scheme = process.env.MC_SCHEME || "http://";
+  const _host = process.env.MC_HOST || "0.0.0.0";
+  const _port = process.env.MC_PORT || 5000;
+
+  return {
+    scheme: _scheme,
+    host: _host,
+    port: _port,
+    externalUrl: process.env.MC_EXT_URL || `${_scheme}${_host}:${_port}`,
+    baseUrl: `${_scheme}${_host}:${_port}`,
+    DMSUrl: process.env.MC_DMS_URL || "https://change.me",
+    DMSUserEmail: process.env.MC_DMS_EMAIL || "user@change.me",
+    DMSAPIToken: process.env.MC_DMS_TOKEN || "00000000000000000000",
+    OIDCAuthUrl: process.env.MC_OIDC_URL || "https://change.me",
+    OIDCRealm: process.env.MC_OIDC_REALM || "ChangeMe",
+    OIDCClientId: process.env.MC_OIDC_CLIENTID || "ChangeMe",
+    OIDCSecretToken: process.env.MC_OIDC_TOKEN || "00000000000000000000",
+    OIDCRedirectUrlCallback: process.env.MC_OIDC_RDIURL_CB || "https://change.me",
+    OIDCRedirectUrlLogout: process.env.MC_OIDC_RDIURL_LO || "https://change.me",
+  };
+};
+
+export default {...setConfiguration(), reset: setConfiguration};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controller_DMS_DMSController.html">controller/DMS/DMSController</a></li><li><a href="module-datamodel_configuration.html">datamodel/configuration</a></li><li><a href="module-datamodel_confluenceSite.html">datamodel/confluenceSite</a></li><li><a href="module-datamodel_DMSAttachments.html">datamodel/DMSAttachments</a></li><li><a href="module-modules_app.html">modules/app</a></li><li><a href="module-modules_auth.html">modules/auth</a></li><li><a href="module-modules_configuration.html">modules/configuration</a></li><li><a href="module-modules_cors.html">modules/cors</a></li><li><a href="module-modules_externalAPIs_confluenceSite.html">modules/externalAPIs/confluenceSite</a></li><li><a href="module-modules_externalAPIs_gnericAPIUse.html">modules/externalAPIs/gnericAPIUse</a></li><li><a href="module-routes_VPERoutes.html">routes/VPERoutes</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 08:30:09 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

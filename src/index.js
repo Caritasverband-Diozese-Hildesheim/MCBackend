@@ -12,6 +12,8 @@ if (!configScheme.isValidSync(configuration)) {
     process.exit(1);
   });
 }
+
+
 app.listen(configuration.port, configuration.host, () => {
   logger.info(`App starting on ${configuration.host}:${configuration.port}`);
 });

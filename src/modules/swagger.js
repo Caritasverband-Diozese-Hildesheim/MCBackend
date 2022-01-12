@@ -1,4 +1,5 @@
 import swaggerAutogen from "swagger-autogen";
+import configuration from "./configuration";
 
 const outputFile = "./swagger_output.json";
 const endpointsFiles = ["src/modules/routes.js", "src/modules/privateRoutes.js"];
@@ -9,9 +10,9 @@ const doc = {
     title: "\"Mein Caritas\" - Backend API",
     description: "This is the middleware for Mein Caritas.",
   },
-  host: "mcbackend.caritas-dicvhildesheim.de",
+  host: `${configuration.host}:${configuration.port}`,
   basePath: "/",
-  schemes: ["https"],
+  schemes: [configuration.scheme],
   consumes: ["application/json"],
   produces: ["application/json"],
   tags: [
@@ -24,7 +25,7 @@ const doc = {
   securityDefinitions: {
     openId: {
       type: "openIdConnect",
-      openIdConnectUrl: "https://meincaritaskc.azurewebsites.net/auth/realms/prototype/.well-known/openid-configuration",
+      openIdConnectUrl: `${configuration.OIDCAuthUrl}/auth/realms/${configuration.OIDCRealm}/.well-known/openid-configuration`,
     },
   },
 

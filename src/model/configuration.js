@@ -24,7 +24,7 @@ import * as yup from "yup";
 * @property {!string|"has to be an URL"} OIDCRedirectUrlLogout URL to be redirected after logout <strong> MUST be set with environment variable </strong>
 */
 const scheme = yup.object().shape({
-  scheme: yup.string().required().matches(/(https?:\/\/)/, {excludeEmptyString: true}),
+  scheme: yup.string().required().matches(/(https?)/, {excludeEmptyString: true}),
   host: yup.string().required().matches(
       /((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost)/,
       {excludeEmptyString: true}),
