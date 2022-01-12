@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://mcbackend.caritas-dicvhildesheim.de/"
+      "url": "http://localhost:5000/"
     }
   ],
   "tags": [
@@ -17,22 +17,28 @@
     }
   ],
   "paths": {
-    "/test": {
+    "/flex/plain": {
       "get": {
-        "tags": [],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {},
+        "security": [
+          {
+            "openId": []
+          }
+        ]
       }
     },
     "/VSP/prototype/MyDocuments": {
       "get": {
-        "tags": [],
         "description": "",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User registered successfully."
+          },
+          "201": {
+            "description": "User registered successfully."
           },
           "501": {
             "description": "Not Implemented"
@@ -45,7 +51,6 @@
         ]
       },
       "post": {
-        "tags": [],
         "description": "",
         "parameters": [],
         "responses": {
@@ -150,7 +155,7 @@
     "securitySchemes": {
       "openId": {
         "type": "openIdConnect",
-        "openIdConnectUrl": "https://meincaritaskc.azurewebsites.net/auth/realms/prototype/.well-known/openid-configuration"
+        "openIdConnectUrl": "https://keycloak.caritas-dicvhildesheim.de/auth/auth/realms/prototype/.well-known/openid-configuration"
       }
     }
   }

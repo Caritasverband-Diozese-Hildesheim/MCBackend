@@ -12,7 +12,7 @@ const should = chai.should();
   */
 describe("Test Configuration with Environment Variables", () => {
   before((done) => {
-    process.env.MC_SCHEME = "http://";
+    process.env.MC_SCHEME = "http";
     process.env.MC_HOST = "127.0.0.1";
     process.env.MC_PORT = 8080;
     process.env.MC_OIDC_URL = "http://example.com";

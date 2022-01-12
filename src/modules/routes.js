@@ -7,9 +7,6 @@ import setupPromclient from "./middleware/promClient";
 
 
 export default (app) => {
-  setupAppforAuthentication(app);
-
-
   app.use("/api-docs", (req, res, next) => {
     // #swagger.ignore = true
     next();
@@ -19,22 +16,18 @@ export default (app) => {
   app.set("view engine", "ejs");
 
   app.use(express.static(path.join(__dirname, "../../public")));
+
+
   app.get("/", (req, res) => {
+    // #swagger.ignore = true
     res.render("index", {title: "Mein Caritas Backend Prototype"});
   });
 
-  // error route
-
-  app.get("/error", (req, res, next) => {
+  app.get("/metrics", (req, res, next) =>{
     // #swagger.ignore = true
-    next(error);
-  });
+    next();
+  },
+  setupPromclient.register);
 
-  app.get("/metrics", setupPromclient.register);
-  // 404 route
-
-  app.get("*", (req, res, next)=> {
-    // #swagger.ignore = true
-    res.status(404).send("We couldn't find this page");
-  });
+  setupAppforAuthentication(app);
 };

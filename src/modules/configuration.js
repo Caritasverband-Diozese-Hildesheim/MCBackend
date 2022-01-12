@@ -27,7 +27,7 @@
 * @return {object} Configuration object
 */
 const setConfiguration = () => {
-  const _scheme = process.env.MC_SCHEME || "http://";
+  const _scheme = process.env.MC_SCHEME || "http";
   const _host = process.env.MC_HOST || "0.0.0.0";
   const _port = process.env.MC_PORT || 5000;
 
@@ -35,8 +35,8 @@ const setConfiguration = () => {
     scheme: _scheme,
     host: _host,
     port: _port,
-    externalUrl: process.env.MC_EXT_URL || `${_scheme}${_host}:${_port}`,
-    baseUrl: `${_scheme}${_host}:${_port}`,
+    externalUrl: process.env.MC_EXT_URL || `${_scheme}://${_host}:${_port}`,
+    baseUrl: `${_scheme}://${_host}:${_port}`,
     DMSUrl: process.env.MC_DMS_URL || "https://change.me",
     DMSUserEmail: process.env.MC_DMS_EMAIL || "user@change.me",
     DMSAPIToken: process.env.MC_DMS_TOKEN || "00000000000000000000",
