@@ -35,10 +35,10 @@ export default {
         });
   },
   thisOneCounts: (req, res, next) => {
-    if (!["/metrics", "/favicon.ico"].includes(req.url)) {
-      const ip = req.headers["x-forwarded-for"] ||
+    const ip = req.headers["x-forwarded-for"] ||
         req.socket.remoteAddress ||
         null;
+    if ((!["/metrics", "/favicon.ico"].includes(req.url)) && (ip !== "127.0.0.1")) {
       httpRequests.inc();
       countRequests.labels(req.url).inc();
       httpRequestsIps.labels(ip).inc();
