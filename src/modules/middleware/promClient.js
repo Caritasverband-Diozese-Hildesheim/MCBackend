@@ -16,9 +16,9 @@ const httpRequests = new promClient.Counter({
 });
 
 const countRequests = new promClient.Counter({
-  name: 'http_resource_counts',
-  help: 'Count specific calls',
-  labelNames: ['resource'],
+  name: "http_resource_counts",
+  help: "Count specific calls",
+  labelNames: ["resource"],
 });
 
 export default {
@@ -29,7 +29,7 @@ export default {
         });
   },
   thisOneCounts: (req, res, next) => {
-    if (!["/metrics", "/favicon.ico"].includes(req.url) ) { 
+    if (!["/metrics", "/favicon.ico"].includes(req.url) ) {
       httpRequests.inc();
       countRequests.labels(req.url).inc();
     }
