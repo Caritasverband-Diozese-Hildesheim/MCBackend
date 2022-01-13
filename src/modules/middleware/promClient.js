@@ -10,9 +10,15 @@ promClient.register.setDefaultLabels({
 });
 
 const httpRequests = new promClient.Counter({
-  name: "http_requests_get",
-  help: "Number of HTTP GET requests",
-  labelNames: ["GET_requests"],
+  name: "http_requests_counts",
+  help: "Number of HTTP requests",
+  labelNames: ["requests"],
+});
+
+const countRequests = new promClient.Counter({
+  name: 'http_resource_counts',
+  help: 'Count specific calls',
+  labelNames: ['resource'],
 });
 
 export default {
@@ -23,7 +29,11 @@ export default {
         });
   },
   thisOneCounts: (req, res, next) => {
-    if (!["/metrics", "/favicon.ico"].includes(req.url) ) httpRequests.inc();
+    if (!["/metrics", "/favicon.ico"].includes(req.url) ) { 
+      httpRequests.inc();
+      countRequests.labels(req.url).inc();
+    }
+
     next();
   },
 };
