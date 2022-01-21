@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/VPERoutes</title>
+    <title>JSDoc: Source: modules/swagger.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,134 +17,56 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/VPERoutes</h1>
+    <h1 class="page-title">Source: modules/swagger.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Controller to handle the spefizic DMS actions. Get all attachments and post new attachments. </p>
-<p>If the scheme validation failes the program ends.</p>
-<p><strong>"Type" column explained: </p><p> data-type | default Value | name of the environment variable</strong></p></div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_VSPRoutes.js.html">routes/VSPRoutes.js</a>, <a href="routes_VSPRoutes.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import swaggerAutogen from "swagger-autogen";
+import configuration from "./configuration";
+
+/** &lt;p>Module for automated swagger-documentation&lt;/p>
+* &lt;p>generates ./swagger_output.json and monitored ["src/modules/routes.js", "src/modules/privateRoutes.js"]&lt;/p>
+* &lt;p>all other Configuration (title, definitions, etc) are here in the Javascript Object "doc"&lt;/p>
+* @module modules/logger
+*/
+const outputFile = "./swagger_output.json";
+const endpointsFiles = ["src/modules/routes.js", "src/modules/privateRoutes.js"];
+
+const doc = {
+  info: {
+    version: "0.0.1",
+    title: "\"Mein Caritas\" - Backend API",
+    description: "This is the middleware for Mein Caritas.",
+  },
+  host: `${configuration.host}:${configuration.port}`,
+  basePath: "/",
+  schemes: [configuration.scheme],
+  consumes: ["application/json"],
+  produces: ["application/json"],
+  tags: [
+    {
+      "name": "User",
+      "description": "Endpoints",
+    },
+  ],
+
+  securityDefinitions: {
+    openId: {
+      type: "openIdConnect",
+      openIdConnectUrl: `${configuration.OIDCAuthUrl}/realms/${configuration.OIDCRealm}/.well-known/openid-configuration`,
+    },
+  },
+};
+
+swaggerAutogen({openapi: "3.0.1"})(outputFile, endpointsFiles, doc);
+</code></pre>
+        </article>
+    </section>
 
 
 

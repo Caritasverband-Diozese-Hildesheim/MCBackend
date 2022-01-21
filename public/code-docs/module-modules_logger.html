@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: modules/cors</title>
+    <title>JSDoc: Module: modules/logger</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: modules/cors</h1>
+    <h1 class="page-title">Module: modules/logger</h1>
 
     
 
@@ -31,6 +31,8 @@
         
             
         
+            
+        
     
 </header>
 
@@ -38,7 +40,9 @@
     <div class="container-overview">
     
         
-            <div class="description">Datamodel to handle <a href="https://developer.mozilla.org/de/docs/Web/HTTP/CORS">CORS</a></div>
+            <div class="description"><p>Module to that configures Winston for global logging.</p>
+<p>Only one transport (logging output): to console</p>
+<p>Mutes when NODE_ENV evironment variable is set to test.</p></div>
         
 
         
@@ -87,7 +91,83 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_cors.js.html">modules/cors.js</a>, <a href="modules_cors.js.html#line1">line 1</a>
+        <a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_swagger.js.html">modules/swagger.js</a>, <a href="modules_swagger.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -138,125 +218,52 @@
     
 
     
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-<h4 class="name" id="~corsOptions">corsOptions</h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
 
     
+</article>
 
-<table class="props">
-    <thead>
-    <tr>
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
         
-        <th>Name</th>
+            
         
+            
+        
+    
+</header>
 
-        <th>Type</th>
-
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Module for automated swagger-documentation</p>
+<p>generates ./swagger_output.json and monitored ["src/modules/routes.js", "src/modules/privateRoutes.js"]</p>
+<p>all other Configuration (title, definitions, etc) are here in the Javascript Object "doc"</p></div>
         
 
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>origin</code></td>
             
 
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">which origin does have access</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>optionsSuccessStatus</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">which status to be send with success</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>credentials</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
 
 
-            
-            </td>
 
-            
 
-            
 
-            <td class="description last">are credentials needed</td>
-        </tr>
 
-    
-    </tbody>
-</table>
 
 
 
@@ -290,7 +297,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_cors.js.html">modules/cors.js</a>, <a href="modules_cors.js.html#line5">line 5</a>
+        <a href="modules_logger.js.html">modules/logger.js</a>, <a href="modules_logger.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -306,7 +313,116 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_swagger.js.html">modules/swagger.js</a>, <a href="modules_swagger.js.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     

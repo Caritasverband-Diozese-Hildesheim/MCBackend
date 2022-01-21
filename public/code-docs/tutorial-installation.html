@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: installation</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: installation</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>installation</h2>
+</header>
+
+<article>
+    <h1>What you need</h1>
+<h2>Before you can start: Installations on windows</h2>
+<ul>
+<li>
+<p>First Javascript is a Script-Language and as such it needs an interpreter we use <a href="https://nodejs.org/en/download/">NodeJS</a>. NodeJS makes it possible to use Jaascript out off your browser. Install at least version 14.x</p>
+</li>
+<li>
+<p>Now you need something to write your code in. We recommend using the free but powerfull <a href="https://code.visualstudio.com/download">Visual Studio Code</a>.</p>
+</li>
+<li>
+<p>at last you must manage your changes in a history, we use git and the code is hosted on <a href="https://github.com/Caritasverband-Diozese-Hildesheim/MCBackend">https://www.github.com</a>. To have it easier install the <a href="https://desktop.github.com/">desktop client</a> for github.</p>
+</li>
+</ul>
+<p>You will need a Github-Account an then you can clone the mcbackend directly to your harddisk.</p>
+<h2>Run the software</h2>
+<h3>Install the dependencies</h3>
+<p>open the folder, where you cloned the repository in, in Visual Studio Code.
+The first time you want to start it, you need to install all dependencies. NodeJS comes with npm (Node package manager). Visual Studio Code comes with an integrated terminal. In there you can install the dependencies with the command</p>
+<pre class="prettyprint source lang-console"><code>npm i
+</code></pre>
+<h3>Setup the environment</h3>
+<p>Before we can continue you need to setup all environment-variables or the app will end with an error. Here is the comannd-ist for that.
+You have to ask for the real valuesm though. We can't publish those informations</p>
+<pre class="prettyprint source lang-powershell"><code>$env:MC_HOST=&quot;localhost&quot;
+$env:MC_DMS_URL=&quot;&lt;ask for the value>&quot;
+$env:MC_DMS_EMAIL=&quot;&lt;ask for the value>&quot;
+$env:MC_DMS_TOKEN=&quot;&lt;ask for the value>&quot;
+$env:MC_OIDC_CLIENTID=&quot;&lt;ask for the value>&quot;
+$env:MC_OIDC_TOKEN=&quot;&lt;ask for the value>&quot;
+$env:MC_OIDC_URL=&quot;&lt;ask for the value>&quot;
+$env:MC_OIDC_REALM=&quot;&lt;ask for the value>&quot;
+$env:MC_EXT_URL=&quot;http://localhost:5000/&quot;
+$env:MC_OIDC_RDIURL_CB=&quot;http://localhost:5000/auth/callback&quot;
+$env:MC_OIDC_RDIURL_LO=&quot;http://localhost:5000/logout/callback&quot;
+</code></pre>
+<p>if you don't feel it to do it everytime you start Visual Studio Code you can setup the environment variables in your system or - much better - create a <a href="https://code.visualstudio.com/docs/editor/tasks">tasks.json</a>. A task can set up the environment variables for you.</p>
+<h3>Start the application</h3>
+<p>That's all the setup. How do we run it now? Well, there are Scripts to tell NPM what to do, because you can start many things (the app itself, tests, building documentation, etc).</p>
+<pre class="prettyprint source lang-console"><code>npm run dev 
+</code></pre>
+<p>Normally - as in production - we start it with</p>
+<pre class="prettyprint source lang-console"><code>npm start
+</code></pre>
+<p>'nom run dev'  starts with nodemon - a tool that restarts the app everytime you change the code - and setup a local development environnwnt.</p>
+<h3>List of NPM-Scripts</h3>
+<p>All NPM-Scripts and what they do are listed in the package.json file. Every script can be run with</p>
+<pre class="prettyprint source lang-console"><code>npm run &lt;name of the script>
+</code></pre>
+<p>Here is the list of all NPM-Scripts we use and what they do.</p>
+<ul>
+<li>&quot;lint&quot;: runs a static code test and test if the code-syntax follows the rules</li>
+<li>&quot;lint-with-fix&quot;: same as &quot;lint&quot;, but tries some auto-corrects (indents, etc)</li>
+<li>&quot;test&quot;: runs tests against the functions of the app, without starting the app itself.</li>
+<li>&quot;full-test&quot;: the combination of &quot;lint&quot; and &quot;test&quot;</li>
+<li>&quot;build-swagger&quot;: rebuilds the configuration for swagger (automatic API docunentation)</li>
+<li>&quot;build-docs&quot;: Generates the Website for the documentation. See annotation in comments</li>
+<li>&quot;dev&quot;: Starts the application with nodemon and node environment &quot;test&quot;</li>
+<li>&quot;start&quot;: Start-Script for production environment. Rebuilds swagger and code documentation</li>
+<li>&quot;debug&quot;: Starts the app so you can live inspect it</li>
+</ul>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controller_DMS_DMSController.html">controller/DMS/DMSController</a></li><li><a href="module-datamodel_configuration.html">datamodel/configuration</a></li><li><a href="module-datamodel_confluenceSite.html">datamodel/confluenceSite</a></li><li><a href="module-datamodel_DMSAttachments.html">datamodel/DMSAttachments</a></li><li><a href="module-index.html">index</a></li><li><a href="module-modules_app.html">modules/app</a></li><li><a href="module-modules_configuration.html">modules/configuration</a></li><li><a href="module-modules_cors.html">modules/cors</a></li><li><a href="module-modules_externalAPIs_confluenceSite.html">modules/externalAPIs/confluenceSite</a></li><li><a href="module-modules_externalAPIs_gnericAPIUse.html">modules/externalAPIs/gnericAPIUse</a></li><li><a href="module-modules_logger.html">modules/logger</a></li><li><a href="module-modules_privateRoutes.html">modules/privateRoutes</a></li><li><a href="module-modules_routes.html">modules/routes</a></li><li><a href="module-routes_VPERoutes.html">routes/VPERoutes</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-installation.html">installation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Jan 21 2022 21:49:29 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

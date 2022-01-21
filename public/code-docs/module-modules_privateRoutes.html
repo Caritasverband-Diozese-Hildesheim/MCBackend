@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: modules/cors</title>
+    <title>JSDoc: Module: modules/privateRoutes</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: modules/cors</h1>
+    <h1 class="page-title">Module: modules/privateRoutes</h1>
 
     
 
@@ -38,7 +38,9 @@
     <div class="container-overview">
     
         
-            <div class="description">Datamodel to handle <a href="https://developer.mozilla.org/de/docs/Web/HTTP/CORS">CORS</a></div>
+            <div class="description"><p>Module that reads configuration from environment or sets default values.</p>
+<p>If the scheme validation failes the program ends.</p>
+<p><strong>"Type" column explained: </p><p> data-type | default Value | name of the environment variable</strong></p></div>
         
 
         
@@ -87,7 +89,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_cors.js.html">modules/cors.js</a>, <a href="modules_cors.js.html#line1">line 1</a>
+        <a href="modules_privateRoutes.js.html">modules/privateRoutes.js</a>, <a href="modules_privateRoutes.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -136,38 +138,37 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+        <h3 class="subsection-title">Methods</h3>
 
         
-                
-<h4 class="name" id="~corsOptions">corsOptions</h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
             
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
 
     
 
-<table class="props">
+    
+    <h4 class="name" id="~setupAppforAuthentication"><span class="type-signature">(inner) </span>setupAppforAuthentication<span class="signature">(app)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    configures the Express-App to use authentification with keycloak
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -189,13 +190,13 @@
 
         <tr>
             
-                <td class="name"><code>origin</code></td>
+                <td class="name"><code>app</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">ExpressApp</span>
 
 
             
@@ -205,58 +206,14 @@
 
             
 
-            <td class="description last">which origin does have access</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>optionsSuccessStatus</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">which status to be send with success</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>credentials</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">are credentials needed</td>
+            <td class="description last">The App Object to configure for authentification</td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -290,7 +247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_cors.js.html">modules/cors.js</a>, <a href="modules_cors.js.html#line5">line 5</a>
+        <a href="modules_privateRoutes.js.html">modules/privateRoutes.js</a>, <a href="modules_privateRoutes.js.html#line124">line 124</a>
     </li></ul></dd>
     
 
@@ -306,7 +263,183 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
             
+
+    
+
+    
+    <h4 class="name" id="~setupPrivateRoutes"><span class="type-signature">(inner) </span>setupPrivateRoutes<span class="signature">(app, client)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Extra function so that swagger-autogen recognizes the routes
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>app</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ExpressApp</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The App Object to configure for authentification</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>client</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ExpressApp</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The authentification-client</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_privateRoutes.js.html">modules/privateRoutes.js</a>, <a href="modules_privateRoutes.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
     
 
     

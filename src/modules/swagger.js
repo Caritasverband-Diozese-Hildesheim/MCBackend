@@ -1,6 +1,11 @@
 import swaggerAutogen from "swagger-autogen";
 import configuration from "./configuration";
 
+/** <p>Module for automated swagger-documentation</p>
+* <p>generates ./swagger_output.json and monitored ["src/modules/routes.js", "src/modules/privateRoutes.js"]</p>
+* <p>all other Configuration (title, definitions, etc) are here in the Javascript Object "doc"</p>
+* @module modules/logger
+*/
 const outputFile = "./swagger_output.json";
 const endpointsFiles = ["src/modules/routes.js", "src/modules/privateRoutes.js"];
 

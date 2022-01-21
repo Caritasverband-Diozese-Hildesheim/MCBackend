@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/VPERoutes</title>
+    <title>JSDoc: Source: index.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,134 +17,47 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/VPERoutes</h1>
+    <h1 class="page-title">Source: index.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Controller to handle the spefizic DMS actions. Get all attachments and post new attachments. </p>
-<p>If the scheme validation failes the program ends.</p>
-<p><strong>"Type" column explained: </p><p> data-type | default Value | name of the environment variable</strong></p></div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_VSPRoutes.js.html">routes/VSPRoutes.js</a>, <a href="routes_VSPRoutes.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import app from "./modules/app";
+import configuration from "./modules/configuration.js";
+import logger from "./modules/logger";
+import configScheme from "./model/configuration";
+
+/** &lt;p>our main Entrypoint for the backend&lt;/p>
+* &lt;p>it tests if the environment variables are set correctly&lt;/p>
+* &lt;p>if not it exits with an error (1)&lt;/p>
+* @see [configuration]{@link module:modules/configuration}
+* @module index
+*/
+
+/**
+ *  @description It checks the conguration Object against its datamodel-scheme.
+ *  If it fails, it lists all error and exit with code 1
+ */
+if (!configScheme.isValidSync(configuration)) {
+  configScheme.validate(configuration, {abortEarly: false}).catch((err) => {
+    logger.log({
+      level: "error",
+      message: `App Configuration failure:\r\n${err.errors.join("\r\n")} \r\n\r\nPassed configuration: ${JSON.stringify(configuration)} Exiting.\r\n`,
+    });
+    process.exit(1);
+  });
+}
+
+app.listen(configuration.port, configuration.host, () => {
+  logger.info(`App starting on ${configuration.host}:${configuration.port}`);
+});
+</code></pre>
+        </article>
+    </section>
 
 
 

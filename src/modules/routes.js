@@ -6,6 +6,19 @@ import setupAppforAuthentication from "./privateRoutes";
 import setupPromclient from "./middleware/promClient";
 
 
+/** <p>Module that defines all our public routes</p>
+* <p>It exportsd just a function, that that the Express-App as input</p>
+* our public routes are
+* <ul>
+*  <li><a href="/">/</a>: Welcome / Landing-Page</li>
+*  <li><a href="/api-docs">/api-docs</a>: swagger-documentation of all our APIs</li>
+*  <li><a href="/code-docs">/code-docs</a>: code-documentation. Yu are here.</li>
+*  <li><a href="/metrics">/metrics</a>: exports measurements for our prometheus</li>
+* </ul>
+* @module modules/routes
+*/
+
+
 export default (app) => {
   app.use("/api-docs", (req, res, next) => {
     // #swagger.ignore = true

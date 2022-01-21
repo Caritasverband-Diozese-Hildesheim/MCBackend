@@ -10,7 +10,7 @@
     "full-test": "npm run lint && npm run test",
     "build": "./node_modules/.bin/babel src -d dist",
     "build-swagger": "node ./node_modules/@babel/node/bin/babel-node.js src/modules/swagger.js",
-    "build-docs": "jsdoc src -r -d docs README.md",
+    "build-docs": "jsdoc src -r -d public/code-docs -u tutorials/ README_docs.md",
     "dev": "nodemon ./node_modules/@babel/node/bin/babel-node.js --trace-warnings src/index.js",
     "start": "npm run build-swagger && npm run build-docs && node ./node_modules/@babel/node/bin/babel-node.js src/index.js",
     "debug": "node --inspect src/index.js"

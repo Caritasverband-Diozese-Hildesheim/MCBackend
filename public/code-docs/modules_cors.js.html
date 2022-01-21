@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/VPERoutes</title>
+    <title>JSDoc: Source: modules/cors.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,134 +17,33 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/VPERoutes</h1>
+    <h1 class="page-title">Source: modules/cors.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Controller to handle the spefizic DMS actions. Get all attachments and post new attachments. </p>
-<p>If the scheme validation failes the program ends.</p>
-<p><strong>"Type" column explained: </p><p> data-type | default Value | name of the environment variable</strong></p></div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_VSPRoutes.js.html">routes/VSPRoutes.js</a>, <a href="routes_VSPRoutes.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** Datamodel to handle [CORS]{@link https://developer.mozilla.org/de/docs/Web/HTTP/CORS}
+* @module modules/cors
+*/
+export default corsOptions;
+/**
+* @typedef {Object} corsOptions
+* @property {array} origin which origin does have access
+* @property {number} optionsSuccessStatus which status to be send with success
+* @property {boolean} credentials are credentials needed
+*/
+const corsOptions = {
+  origin: ["http://localhost:3000", "http://localhost:5000"],
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+</code></pre>
+        </article>
+    </section>
 
 
 
