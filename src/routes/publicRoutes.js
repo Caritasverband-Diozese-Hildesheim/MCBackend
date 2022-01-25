@@ -1,9 +1,8 @@
-import express from "express";
+import express, { application } from "express";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../swagger_output.json";
-import setupAppforAuthentication from "./privateRoutes";
-import setupPromclient from "./middleware/promClient";
+import setupPromclient from "../modules/middleware/promClient";
 
 
 /** <p>Module that defines all our public routes</p>
@@ -36,11 +35,13 @@ export default (app) => {
     res.render("index", {title: "Mein Caritas Backend Prototype"});
   });
 
+  app.get ("/ping",(req, res, next) => {
+    res.status(200).send("{\"message\": \"pong\"}");
+  });
+
   app.get("/metrics", (req, res, next) =>{
     // #swagger.ignore = true
     next();
   },
   setupPromclient.register);
-
-  setupAppforAuthentication(app);
 };

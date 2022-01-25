@@ -1,5 +1,5 @@
 import express from "express";
-import DMSController from "../controller/DMS/DMSController";
+import DMSController from "../controller/DMSController";
 import multer from "multer";
 const upload = multer({dest: "uploads/", limits: {fileSize: 20971520}});
 /* eslint-disable new-cap */

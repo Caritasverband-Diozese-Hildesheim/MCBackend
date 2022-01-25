@@ -1,6 +1,6 @@
-import apiUse from "../../modules/externalAPIs/genericAPIUse";
-import configuration from "../../modules/configuration";
-import logger from "../../modules/logger";
+import apiUse from "../../../modules/externalAPIs/genericAPIUse";
+import configuration from "../../../modules/configuration";
+import logger from "../../../modules/logger";
 
 /** <p>Controller to handle the spefizic DMS actions. Get all attachments and post new attachments. </p>
 * <p>If the scheme validation failes the program ends.</p>

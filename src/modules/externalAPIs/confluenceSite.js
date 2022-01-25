@@ -1,7 +1,7 @@
 import apiUse from "./genericAPIUse";
 import configuration from "../configuration";
-import confluenceSiteScheme from "../../model/confluenceSite";
-import DMsAttachmentsScheme from "../../model/DMSAttachments";
+import confluenceSiteScheme from "../../datamodel/confluenceSite";
+import DMsAttachmentsScheme from "../../datamodel/DMSAttachments";
 import FormData from "form-data";
 import fs from "fs";
 import * as yup from "yup";

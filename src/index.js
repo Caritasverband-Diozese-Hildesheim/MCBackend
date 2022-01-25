@@ -1,7 +1,7 @@
 import app from "./modules/app";
 import configuration from "./modules/configuration.js";
 import logger from "./modules/logger";
-import configScheme from "./model/configuration";
+import configScheme from "./datamodel/configuration";
 
 /** <p>our main Entrypoint for the backend</p>
 * <p>it tests if the environment variables are set correctly</p>

@@ -2,9 +2,9 @@ import session from "express-session";
 import Keycloak from "keycloak-connect";
 import passport from "passport";
 import {Issuer, Strategy} from "openid-client";
-import configuration from "./configuration";
-import VPERoutes from "../routes/VSPRoutes";
-import confluenceSite from "./externalAPIs/confluenceSite";
+import configuration from "../modules/configuration";
+import VPERoutes from "./VSP/router/mydocuments";
+import confluenceSite from "../modules/externalAPIs/confluenceSite";
 
 /** <p>Module that reads configuration from environment or sets default values.</p>
 * <p>If the scheme validation failes the program ends.</p>
