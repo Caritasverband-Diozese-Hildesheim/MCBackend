@@ -5,7 +5,7 @@ import logger from "../../../modules/logger";
 /** <p>Controller to handle the spefizic DMS actions. Get all attachments and post new attachments. </p>
 * <p>If the scheme validation failes the program ends.</p>
 * <p><strong>"Type" column explained: </p><p> data-type | default Value | name of the environment variable</strong></p>
-* @module controller/DMS/DMSController
+* @module routes/VSP/controller/DMS
 */
 
 export default {
@@ -13,32 +13,7 @@ export default {
     /* #swagger.security = [{
             "openId": []
         }] */
-    const schema = yup.number().required().positive().integer();
-    schema.validate(req.kauth.grant.access_token.content.DMSSite)
-        .then(() => {
-          apiUse.get(`${configuration.DMSUrl}/rest/api/content/${req.kauth.grant.access_token.content.DMSSite}/child/attachment`,
-              {
-                "Authorization": "Basic " + Buffer.from(configuration.DMSUserEmail + ":" + configuration.DMSAPIToken).toString("base64"),
-              },
-              (statusCode, data) => {
-                if (statusCode == 200) {
-                  DMsAttachmentsScheme.validate({results: data.results, start: data.start, limit: data.limit, size: data.size})
-                      .then((valid) => {
-                        if (valid) {
-                          // #swagger.responses[200] = { description: 'User registered successfully.' }
-                          res.status(200).send(JSON.stringify({results: data.results, start: data.start, limit: data.limit, size: data.size}));
-                        }
-                      })
-                      .catch((err) => {
-                        res.status(501).send(err.errors);
-                      });
-                }
-              });
-        })
-        .catch((err) => {
-          // #swagger.responses[201] = { description: 'User registered successfully.' }
-          res.status(501).send(err.errors);
-        });
+    
   },
   postNewAttachment: (req, res, next) => {
     /* #swagger.security = [{

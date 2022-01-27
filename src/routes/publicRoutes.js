@@ -4,7 +4,6 @@ import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../swagger_output.json";
 import setupPromclient from "../modules/middleware/promClient";
 
-
 /** <p>Module that defines all our public routes</p>
 * <p>It exportsd just a function, that that the Express-App as input</p>
 * our public routes are
@@ -39,7 +38,7 @@ export default (app) => {
     res.status(200).send("{\"message\": \"pong\"}");
   });
 
-  app.get("/metrics", (req, res, next) =>{
+ app.get("/metrics", (req, res, next) =>{
     // #swagger.ignore = true
     next();
   },

@@ -17,7 +17,7 @@
 	// }
 	"Funktion mit jsdoc": {
 		"scope": "javascript,typescript",
-		"prefix": "arrfdoc",
+		"prefix": "arrowFunction",
 		"body": [
 			"$BLOCK_COMMENT_START*",
 			"* @function ${1:functionname}",
@@ -36,7 +36,7 @@
 		"body": [
 			"$BLOCK_COMMENT_START*",
 			"* ${1:moduledescription}",
-			"* @module ${2:modulepath}",
+			"* @module module/$TM_FILENAME_BASE",
 			"*$BLOCK_COMMENT_END",
 			"export default {",
 			"$0",
@@ -103,59 +103,44 @@
 			"\tres.status(500).send(\"Needs to be implemented!\")",
 			"}",
 			"",
-			"$BLOCK_COMMENT_START*",
-			"* @function update${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}",
-			"* @description ${2:description}",
-			"* @param {object} req request-object. All Headers and other information (like body within POST-Requests).",
-			"* @param {object} res respond-object. Object to handle send status and to send messages.",
-			"* @param {function} next calls the next function (if any and <strong>no information was yet to send to the users browser. Just for middleware-functions</strong>.",
-			"*$BLOCK_COMMENT_END",
-			"const update${TM_FILENAME_BASE/(.*)/${1:/capitalize}/} = (req, res, next) => {",
-			"// @todo needs Implementation",
-			"\tres.status(500).send(\"Needs to be implemented!\")",
-			"}",
-			"",
-			"$BLOCK_COMMENT_START*",
-			"* @function get${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}",
-			"* @description ${2:description}",
-			"* @param {object} req request-object. All Headers and other information (like body within POST-Requests).",
-			"* @param {object} res respond-object. Object to handle send status and to send messages.",
-			"* @param {function} next calls the next function (if any and <strong>no information was yet to send to the users browser. Just for middleware-functions</strong>.",
-			"*$BLOCK_COMMENT_END",
-			"const delete${TM_FILENAME_BASE/(.*)/${1:/capitalize}/} = (req, res, next) => {",
-			"// @todo needs Implementation",
-			"\tres.status(500).send(\"Needs to be implemented!\")",
-			"}",
-			"",
 			"export default {",
 			"\tget${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}: get${TM_FILENAME_BASE/(.*)/${1:/capitalize}/},",
 			"\tpost${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}: post${TM_FILENAME_BASE/(.*)/${1:/capitalize}/},",
-			"\tupdate${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}: update${TM_FILENAME_BASE/(.*)/${1:/capitalize}/},",
-			"\tdelete${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}: delete${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}",
 		    "}"
 		],
 		"description": "ES6 Arrow function with JSDoc-Header"	
 	},
-
 	"ES6 Router-Module Template": {
 		"scope": "javascript,typescript",
 		"prefix": "tmRoutMod",
 		"body": [
 			"import express from \"express\";",
 			"import controller from \"../controller/$TM_FILENAME_BASE\";",
+			"import plausibilityCheck from \"../../../middleware/plausibilityCheck\";",
+			"import dispatch from \"../../../middleware/dispatch\";",
+			"import ${1:datamodel} from \"../../../../datamodel/${1:datamodel}\";",
 			"",
 			"const router = express.router();",
 			"$BLOCK_COMMENT_START*",
-			"* ${1:moduledescription}",
-			"* @module ${2:modulepath}/$TM_FILENAME_BASE",
+			"* ${2:moduledescription}",
+			"* @module ${3:modulepath}/$TM_FILENAME_BASE",
 			"*$BLOCK_COMMENT_END",
 			"",
-			"router.get(\"/$TM_FILENAME_BASE\", controller.get${TM_FILENAME_BASE/(.*)/${1:/capitalize}/});",
-			"router.post(\"/$TM_FILENAME_BASE\", controller.post${TM_FILENAME_BASE/(.*)/${1:/capitalize}/});",
-			"router.update(\"/$TM_FILENAME_BASE\", controller.update${TM_FILENAME_BASE/(.*)/${1:/capitalize}/});",
-			"router.delete(\"/$TM_FILENAME_BASE\", controller.delete${TM_FILENAME_BASE/(.*)/${1:/capitalize}/});",
+			"router.get(\"/$TM_FILENAME_BASE\", controller.get${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}, plausibilityCheck(${1:datamodel}), dispatch);",
+			"router.post(\"/$TM_FILENAME_BASE\", plausibilityCheck(${1:datamodel}),controller.post${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}, dispatch);",
 			"",
 			"export default router;"
+		],
+		"description": "ES6 Arrow function with JSDoc-Header"	
+	},
+	"JSDoc-Module-Header-Block Template": {
+		"scope": "javascript,typescript",
+		"prefix": "docModule",
+		"body": [
+			"$BLOCK_COMMENT_START*",
+			"* ${1:moduledescription}",
+			"* @module ${2:modulepath}/$TM_FILENAME_BASE",
+			"*$BLOCK_COMMENT_END"
 		],
 		"description": "ES6 Arrow function with JSDoc-Header"	
 	}

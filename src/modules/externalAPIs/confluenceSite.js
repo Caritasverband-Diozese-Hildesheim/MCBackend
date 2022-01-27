@@ -1,9 +1,6 @@
 import apiUse from "./genericAPIUse";
 import configuration from "../configuration";
 import confluenceSiteScheme from "../../datamodel/confluenceSite";
-import DMsAttachmentsScheme from "../../datamodel/DMSAttachments";
-import FormData from "form-data";
-import fs from "fs";
 import * as yup from "yup";
 
 
@@ -19,12 +16,12 @@ import * as yup from "yup";
 * @param {Object} apiPostData Data to send to the Confluence API-Endpoint
 * @return {Promise} always returns a solved Promise.
 */
-const callApiFunction = ({ apiMethod = "get", apiEndpoint = "", apiPostData = {} } = {}) => {
+const callApiFunction = ({ apiMethod = "get", apiEndpoint = "", apiPostData = {}, headers = {} } = {}) => {
   return new Promise((resolve, reject) => {
     apiUse.use({
       method: apiMethod,
       url: `${configuration.DMSUrl}${apiEndpoint}`,
-      headers: { "Authorization": "Basic " + Buffer.from(configuration.DMSUserEmail + ":" + configuration.DMSAPIToken).toString("base64") },
+      headers: { "Authorization": "Basic " + Buffer.from(configuration.DMSUserEmail + ":" + configuration.DMSAPIToken).toString("base64"), ...headers },
       body: apiPostData,
     })
       .then((result) => {
@@ -192,36 +189,58 @@ const deleteSiteFunction = ({ id = "" } = {}) => {
   });
 };
 
-const getAllAtachment = ({ id = "" } = {}) => {
+const getAllAtachments = ({ id = "" } = {}) => {
   return new Promise((resolve, reject) => {
     const schema = yup.number().required().positive().integer();
     schema.validate(id)
       .then(() => {
-        apiUse.get(`${configuration.DMSUrl}/rest/api/content/${id}/child/attachment`,
-          {
-            "Authorization": "Basic " + Buffer.from(configuration.DMSUserEmail + ":" + configuration.DMSAPIToken).toString("base64"),
-          },
-          (statusCode, data) => {
-            if (statusCode == 200) {
-              DMsAttachmentsScheme.validate({ results: data.results, start: data.start, limit: data.limit, size: data.size })
-                .then((valid) => {
-                  if (valid) {
-                    // #swagger.responses[200] = { description: 'User registered successfully.' }
-                    resolve({});
-                    res.status(200).send(JSON.stringify({ results: data.results, start: data.start, limit: data.limit, size: data.size }));
-                  }
-                })
-                .catch((err) => {
-                  res.status(501).send(err.errors);
-                });
+        return callApiFunction({ apiMethod: "get", apiEndpoint: `/rest/api/content/${id}/child/attachment` })
+          .then((result) => {
+            let message = {
+              userNotification: result.data.message,
+              apiPayload: { id: "error", title: "error", type: "error", ...result.data },
+            };
+            if (result.statusCode == 200) {
+              message = {
+                userNotification: `here is your site data: <pre><code>${JSON.stringify(result.data, undefined, 4)}</code></pre>`,
+                apiPayload: result.data,
+              };
             }
+            resolve({ statusCode: result.statusCode, data: message });
           });
       })
-      .catch((err) => {
-        // #swagger.responses[201] = { description: 'User registered successfully.' }
-        res.status(501).send(err.errors);
-      }); 1
   });
+}
+
+const postAttachments = ({ id = "", formData, formBoundaries } = {}) => {
+  return new Promise((resolve, reject) => {
+    const schema = yup.number().required().positive().integer();
+    schema.validate(id)
+      .then(() => {
+        return callApiFunction({
+          apiMethod: "post",
+          apiEndpoint: `/rest/api/content/${id}/child/attachment`,
+          apiPostData: formData,
+          headers: {
+            "X-Atlassian-Token": "nocheck",
+            "Content-Type": `multipart/form-data; boundary=${formBoundaries}`,
+          }
+        })
+          .then((result) => {
+            let message = {
+              userNotification: result.data.message,
+              apiPayload: { id: "error", title: "error", type: "error", ...result.data },
+            };
+            if (result.statusCode == 200) {
+              message = {
+                userNotification: `here is your site data: <pre><code>${JSON.stringify(result.data, undefined, 4)}</code></pre>`,
+                apiPayload: result.data,
+              };
+            }
+            resolve({ statusCode: result.statusCode, data: message });
+          });
+      })
+  })
 }
 
 export default {
@@ -229,4 +248,6 @@ export default {
   readSite: readSiteFunction,
   updateSite: updateSiteFunction,
   deleteSite: deleteSiteFunction,
+  getAttachments: getAllAtachments,
+  postAttachments: postAttachments,
 };
