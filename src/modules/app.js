@@ -1,8 +1,11 @@
 import express from "express";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
-import setRoutes from "./routes";
+import setPublicRoutes from "../routes/publicRoutes";
+import setPrivateRoutes from "../routes/privateRoutes";
 import setupPromclient from "./middleware/promClient";
+import corsOptions from "./cors";
+import cors from "cors";
 
 /** <p>Module that prepares the application</p>
 * <p>Tells the Server what middleware we use and we set our routes </p>
@@ -25,10 +28,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
-// Method-Override
 app.use(methodOverride("_method"));
 app.use(setupPromclient.thisOneCounts);
+app.use(cors(corsOptions));
 
-
-setRoutes(app);
+setPublicRoutes(app);
+setPrivateRoutes(app);
 export default app;

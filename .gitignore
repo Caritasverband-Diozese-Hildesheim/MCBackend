@@ -98,10 +98,17 @@ dist
 .fusebox/
 
 # vscode config
-.vscode
+.vscode/*
+!.vscode/codesnippets.code-snippets
 
 # DynamoDB Local files
 .dynamodb/
 
 # TernJS port file
 .tern-port
+
+# no uploads !
+uploads/*
+
+# don't add docs in repository. It will be generated
+public/code-docs 

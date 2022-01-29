@@ -4,7 +4,7 @@ process.env.NODE_ENV = "test";
 // Require the dev-dependencies
 import chai from "chai";
 import configuration from "../src/modules/configuration";
-import configScheme from "../src/model/configuration";
+import configScheme from "../src/datamodel/configuration";
 const should = chai.should();
 // Our parent block
 /*
