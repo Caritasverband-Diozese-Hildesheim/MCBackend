@@ -1,4 +1,4 @@
-import express, { application } from "express";
+import express from "express";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../swagger_output.json";
@@ -34,11 +34,11 @@ export default (app) => {
     res.render("index", {title: "Mein Caritas Backend Prototype"});
   });
 
-  app.get ("/ping",(req, res, next) => {
+  app.get("/ping", (req, res, next) => {
     res.status(200).send("{\"message\": \"pong\"}");
   });
 
- app.get("/metrics", (req, res, next) =>{
+  app.get("/metrics", (req, res, next) =>{
     // #swagger.ignore = true
     next();
   },

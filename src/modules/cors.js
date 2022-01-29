@@ -9,7 +9,7 @@ export default corsOptions;
 * @property {boolean} credentials are credentials needed
 */
 const corsOptions = {
-  origin: ["http://localhost:3000", "http://localhost:5000" , "http://localhost:8080"],
+  origin: ["http://localhost:3000", "http://localhost:5000", "http://localhost:8080"],
   optionsSuccessStatus: 200,
   credentials: false,
 };

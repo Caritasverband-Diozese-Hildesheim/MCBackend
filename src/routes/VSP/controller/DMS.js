@@ -13,7 +13,7 @@ export default {
     /* #swagger.security = [{
             "openId": []
         }] */
-    
+
   },
   postNewAttachment: (req, res, next) => {
     /* #swagger.security = [{

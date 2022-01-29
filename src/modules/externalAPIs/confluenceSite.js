@@ -16,17 +16,17 @@ import * as yup from "yup";
 * @param {Object} apiPostData Data to send to the Confluence API-Endpoint
 * @return {Promise} always returns a solved Promise.
 */
-const callApiFunction = ({ apiMethod = "get", apiEndpoint = "", apiPostData = {}, headers = {} } = {}) => {
+const callApiFunction = ({apiMethod = "get", apiEndpoint = "", apiPostData = {}, headers = {}} = {}) => {
   return new Promise((resolve, reject) => {
     apiUse.use({
       method: apiMethod,
       url: `${configuration.DMSUrl}${apiEndpoint}`,
-      headers: { "Authorization": "Basic " + Buffer.from(configuration.DMSUserEmail + ":" + configuration.DMSAPIToken).toString("base64"), ...headers },
+      headers: {"Authorization": "Basic " + Buffer.from(configuration.DMSUserEmail + ":" + configuration.DMSAPIToken).toString("base64"), ...headers},
       body: apiPostData,
     })
-      .then((result) => {
-        resolve(result);
-      });
+        .then((result) => {
+          resolve(result);
+        });
   });
 };
 
@@ -39,7 +39,7 @@ const callApiFunction = ({ apiMethod = "get", apiEndpoint = "", apiPostData = {}
 * @param {string} content the actual content of the page in representation-form "wiki"
 * @return {Promise} always returns a solved Promise.
 */
-const createSiteFunction = ({ titleName = "Platzhalter-Titel", parentID = "", spaceKey = "PROT", content = "Lorem ipsum dolor sit amet." } = {}) => {
+const createSiteFunction = ({titleName = "Platzhalter-Titel", parentID = "", spaceKey = "PROT", content = "Lorem ipsum dolor sit amet."} = {}) => {
   let postData = {
     title: titleName,
     type: "page",
@@ -66,22 +66,22 @@ const createSiteFunction = ({ titleName = "Platzhalter-Titel", parentID = "", sp
 
   return new Promise((resolve, reject) => {
     confluenceSiteScheme.createContentScheme.validate(postData)
-      .then(() => {
-        return callApiFunction({ apiMethod: "post", apiEndpoint: "/rest/api/content", apiPostData: postData });
-      })
-      .then((result) => {
-        let message = {
-          userNotification: result.data.message,
-          apiPayload: { link: "error", title: "error", ...result.data },
-        };
-        if (result.statusCode == 200) {
-          message = {
-            userNotification: `Your site is created. URL: <a href="${result.data._links.base}${result.data._links.webui}">${result.data._links.base}${result.data._links.webui}</a>`,
-            apiPayload: { link: `${result.data._links.base}${result.data._links.webui}`, title: result.data.title },
+        .then(() => {
+          return callApiFunction({apiMethod: "post", apiEndpoint: "/rest/api/content", apiPostData: postData});
+        })
+        .then((result) => {
+          let message = {
+            userNotification: result.data.message,
+            apiPayload: {link: "error", title: "error", ...result.data},
           };
-        }
-        resolve({ statusCode: result.statusCode, data: message });
-      });
+          if (result.statusCode == 200) {
+            message = {
+              userNotification: `Your site is created. URL: <a href="${result.data._links.base}${result.data._links.webui}">${result.data._links.base}${result.data._links.webui}</a>`,
+              apiPayload: {link: `${result.data._links.base}${result.data._links.webui}`, title: result.data.title},
+            };
+          }
+          resolve({statusCode: result.statusCode, data: message});
+        });
   });
 };
 
@@ -93,7 +93,7 @@ const createSiteFunction = ({ titleName = "Platzhalter-Titel", parentID = "", sp
 * @param {string} content the actual content of the page in representation-form "wiki"
 * @return {Promise} always returns a solved Promise.
 */
-const updateSiteFunction = ({ titleName = "Platzhalter-Titel", id = "", content = "updated" } = {}) => {
+const updateSiteFunction = ({titleName = "Platzhalter-Titel", id = "", content = "updated"} = {}) => {
   let postData = {
     title: titleName,
     type: "page",
@@ -106,35 +106,35 @@ const updateSiteFunction = ({ titleName = "Platzhalter-Titel", id = "", content 
     },
   };
   return new Promise((resolve, reject) => {
-    readSiteFunction({ id: id })
-      .then((result) => {
-        if (result.statusCode == 200) {
-          postData = {
-            ...postData,
-            version: {
-              number: result.data.apiPayload.version.number + 1,
-            },
+    readSiteFunction({id: id})
+        .then((result) => {
+          if (result.statusCode == 200) {
+            postData = {
+              ...postData,
+              version: {
+                number: result.data.apiPayload.version.number + 1,
+              },
+            };
+            return callApiFunction({apiMethod: "put", apiEndpoint: `/rest/api/content/${id}`, apiPostData: postData});
+          } else {
+            return new Promise((resolve, reject) => {
+              resolve(result);
+            });
+          }
+        })
+        .then((result) => {
+          let message = {
+            userNotification: result.data.message,
+            apiPayload: {link: "error", title: "error", ...result.data},
           };
-          return callApiFunction({ apiMethod: "put", apiEndpoint: `/rest/api/content/${id}`, apiPostData: postData });
-        } else {
-          return new Promise((resolve, reject) => {
-            resolve(result);
-          });
-        }
-      })
-      .then((result) => {
-        let message = {
-          userNotification: result.data.message,
-          apiPayload: { link: "error", title: "error", ...result.data },
-        };
-        if (result.statusCode == 200) {
-          message = {
-            userNotification: `Your site is updated. URL: <a href="${result.data._links.base}${result.data._links.webui}">${result.data._links.base}${result.data._links.webui}</a>`,
-            apiPayload: { link: `${result.data._links.base}${result.data._links.webui}`, title: result.data.title },
-          };
-        }
-        resolve({ statusCode: result.statusCode, data: message });
-      });
+          if (result.statusCode == 200) {
+            message = {
+              userNotification: `Your site is updated. URL: <a href="${result.data._links.base}${result.data._links.webui}">${result.data._links.base}${result.data._links.webui}</a>`,
+              apiPayload: {link: `${result.data._links.base}${result.data._links.webui}`, title: result.data.title},
+            };
+          }
+          resolve({statusCode: result.statusCode, data: message});
+        });
   });
 };
 
@@ -144,22 +144,22 @@ const updateSiteFunction = ({ titleName = "Platzhalter-Titel", id = "", content 
 * @param {String} id the number that specifies the to be read site
 * @return {Promise} always returns a solved Promise.
 */
-const readSiteFunction = ({ id = "" } = {}) => {
+const readSiteFunction = ({id = ""} = {}) => {
   return new Promise((resolve, reject) => {
-    callApiFunction({ apiMethod: "get", apiEndpoint: `/rest/api/content/${id}` })
-      .then((result) => {
-        let message = {
-          userNotification: result.data.message,
-          apiPayload: { id: "error", title: "error", type: "error", ...result.data },
-        };
-        if (result.statusCode == 200) {
-          message = {
-            userNotification: `here is your site data: <pre><code>${JSON.stringify(result.data, undefined, 4)}</code></pre>`,
-            apiPayload: result.data,
+    callApiFunction({apiMethod: "get", apiEndpoint: `/rest/api/content/${id}`})
+        .then((result) => {
+          let message = {
+            userNotification: result.data.message,
+            apiPayload: {id: "error", title: "error", type: "error", ...result.data},
           };
-        }
-        resolve({ statusCode: result.statusCode, data: message });
-      });
+          if (result.statusCode == 200) {
+            message = {
+              userNotification: `here is your site data: <pre><code>${JSON.stringify(result.data, undefined, 4)}</code></pre>`,
+              apiPayload: result.data,
+            };
+          }
+          resolve({statusCode: result.statusCode, data: message});
+        });
   });
 };
 
@@ -170,78 +170,92 @@ const readSiteFunction = ({ id = "" } = {}) => {
 * @param {String} id the number that specifies the to be deleted site
 * @return {Promise} always returns a solved Promise.
 */
-const deleteSiteFunction = ({ id = "" } = {}) => {
+const deleteSiteFunction = ({id = ""} = {}) => {
   return new Promise((resolve, reject) => {
-    callApiFunction({ apiMethod: "delete", apiEndpoint: `/rest/api/content/${id}` })
-      .then((result) => {
-        let message = {
-          userNotification: result.data.message,
-          apiPayload: { id: "error", title: "error", type: "error", ...result.data },
-        };
-        if (result.statusCode == 204) {
-          message = {
-            userNotification: "the site was deleted",
-            apiPayload: {},
+    callApiFunction({apiMethod: "delete", apiEndpoint: `/rest/api/content/${id}`})
+        .then((result) => {
+          let message = {
+            userNotification: result.data.message,
+            apiPayload: {id: "error", title: "error", type: "error", ...result.data},
           };
-        }
-        resolve({ statusCode: result.statusCode, data: message });
-      });
+          if (result.statusCode == 204) {
+            message = {
+              userNotification: "the site was deleted",
+              apiPayload: {},
+            };
+          }
+          resolve({statusCode: result.statusCode, data: message});
+        });
+  });
+};
+0;
+/**
+* @function getAllAttachments
+* @description get  a list (not the files itself) of files of  a Content-Type of "page" in Confluence
+* @param {String} id the number that specifies the to be deleted site
+* @return {Promise} always returns a solved Promise.
+*/
+const getAllAtachments = ({id = ""} = {}) => {
+  return new Promise((resolve, reject) => {
+    const schema = yup.number().required().positive().integer();
+    schema.validate(id)
+        .then(() => {
+          return callApiFunction({apiMethod: "get", apiEndpoint: `/rest/api/content/${id}/child/attachment`})
+              .then((result) => {
+                let message = {
+                  userNotification: result.data.message,
+                  apiPayload: {id: "error", title: "error", type: "error", ...result.data},
+                };
+                if (result.statusCode == 200) {
+                  message = {
+                    userNotification: `here is your site data: <pre><code>${JSON.stringify(result.data, undefined, 4)}</code></pre>`,
+                    apiPayload: result.data,
+                  };
+                }
+                resolve({statusCode: result.statusCode, data: message});
+              });
+        });
   });
 };
 
-const getAllAtachments = ({ id = "" } = {}) => {
+/**
+* @function postSiteFunction
+* @description adds a file to a Content-Type of "page" in Confluence
+* @param {String} id the number that specifies the to be deleted site
+* @param {Object} formData the file in multipart/form-data
+* @param {String} formBoundaries a specific string, that is generated by FormData._boundary. See [Boundary]{@link https://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.2}
+* @return {Promise} always returns a solved Promise.
+*/
+const postAttachments = ({id = "", formData, formBoundaries} = {}) => {
   return new Promise((resolve, reject) => {
     const schema = yup.number().required().positive().integer();
     schema.validate(id)
-      .then(() => {
-        return callApiFunction({ apiMethod: "get", apiEndpoint: `/rest/api/content/${id}/child/attachment` })
-          .then((result) => {
-            let message = {
-              userNotification: result.data.message,
-              apiPayload: { id: "error", title: "error", type: "error", ...result.data },
-            };
-            if (result.statusCode == 200) {
-              message = {
-                userNotification: `here is your site data: <pre><code>${JSON.stringify(result.data, undefined, 4)}</code></pre>`,
-                apiPayload: result.data,
-              };
-            }
-            resolve({ statusCode: result.statusCode, data: message });
-          });
-      })
+        .then(() => {
+          return callApiFunction({
+            apiMethod: "post",
+            apiEndpoint: `/rest/api/content/${id}/child/attachment`,
+            apiPostData: formData,
+            headers: {
+              "X-Atlassian-Token": "nocheck",
+              "Content-Type": `multipart/form-data; boundary=${formBoundaries}`,
+            },
+          })
+              .then((result) => {
+                let message = {
+                  userNotification: result.data.message,
+                  apiPayload: {id: "error", title: "error", type: "error", ...result.data},
+                };
+                if (result.statusCode == 200) {
+                  message = {
+                    userNotification: `here is your site data: <pre><code>${JSON.stringify(result.data, undefined, 4)}</code></pre>`,
+                    apiPayload: result.data,
+                  };
+                }
+                resolve({statusCode: result.statusCode, data: message});
+              });
+        });
   });
-}
-
-const postAttachments = ({ id = "", formData, formBoundaries } = {}) => {
-  return new Promise((resolve, reject) => {
-    const schema = yup.number().required().positive().integer();
-    schema.validate(id)
-      .then(() => {
-        return callApiFunction({
-          apiMethod: "post",
-          apiEndpoint: `/rest/api/content/${id}/child/attachment`,
-          apiPostData: formData,
-          headers: {
-            "X-Atlassian-Token": "nocheck",
-            "Content-Type": `multipart/form-data; boundary=${formBoundaries}`,
-          }
-        })
-          .then((result) => {
-            let message = {
-              userNotification: result.data.message,
-              apiPayload: { id: "error", title: "error", type: "error", ...result.data },
-            };
-            if (result.statusCode == 200) {
-              message = {
-                userNotification: `here is your site data: <pre><code>${JSON.stringify(result.data, undefined, 4)}</code></pre>`,
-                apiPayload: result.data,
-              };
-            }
-            resolve({ statusCode: result.statusCode, data: message });
-          });
-      })
-  })
-}
+};
 
 export default {
   createSite: createSiteFunction,

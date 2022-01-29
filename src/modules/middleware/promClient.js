@@ -6,13 +6,13 @@ import promClient from "prom-client";
 * @module modules/middleware/promClient
 **/
 
-// We declare the export of the default metrics 
+// We declare the export of the default metrics
 promClient.collectDefaultMetrics({
   timeout: 10000,
   gcDurationBuckets: [0.001, 0.01, 0.1, 1, 2, 5], // These are the default buckets.
 });
 
-// Labels are used in prometheus to group ans define the legend. So we wamt to find our own app 
+// Labels are used in prometheus to group ans define the legend. So we wamt to find our own app
 promClient.register.setDefaultLabels({
   app: "mein-caritas-backend",
 });
@@ -39,7 +39,8 @@ const countRequests = new promClient.Counter({
 });
 
 export default {
-  // just to tell the client what to send to the browser. First, colloect all metrics (is a [promise]{@link https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Promise}) if its resolved, we send all metrics plain as a string
+  // just to tell the client what to send to the browser. First, colloect all metrics
+  // (is a [promise]{@link https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Promise}) if its resolved, we send all metrics plain as a string
   register: (req, res, next) => {
     promClient.register.metrics()
         .then((str) => {

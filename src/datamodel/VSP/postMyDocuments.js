@@ -15,8 +15,8 @@ import * as yup from "yup";
 const scheme = yup.object().shape({
   userNotification: yup.string().max(4096),
   apiPayload: yup.object().shape({
-    results: yup.array(),  
-  })
+    results: yup.array(),
+  }),
 });
 
 export default scheme;

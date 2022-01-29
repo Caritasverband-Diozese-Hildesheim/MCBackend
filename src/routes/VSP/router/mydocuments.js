@@ -15,6 +15,6 @@ const router = express.Router();
 * @module routes/VSP/router/mydocuments
 */
 
-router.get("/prototype/MyDocuments", controller.getMydocuments,plausibilityCheck(dataModelGetMyDocuments), dispatch("API"));
-router.post("/prototype/MyDocuments", upload.single("file" ), plausibilityCheck(dataModelPostMyDocuments),  controller.postMydocuments, dispatch("API"));
+router.get("/prototype/MyDocuments", controller.getMydocuments, plausibilityCheck(dataModelGetMyDocuments), dispatch("API"));
+router.post("/prototype/MyDocuments", upload.single("file" ), plausibilityCheck(dataModelPostMyDocuments), controller.postMydocuments, dispatch("API"));
 export default router;
