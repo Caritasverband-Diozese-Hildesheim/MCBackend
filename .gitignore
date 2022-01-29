@@ -109,3 +109,6 @@ dist
 
 # no uploads !
 uploads/*
+
+# don't add docs in repository. It will be generated
+public/code-docs 
