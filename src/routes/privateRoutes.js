@@ -76,6 +76,6 @@ const setupPrivateRoutes = (app) => {
  * @param {ExpressApp} app  The App Object to configure for authentification
  */
 export default (app) => {
-        setupPrivateRoutes(app);    
+  setupPrivateRoutes(app);
 };
 
