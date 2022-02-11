@@ -74,6 +74,7 @@ const createSiteFunction = ({titleName = "Platzhalter-Titel", parentID = "", spa
             userNotification: result.data.message,
             apiPayload: {link: "error", title: "error", ...result.data},
           };
+
           if (result.statusCode == 200) {
             message = {
               userNotification: `Your site is created. URL: <a href="${result.data._links.base}${result.data._links.webui}">${result.data._links.base}${result.data._links.webui}</a>`,
