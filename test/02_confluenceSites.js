@@ -22,7 +22,7 @@ describe("Test handling of confluence sites", () => {
     before((done) => {
       /* eslint-disable no-unused-vars */
       const scope = nock(configuration.DMSUrl)
-          .post("/rest/api/content")
+          .post("/rest/api/content?expand=body.editor")
           .reply(200, JSON.parse(`{
     "id": "153419777",
     "type": "page",
