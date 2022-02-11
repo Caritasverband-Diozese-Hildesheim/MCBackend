@@ -146,7 +146,7 @@ const updateSiteFunction = ({titleName = "Platzhalter-Titel", id = "", content =
 */
 const readSiteFunction = ({id = ""} = {}) => {
   return new Promise((resolve, reject) => {
-    callApiFunction({apiMethod: "get", apiEndpoint: `/rest/api/content/${id}`})
+    callApiFunction({apiMethod: "get", apiEndpoint: `/rest/api/content/${id}?expand=body.editor`})
         .then((result) => {
           let message = {
             userNotification: result.data.message,
